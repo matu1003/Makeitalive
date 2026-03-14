@@ -83,29 +83,37 @@ def download_and_extract_pairs(
     dir_A.mkdir(exist_ok=True)
     dir_B.mkdir(exist_ok=True)
 
-    print(f"Extraction des URL de stream avec yt-dlp pour {youtube_url}...")
-    
-    # Configuration de yt-dlp pour récupérer l'URL du flux direct (évite le téléchargement complet)
-    ydl_opts = {
-        'format': 'best[ext=mp4]/best', # On préfère le mp4 pour la compatibilité OpenCV
-        'quiet': True,
-        'noplaylist': True,
-    }
-    
-    
-    try:
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            info = ydl.extract_info(youtube_url, download=False)
-            stream_url = info['url']
-            fps_video = info.get('fps', 30)
-            if fps_video is None:
-                fps_video = 30
-    except Exception as e:
-        print(f"Erreur lors de l'extraction yt-dlp: {e}")
-        return
+    if os.path.exists(youtube_url):
+        print(f"Utilisation du fichier local : {youtube_url}")
+        stream_url = youtube_url
+        cap = cv2.VideoCapture(stream_url)
+        fps_video = cap.get(cv2.CAP_PROP_FPS)
+        if fps_video <= 0:
+            fps_video = 30
+        print(f"Ouverture du fichier local (FPS: {fps_video})...")
+    else:
+        print(f"Extraction des URL de stream avec yt-dlp pour {youtube_url}...")
+        
+        # Configuration de yt-dlp pour récupérer l'URL du flux direct (évite le téléchargement complet)
+        ydl_opts = {
+            'format': 'best[ext=mp4]/best', # On préfère le mp4 pour la compatibilité OpenCV
+            'quiet': True,
+            'noplaylist': True,
+        }
+        
+        try:
+            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                info = ydl.extract_info(youtube_url, download=False)
+                stream_url = info['url']
+                fps_video = info.get('fps', 30)
+                if fps_video is None:
+                    fps_video = 30
+        except Exception as e:
+            print(f"Erreur lors de l'extraction yt-dlp: {e}")
+            return
 
-    print(f"Ouverture du flux vidéo (FPS estimé: {fps_video})...")
-    cap = cv2.VideoCapture(stream_url)
+        print(f"Ouverture du flux vidéo (FPS estimé: {fps_video})...")
+        cap = cv2.VideoCapture(stream_url)
     
     if not cap.isOpened():
         print("Erreur: Impossible d'ouvrir le flux vidéo.")
