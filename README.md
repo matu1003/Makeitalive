@@ -22,10 +22,34 @@ uv run src/data/make_dataset_youtube.py \
 Update
 ```bash
 uv run src/data/make_dataset_youtube.py \
-    --url "TON_URL" \
-    --name "youtube_fast_gap12" \
+    --url "https://www.youtube.com/watch?v=AKeUssuu3Is" \
+    --name "ytb_gap3_interval5dot0_clean" \
+    --interval 5.0 \
+    --gap 3 \
+    --size 512 \
+    --max_pairs 5000 \
+    --clean
+```
+```bash
+uv run src/data/make_dataset_youtube.py \
+    --url "https://www.youtube.com/watch?v=AKeUssuu3Is" \
+    --name "ytb_gap24_interval5dot0_clean" \
+    --interval 5.0
     --gap 12 \
-    --max_pairs 500
+    --size 512 \
+    --max_pairs 5000
+    --clean True
+   
+```
+```bash
+uv run src/data/make_dataset_youtube.py \
+    --url "https://www.youtube.com/watch?v=AKeUssuu3Is" \
+    --name "ytb_gap12_interval1dot0_giant_clean" \
+    --interval 5.0
+    --gap 12 \
+    --size 512 \
+    --max_pairs 100000
+    --clean True
 ```
 
 Lancer l'entraînement
