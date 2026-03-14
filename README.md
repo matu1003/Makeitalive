@@ -19,6 +19,14 @@ uv run src/data/make_dataset_youtube.py \
     --size 512 \
     --max_pairs 100
 ```
+Update
+```bash
+uv run src/data/make_dataset_youtube.py \
+    --url "TON_URL" \
+    --name "youtube_fast_gap12" \
+    --gap 12 \
+    --max_pairs 500
+```
 
 Lancer l'entraînement
 ```bash

@@ -144,7 +144,7 @@ def preprocess_frame(frame: np.ndarray, target_size: int) -> np.ndarray:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Extraire un dataset de paires depuis YouTube")
     parser.add_argument("--url", type=str, required=True, help="URL de la vidéo YouTube")
-    parser.add_argument("--out", type=str, default="./data/youtube_landscape", help="Dossier de sortie")
+    parser.add_argument("--name", type=str, default="youtube_landscape", help="Nom du dataset (créera un dossier ./data/NOM)")
     parser.add_argument("--interval", type=float, default=5.0, help="Secondes entre chaque paire extraite")
     parser.add_argument("--gap", type=int, default=3, help="Écart de frames (ex: 3ème frame après A)")
     parser.add_argument("--size", type=int, default=512, help="Taille des images en sortie (carré)")
@@ -152,9 +152,11 @@ if __name__ == "__main__":
     
     args = parser.parse_args()
     
+    out_dir = os.path.join(".", "data", args.name)
+    
     download_and_extract_pairs(
         youtube_url=args.url,
-        output_dir=args.out,
+        output_dir=out_dir,
         sample_every_n_seconds=args.interval,
         frame_gap=args.gap,
         target_size=args.size,
