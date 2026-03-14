@@ -7,6 +7,11 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader
 from tqdm import tqdm
+import sys
+import os
+
+# Ajout du dossier racine au PYTHONPATH pour permettre les imports absolus depuis 'src'
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 
 from src.data.dataset import LandscapeMotionDataset
 from src.motion_flow.model import MotionFlowUNet
