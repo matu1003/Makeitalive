@@ -4,7 +4,7 @@ __pycache__/
 .ipynb_checkpoints
 venv/
 .env
-data/
+/data
 checkpoints/
 *.mp4
 *.wav
