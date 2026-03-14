@@ -1,0 +1,13 @@
+README.md
+pyproject.toml
+src/data/__init__.py
+src/data/dataset.py
+src/data/make_dataset_youtube.py
+src/makeitalive.egg-info/PKG-INFO
+src/makeitalive.egg-info/SOURCES.txt
+src/makeitalive.egg-info/dependency_links.txt
+src/makeitalive.egg-info/requires.txt
+src/makeitalive.egg-info/top_level.txt
+src/motion_flow/__init__.py
+src/motion_flow/model.py
+src/motion_flow/train.py

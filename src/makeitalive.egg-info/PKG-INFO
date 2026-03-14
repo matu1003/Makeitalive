@@ -1,0 +1,26 @@
+Metadata-Version: 2.4
+Name: makeitalive
+Version: 0.1.0
+Summary: Add your description here
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: jupyter>=1.1.1
+Requires-Dist: matplotlib>=3.10.8
+Requires-Dist: numpy>=2.2.6
+Requires-Dist: opencv-python>=4.13.0.92
+Requires-Dist: pillow>=12.1.1
+Requires-Dist: scipy>=1.15.3
+Requires-Dist: torch>=2.10.0
+Requires-Dist: torchvision>=0.25.0
+Requires-Dist: tqdm>=4.67.3
+Requires-Dist: yt-dlp>=2026.3.3
+
+# Makeitalive
+Multimodal generation to animate pictures
+
+Overleaf report link : https://overleaf.enst.fr/read/mdrkrjfvdvfh#c43d55
+
+# Datasets
+https://huggingface.co/datasets/Loie/VGGSound
+
+tmux new -s motion_flow_training "python src/motion_flow/train.py --epochs 100 --batch_size 8 --lr 1e-4"
