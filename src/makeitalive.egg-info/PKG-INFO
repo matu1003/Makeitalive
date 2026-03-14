@@ -13,6 +13,7 @@ Requires-Dist: scipy>=1.15.3
 Requires-Dist: torch>=2.10.0
 Requires-Dist: torchvision>=0.25.0
 Requires-Dist: tqdm>=4.67.3
+Requires-Dist: wandb>=0.25.1
 Requires-Dist: yt-dlp>=2026.3.3
 
 # Makeitalive
@@ -23,4 +24,21 @@ Overleaf report link : https://overleaf.enst.fr/read/mdrkrjfvdvfh#c43d55
 # Datasets
 https://huggingface.co/datasets/Loie/VGGSound
 
-tmux new -s motion_flow_training "python src/motion_flow/train.py --epochs 100 --batch_size 8 --lr 1e-4"
+### Using a Youtube Video
+https://www.youtube.com/watch?v=AKeUssuu3Is&list=RDAKeUssuu3Is&start_radio=1&t=10196s
+
+Lancer la collecte du dataset
+```bash
+uv run src/data/make_dataset_youtube.py \
+    --url "https://www.youtube.com/watch?v=AKeUssuu3Is" \
+    --out "./data/youtube_landscape" \
+    --interval 5.0 \
+    --gap 3 \
+    --size 512 \
+    --max_pairs 100
+```
+
+Lancer l'entraînement
+```bash
+uv run src/motion_flow/train.py --epochs 100 --batch_size 8 --lr 1e-4 --num_workers 16
+```
