@@ -58,7 +58,21 @@
 
     \column{0.5}
 
-    \block{5. SVD Training Strategy}{
+    \block{5. Motion Flow Performance (Loss Convergence)}{
+        \begin{center}
+        \begin{tabular}{|c|c|c|}
+            \hline
+            \textbf{Epoch} & \textbf{Training Loss} & \textbf{Validation Loss} \\
+            \hline
+            1 & 0.0038 & 0.045 \\
+            10 & 0.0019 & 0.027 \\
+            50 & 0.0009 & 0.012 \\
+            \hline
+        \end{tabular}
+        \end{center}
+    }
+
+    \block{6. SVD Training Strategy}{
     We explored two fine-tuning approaches on the same dataset of 2374 motion-filtered clips:
 
     \vspace{0.5em}
@@ -92,19 +106,7 @@
 }
     
 
-    \block{6. Motion Flow Performance (Loss Convergence)}{
-        \begin{center}
-        \begin{tabular}{|c|c|c|}
-            \hline
-            \textbf{Epoch} & \textbf{Training Loss} & \textbf{Validation Loss} \\
-            \hline
-            1 & 0.0038 & 0.045 \\
-            10 & 0.0019 & 0.027 \\
-            50 & 0.0009 & 0.012 \\
-            \hline
-        \end{tabular}
-        \end{center}
-    }
+    
 
     \block{7. SVD Results \& Perspectives}{
     \textbf{Motion Flow results:}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2022.4.22)  15 MAR 2026 22:37
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2022.4.22)  15 MAR 2026 22:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -923,18 +923,18 @@ LaTeX Font Warning: Font shape `TS1/aer/m/n' undefined
 (Font)              using `TS1/cmr/m/n' instead
 (Font)              for symbol `textbullet' on input line 37.
 
-<samples.png, id=30, 1438.173pt x 1236.5397pt>
+<samples.png, id=30, 1438.173pt x 1162.8243pt>
 File: samples.png Graphic file (type png)
 <use samples.png>
 Package pdftex.def Info: samples.png  used on input line 44.
-(pdftex.def)             Requested size: 914.19363pt x 786.04306pt.
+(pdftex.def)             Requested size: 914.19363pt x 739.18369pt.
 <motion_flow_example.png, id=32, 1045.7469pt x 357.7365pt>
 File: motion_flow_example.png Graphic file (type png)
 <use motion_flow_example.png>
 Package pdftex.def Info: motion_flow_example.png  used on input line 57.
 (pdftex.def)             Requested size: 914.19363pt x 312.74573pt.
-LaTeX Font Info:    Trying to load font information for T1+aett on input line 9
-2.
+LaTeX Font Info:    Trying to load font information for T1+aett on input line 1
+06.
 
 (/Users/mat/Library/Application Support/MiKTeX/texmfs/install/tex/latex/ae/t1ae
 tt.fd
@@ -943,32 +943,48 @@ File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
 <paralaxe1.png, id=33, 1261.71375pt x 659.46375pt>
 File: paralaxe1.png Graphic file (type png)
 <use paralaxe1.png>
-Package pdftex.def Info: paralaxe1.png  used on input line 142.
+Package pdftex.def Info: paralaxe1.png  used on input line 150.
 (pdftex.def)             Requested size: 297.95601pt x 155.72868pt.
 <paralaxe2.png, id=34, 1261.71375pt x 659.46375pt>
 File: paralaxe2.png Graphic file (type png)
 <use paralaxe2.png>
-Package pdftex.def Info: paralaxe2.png  used on input line 142.
+Package pdftex.def Info: paralaxe2.png  used on input line 150.
 (pdftex.def)             Requested size: 297.95601pt x 155.72868pt.
 <paralaxe3.png, id=35, 1261.71375pt x 659.46375pt>
 File: paralaxe3.png Graphic file (type png)
 <use paralaxe3.png>
-Package pdftex.def Info: paralaxe3.png  used on input line 142.
+Package pdftex.def Info: paralaxe3.png  used on input line 150.
+(pdftex.def)             Requested size: 297.95601pt x 155.72868pt.
+<paralaxe1v2.png, id=36, 1261.71375pt x 659.46375pt>
+File: paralaxe1v2.png Graphic file (type png)
+<use paralaxe1v2.png>
+Package pdftex.def Info: paralaxe1v2.png  used on input line 150.
+(pdftex.def)             Requested size: 297.95601pt x 155.72868pt.
+<paralaxe2v2.png, id=37, 1261.71375pt x 659.46375pt>
+File: paralaxe2v2.png Graphic file (type png)
+<use paralaxe2v2.png>
+Package pdftex.def Info: paralaxe2v2.png  used on input line 150.
+(pdftex.def)             Requested size: 297.95601pt x 155.72868pt.
+<paralaxe3v2.png, id=38, 1261.71375pt x 659.46375pt>
+File: paralaxe3v2.png Graphic file (type png)
+<use paralaxe3v2.png>
+Package pdftex.def Info: paralaxe3v2.png  used on input line 150.
 (pdftex.def)             Requested size: 297.95601pt x 155.72868pt.
  [1
 
 {/Users/mat/Library/Application Support/MiKTeX/texmfs/data/fonts/map/pdftex/pdf
 tex.map} <./samples.png> <./motion_flow_example.png> <./paralaxe1.png> <./paral
-axe2.png> <./paralaxe3.png>] (poster2_v2.aux)
+axe2.png> <./paralaxe3.png> <./paralaxe1v2.png> <./paralaxe2v2.png> <./paralaxe
+3v2.png>] (poster2_v2.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 19840 strings out of 478553
- 433052 string characters out of 2839094
- 803765 words of memory out of 3000000
- 37605 multiletter control sequences out of 15000+600000
+ 19863 strings out of 478553
+ 433512 string characters out of 2839094
+ 805782 words of memory out of 3000000
+ 37625 multiletter control sequences out of 15000+600000
  523343 words of font info for 137 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  115i,10n,118p,485b,939s stack positions out of 10000i,1000n,20000p,200000b,80000s
@@ -982,9 +998,9 @@ cmr17.pfb></Library/Application Support/MiKTeX/texmfs/install/fonts/type1/publi
 c/amsfonts/cm/cmsy10.pfb></Library/Application Support/MiKTeX/texmfs/install/fo
 nts/type1/public/amsfonts/cm/cmti12.pfb></Library/Application Support/MiKTeX/te
 xmfs/install/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on poster2_v2.pdf (1 page, 16689887 bytes).
+Output written on poster2_v2.pdf (1 page, 27997576 bytes).
 PDF statistics:
- 86 PDF objects out of 1000 (max. 8388607)
+ 92 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 140 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 155 words of extra memory for PDF output out of 10000 (max. 10000000)
 
