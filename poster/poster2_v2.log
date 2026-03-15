@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2026.3.15)  15 MAR 2026 17:55
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2026.3.15)  15 MAR 2026 17:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -804,13 +804,13 @@ e
 * paper: a0paper
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
-* modes: landscape 
-* h-part:(L,W,R)=(0.0pt, 3383.03267pt, 0.0pt)
-* v-part:(T,H,B)=(0.0pt, 2392.87677pt, 0.0pt)
-* \paperwidth=3383.03267pt
-* \paperheight=2392.87677pt
-* \textwidth=3383.03267pt
-* \textheight=2392.87677pt
+* modes: 
+* h-part:(L,W,R)=(0.0pt, 2392.87677pt, 0.0pt)
+* v-part:(T,H,B)=(0.0pt, 3383.03267pt, 0.0pt)
+* \paperwidth=2392.87677pt
+* \paperheight=3383.03267pt
+* \textwidth=2392.87677pt
+* \textheight=3383.03267pt
 * \oddsidemargin=-72.26999pt
 * \evensidemargin=-72.26999pt
 * \topmargin=-109.26999pt
@@ -864,7 +864,7 @@ LaTeX Font Warning: Font shape `TS1/aer/m/n' undefined
 (Font)              for symbol `textbullet' on input line 25.
 
 LaTeX Font Info:    Trying to load font information for T1+aett on input line 5
-5.
+2.
 (/usr/share/texlive/texmf-dist/tex/latex/ae/t1aett.fd
 File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
 ) [1
@@ -876,12 +876,12 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
  ) 
 Here is how much of TeX's memory you used:
  19844 strings out of 478051
- 424743 string characters out of 5840943
- 1884330 words of memory out of 5000000
+ 424740 string characters out of 5840943
+ 1887330 words of memory out of 5000000
  39542 multiletter control sequences out of 15000+600000
  562584 words of font info for 134 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 117i,10n,118p,483b,921s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 117i,10n,118p,483b,923s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmb10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dis
@@ -890,7 +890,7 @@ s/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1
 /public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
 c/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
 onts/cm/cmtt12.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm2986.pfb>
-Output written on poster2_v2.pdf (1 page, 99508 bytes).
+Output written on poster2_v2.pdf (1 page, 100752 bytes).
 PDF statistics:
  78 PDF objects out of 1000 (max. 8388607)
  41 compressed objects within 1 object stream
