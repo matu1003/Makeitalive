@@ -3,51 +3,51 @@
 \usecolorstyle{Default}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[french]{babel}
+\usepackage[english]{babel}
 \usepackage{amsmath,amssymb}
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows, calc, positioning}
 
-\title{Makeitalive : Architecture et Innovation pour l'Animation de Paysages}
-\author{Arthur et Camille}
-\institute{Projet IA Générative - Animation d'images par Deep Learning}
+\title{Makeitalive: Landscape picture animation}
+\author{Mathurin Petit, Arthur Fournier}
+\institute{CSC\_52002 - Generative AI Project}
 
 \begin{document}
 \maketitle
 
 \begin{columns}
     \column{0.5}
-    \block{1. Présentation du Projet}{
-        Le projet \textbf{Makeitalive} explore la transformation d'une photographie de paysage statique en une animation réaliste. 
-        Nous préservons la texture originale tout en injectant un mouvement cohérent.
+    \block{1. Project Overview}{
+        The \textbf{Makeitalive} project explores the transformation of a static landscape photograph into a realistic animation. 
+        We preserve the original texture while injecting coherent movement.
         
         \vspace{1em}
-        \textbf{Défis relevés :}
+        \textbf{Challenges met:}
         \begin{itemize}
-            \item Animation automatique.
-            \item Cohérence temporelle HD.
-            \item Réalisme des textures naturelles.
+            \item Automatic animation.
+            \item HD temporal coherence.
+            \item Realism of natural textures.
         \end{itemize}
     }
     
-    \block{2. Le Concept du Motion Flow}{
-        L'approche repose sur l'estimation d'un champ optique (\textit{Optical Flow}) :
+    \block{2. The Motion Flow Concept}{
+        The approach is based on estimating an \textit{Optical Flow} field:
         \begin{itemize}
-            \item Prédiction de vecteurs $(dx, dy)$ par pixel.
-            \item \textbf{Backward Mapping} pour le rendu :
+            \item Prediction of $(dx, dy)$ vectors per pixel.
+            \item \textbf{Backward Mapping} for rendering:
             \[ I_{anim}(x, y, t) = I_{orig}(x - \alpha_t dx, y - \alpha_t dy) \]
         \end{itemize}
     }
 
-    \block{3. Architecture Motion Flow (U-Net Custom)}{
-        L'architecture U-Net est optimisée pour la prédiction de flux :
+    \block{3. Motion Flow Architecture (Custom U-Net)}{
+        The U-Net architecture is optimized for flow prediction:
         
         \begin{center}
         \begin{tikzpicture}[node distance=1.5cm, transform shape, scale=0.8]
             \tikzstyle{layer} = [rectangle, draw, fill=blue!20, text width=2.5cm, text centered, minimum height=0.8cm]
             \tikzstyle{flow} = [->, >=stealth, thick]
 
-            \node (in) [layer, fill=green!20] {Image Entrée};
+            \node (in) [layer, fill=green!20] {Input Image};
             \node (enc1) [layer, below of=in] {Enc 32};
             \node (enc2) [layer, below of=enc1] {Enc 64};
             \node (enc3) [layer, below of=enc2] {Enc 128};
@@ -69,40 +69,40 @@
         \end{tikzpicture}
         \end{center}
         
-        Le modèle est extrêmement léger ($<100$MB) et permet une inférence temps réel sur GPU.
+        The model is extremely lightweight ($<100$MB) and allows for real-time inference on GPU.
     }
 
     \column{0.5}
-    \block{4. Approche Stable Video Diffusion (SVD)}{
-        \textbf{Stable Video Diffusion (SVD)} :
+    \block{4. Stable Video Diffusion (SVD) Approach}{
+        \textbf{Stable Video Diffusion (SVD)}:
         \begin{itemize}
-            \item Modèle de diffusion latent 3D.
-            \item \textbf{LoRA} : Fine-tuning léger pour les textures de paysages (eau, vent dans les arbres).
-            \item Qualité visuelle supérieure pour les scènes complexes grâce au débruitage itératif.
+            \item 3D Latent Diffusion Model.
+            \item \textbf{LoRA}: Lightweight fine-tuning for landscape textures (water, wind in trees).
+            \item Superior visual quality for complex scenes thanks to iterative denoising.
         \end{itemize}
     }
 
-    \block{5. Comparaison des Techniques}{
+    \block{5. Comparison of Techniques}{
         \begin{center}
         \begin{tabular}{|l|c|c|}
             \hline
-            \textbf{Critère} & \textbf{Motion Flow} & \textbf{SVD + LoRA} \\
+            \textbf{Criterion} & \textbf{Motion Flow} & \textbf{SVD + LoRA} \\
             \hline
-            Fidélité & Maximale & Élevée \\
-            Vitesse & Instante & Plusieurs sec \\
-            Poids & Léger & Lourd \\
-            Ressources & CPU/GPU & GPU High-End \\
+            Fidelity & Maximum & High \\
+            Speed & Instant & Several seconds \\
+            Weight & Light & Heavy \\
+            Resources & CPU/GPU & High-End GPU \\
             \hline
         \end{tabular}
         \end{center}
     }
 
-    \block{6. Évaluation des Résultats}{
-        Les tests montrent que le \textbf{Motion Flow} est idéal pour les animations subtiles et économes, tandis que \textbf{SVD} apporte une profondeur de mouvement inégalée pour les vidéos plus longues.
+    \block{6. Result Evaluation}{
+        Tests show that \textbf{Motion Flow} is ideal for subtle and efficient animations, while \textbf{SVD} provides unmatched depth of motion for longer videos.
     }
 
     \block{7. Conclusion}{
-        L'hybridation des deux permet d'obtenir le meilleur des deux mondes : la rapidité structurelle et la richesse textuelle générative.
+        The hybridization of the two delivers the best of both worlds: structural speed and generative textual richness.
     }
 \end{columns}
 

@@ -3,55 +3,55 @@
 \usecolorstyle{Default}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[french]{babel}
+\usepackage[english]{babel}
 \usepackage{amsmath,amssymb}
 
-\title{Makeitalive : Pipeline de Données et Analyse des Résultats}
-\author{Arthur et Camille}
-\institute{Projet IA Générative - Dataset et Performances}
+\title{Makeitalive: Landscape picture animation}
+\author{Mathurin Petit, Arthur Fournier}
+\institute{CSC\_52002 - Generative AI Project}
 
 \begin{document}
 \maketitle
 
 \begin{columns}
     \column{0.5}
-    \block{1. Stratégie d'Extraction}{
-        Le pipeline automatise la création de paires d'images $(I\_A, I\_B)$ :
+    \block{1. Extraction Strategy}{
+        The pipeline automates the creation of image pairs $(I\_A, I\_B)$:
         \begin{itemize}
-            \item \textbf{Source :} Vidéos YouTube 4K (Landscapes).
-            \item \textbf{Sampling :} Extraction toutes les 5 secondes.
-            \item \textbf{Frame Gap :} Écart de 3 frames pour un mouvement fluide.
+            \item \textbf{Source:} 4K YouTube videos (Landscapes).
+            \item \textbf{Sampling:} Extraction every 5 seconds.
+            \item \textbf{Frame Gap:} 3-frame interval for fluid motion.
         \end{itemize}
     }
 
-    \block{2. Filtrage Intelligent des Données}{
-        Éviter les "cuts" via deux métriques robustes :
+    \block{2. Intelligent Data Filtering}{
+        Avoid "cuts" using two robust metrics:
         \begin{itemize}
-            \item \textbf{Hist Distance} : Bhattacharyya ($>0.35$).
-            \item \textbf{Thumbnail MAE} : Différence structurelle ($>0.25$).
+            \item \textbf{Hist Distance}: Bhattacharyya ($>0.35$).
+            \item \textbf{Thumbnail MAE}: Structural difference ($>0.25$).
         \end{itemize}
-        Ce filtrage assure que le modèle n'apprend que de vrais mouvements et non des sauts de montage.
+        This filtering ensures the model only learns real movement and not montage jumps.
     }
 
-    \block{3. Paramètres de l'Architecture}{
+    \block{3. Architecture Parameters}{
         \begin{itemize}
-            \item \textbf{Input :} $512 \times 512$ (Center Crop).
-            \item \textbf{Optimiseur :} Adam ($10^{-4}$).
-            \item \textbf{Loss :} Mean Squared Error (MSE) sur le flow.
-            \item \textbf{Epochs :} 100 sur dataset local dédié.
+            \item \textbf{Input:} $512 \times 512$ (Center Crop).
+            \item \textbf{Optimizer:} Adam ($10^{-4}$).
+            \item \textbf{Loss:} Mean Squared Error (MSE) on flow.
+            \item \textbf{Epochs:} 100 on a dedicated local dataset.
         \end{itemize}
     }
 
     \column{0.5}
-    \block{4. Analyse Qualitative}{
+    \block{4. Qualitative Analysis}{
         \begin{itemize}
-            \item \textbf{Points forts :} Excellence sur l'eau et les reflets.
-            \item \textbf{Limites :} Quelques artefacts sur les nuages denses à cause de l'ambiguïté du flow.
-            \item \textbf{Bords :} \texttt{mode='reflect'} indispensable pour l'esthétique.
+            \item \textbf{Strengths:} Excellence in water and reflections.
+            \item \textbf{Limitations:} Some artifacts on dense clouds due to flow ambiguity.
+            \item \textbf{Edges:} \texttt{mode='reflect'} essential for aesthetics.
         \end{itemize}
     }
 
-    \block{5. Performances (Convergence de la Loss)}{
+    \block{5. Performance (Loss Convergence)}{
         \begin{center}
         \begin{tabular}{|c|c|c|}
             \hline
@@ -68,14 +68,14 @@
 
     \block{6. Perspectives}{
         \begin{itemize}
-            \item \textbf{Segmentation sémantique} : Appliquer des flows spécifiques au ciel vs l'eau.
-            \item \textbf{Inférence multi-échelle} : Améliorer la précision des détails.
-            \item \textbf{Raffinement Temporel} : Prédiction auto-répressive pour des loops fluides.
+            \item \textbf{Semantic Segmentation}: Apply specific flows to sky vs. water.
+            \item \textbf{Multi-scale Inference}: Improve accuracy for details.
+            \item \textbf{Temporal Refinement}: Auto-regressive prediction for smooth loops.
         \end{itemize}
     }
 
     \block{7. Impact}{
-        Le projet démontre qu'une architecture légère peut produire des animations qualitatives avec très peu de données d'entraînement.
+        The project demonstrates that a lightweight architecture can produce qualitative animations with very little training data.
     }
 \end{columns}
 

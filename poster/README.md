@@ -1,43 +1,43 @@
-# Posters LaTeX pour Makeitalive
+# LaTeX Posters for Makeitalive
 
-Ce dossier contient les sources LaTeX pour la présentation du projet Makeitalive.
+This folder contains the LaTeX source files for the Makeitalive project presentation.
 
 ---
 
-## 🛠️ Comment modifier les Posters
+## 🛠️ How to Modify the Posters
 
-Voici un guide pour personnaliser le contenu une fois le fichier `.tex` ouvert (sur Overleaf ou en local).
+Here is a guide to customizing the content once you have opened the `.tex` file (on Overleaf or locally).
 
-### 1. Structure et Colonnes
-Les posters sont configurés en **Portrait** (A0) avec **2 colonnes**.
-- La largeur est gérée par `\column{0.5}`. 
-- Pour ajuster la répartition (ex: une colonne plus large), changez par exemple en `\column{0.4}` et `\column{0.6}`.
+### 1. Structure and Columns
+The posters are configured in **Portrait** (A0) with **2 columns**.
+- Width is managed by `\column{0.5}`. 
+- To adjust the distribution (e.g., a wider column), change it to, for example, `\column{0.4}` and `\column{0.6}`.
 
-### 2. Style Visuel
-- **Thème** : `\usetheme{Rays}` définit le look global. Autres options : `Wave`, `Simple`, `Default`.
-- **Couleurs** : `\usecolorstyle{Default}`. Vous pouvez tester `BlueGrayOrange`, `GreenMarine` ou `RedWhiteBlue`.
+### 2. Visual Style
+- **Theme**: `\usetheme{Rays}` defines the overall look. Other options: `Wave`, `Simple`, `Default`.
+- **Colors**: `\usecolorstyle{Default}`. You can try `BlueGrayOrange`, `GreenMarine`, or `RedWhiteBlue`.
 
-### 3. Ajouter/Modifier du Contenu
-Chaque section est un bloc :
+### 3. Adding/Modifying Content
+Each section is a block:
 ```latex
-\block{Titre de la section}{
-    Votre texte ici...
+\block{Section Title}{
+    Your text here...
 }
 ```
 
-### 4. Schémas et Dessins (TikZ)
-Le poster 1 contient un schéma de l'U-Net.
-- Cherchez `\begin{tikzpicture}`.
-- `node distance=1.5cm` gère l'espacement vertical entre les couches.
-- `scale=0.8` permet de redimensionner tout le schéma sans changer les proportions.
+### 4. Diagrams and Drawings (TikZ)
+Poster 1 contains a diagram of the U-Net.
+- Look for `\begin{tikzpicture}`.
+- `node distance=1.5cm` manages the vertical spacing between layers.
+- `scale=0.8` allows you to resize the entire diagram without changing the proportions.
 
 ### 5. Compilation
-Utilisez toujours **pdflatex**. 
-- **Attention aux Underscores** : Les caractères `_` doivent être précédés d'un anti-slash `\_` s'ils sont dans du texte normal, ou être mis entre symboles dollar `$x_i$` s'ils sont mathématiques.
+Always use **pdflatex**. 
+- **Watch out for Underscores**: Characters like `_` must be preceded by a backslash `\_` if they are in normal text, or placed between dollar signs `$x_i$` if they are mathematical.
 
 ---
 
-## 🚀 Générer les PDFs
+## 🚀 Generate PDFs
 
 ```bash
 pdflatex poster1_v2.tex
