@@ -41,85 +41,85 @@
         \end{center}
 
         \block{Architecture UNet — MotionFlowUNet}{
-    \begin{center}
-    \resizebox{0.9\linewidth}{!}{%
-    \begin{tikzpicture}[
-    every node/.style={font=\small},
-    enc/.style={draw=teal!70!black, fill=teal!15, rounded corners=4pt,
-                minimum width=3.2cm, minimum height=0.9cm, align=center},
-    bot/.style={draw=orange!80!black, fill=orange!20, rounded corners=4pt,
-                minimum width=3.6cm, minimum height=1cm, align=center},
-    dec/.style={draw=violet!70!black, fill=violet!15, rounded corners=4pt,
-                minimum width=3.2cm, minimum height=0.9cm, align=center},
-    out/.style={draw=gray!60,        fill=gray!10,   rounded corners=4pt,
-                minimum width=3.2cm, minimum height=0.9cm, align=center},
-    skip/.style={->, dashed, thick, orange!80!black,
-                shorten >=2pt, shorten <=2pt},
-    flow/.style={->, thick, gray!60!black,
-                shorten >=2pt, shorten <=2pt},
-    ]
+        \begin{center}
+        \resizebox{0.9\linewidth}{!}{%
+        \begin{tikzpicture}[
+        every node/.style={font=\small},
+        enc/.style={draw=teal!70!black, fill=teal!15, rounded corners=4pt,
+                    minimum width=3.2cm, minimum height=0.9cm, align=center},
+        bot/.style={draw=orange!80!black, fill=orange!20, rounded corners=4pt,
+                    minimum width=3.6cm, minimum height=1cm, align=center},
+        dec/.style={draw=violet!70!black, fill=violet!15, rounded corners=4pt,
+                    minimum width=3.2cm, minimum height=0.9cm, align=center},
+        out/.style={draw=gray!60,        fill=gray!10,   rounded corners=4pt,
+                    minimum width=3.2cm, minimum height=0.9cm, align=center},
+        skip/.style={->, dashed, thick, orange!80!black,
+                    shorten >=2pt, shorten <=2pt},
+        flow/.style={->, thick, gray!60!black,
+                    shorten >=2pt, shorten <=2pt},
+        ]
 
-    %% ── Encodeur (colonne gauche) ──────────────────────────────────────────
-    \node[enc] (inc)   at (0, 0)    {\textbf{inc}\\\footnotesize 3→32 · $512^2$};
-    \node[enc] (down1) at (0,-1.8)  {\textbf{down1}\\\footnotesize 32→64 · $256^2$};
-    \node[enc] (down2) at (0,-3.6)  {\textbf{down2}\\\footnotesize 64→128 · $128^2$};
-    \node[enc] (down3) at (0,-5.4)  {\textbf{down3}\\\footnotesize 128→256 · $64^2$};
+        %% ── Encodeur (colonne gauche) ──────────────────────────────────────────
+        \node[enc] (inc)   at (0, 0)    {\textbf{inc}\\\footnotesize 3→32 · $512^2$};
+        \node[enc] (down1) at (0,-1.8)  {\textbf{down1}\\\footnotesize 32→64 · $256^2$};
+        \node[enc] (down2) at (0,-3.6)  {\textbf{down2}\\\footnotesize 64→128 · $128^2$};
+        \node[enc] (down3) at (0,-5.4)  {\textbf{down3}\\\footnotesize 128→256 · $64^2$};
 
-    %% ── Bottleneck (centre-bas) ────────────────────────────────────────────
-    \node[bot] (bot)   at (4,-7.2)  {\textbf{down4 — Bottleneck}\\\footnotesize 256→512 · $32^2$};
+        %% ── Bottleneck (centre-bas) ────────────────────────────────────────────
+        \node[bot] (bot)   at (4,-7.2)  {\textbf{down4 — Bottleneck}\\\footnotesize 256→512 · $32^2$};
 
-    %% ── Décodeur (colonne droite) ──────────────────────────────────────────
-    \node[dec] (up1)   at (8,-5.4)  {\textbf{up1}\\\footnotesize 768→256 · $64^2$};
-    \node[dec] (up2)   at (8,-3.6)  {\textbf{up2}\\\footnotesize 384→128 · $128^2$};
-    \node[dec] (up3)   at (8,-1.8)  {\textbf{up3}\\\footnotesize 192→64 · $256^2$};
-    \node[dec] (up4)   at (8, 0)    {\textbf{up4}\\\footnotesize 96→32 · $512^2$};
+        %% ── Décodeur (colonne droite) ──────────────────────────────────────────
+        \node[dec] (up1)   at (8,-5.4)  {\textbf{up1}\\\footnotesize 768→256 · $64^2$};
+        \node[dec] (up2)   at (8,-3.6)  {\textbf{up2}\\\footnotesize 384→128 · $128^2$};
+        \node[dec] (up3)   at (8,-1.8)  {\textbf{up3}\\\footnotesize 192→64 · $256^2$};
+        \node[dec] (up4)   at (8, 0)    {\textbf{up4}\\\footnotesize 96→32 · $512^2$};
 
-    %% ── Tête de sortie ─────────────────────────────────────────────────────
-    \node[out] (outc)  at (8, 1.8)  {\textbf{outc — Conv $1{\times}1$}\\\footnotesize 32→2 · $512^2$};
+        %% ── Tête de sortie ─────────────────────────────────────────────────────
+        \node[out] (outc)  at (8, 1.8)  {\textbf{outc — Conv $1{\times}1$}\\\footnotesize 32→2 · $512^2$};
 
-    %% ── Flèches encodeur (vers le bas) ────────────────────────────────────
-    \draw[flow] (inc)   -- (down1);
-    \draw[flow] (down1) -- (down2);
-    \draw[flow] (down2) -- (down3);
-    \draw[flow] (down3) -- ++(0,-0.6) -| (bot);
+        %% ── Flèches encodeur (vers le bas) ────────────────────────────────────
+        \draw[flow] (inc)   -- (down1);
+        \draw[flow] (down1) -- (down2);
+        \draw[flow] (down2) -- (down3);
+        \draw[flow] (down3) -- ++(0,-0.6) -| (bot);
 
-    %% ── Flèche bottleneck → décodeur ──────────────────────────────────────
-    \draw[flow] (bot) -- ++(0,0.6) -| (up1);
+        %% ── Flèche bottleneck → décodeur ──────────────────────────────────────
+        \draw[flow] (bot) -- ++(0,0.6) -| (up1);
 
-    %% ── Flèches décodeur (vers le haut) ───────────────────────────────────
-    \draw[flow] (up1) -- (up2);
-    \draw[flow] (up2) -- (up3);
-    \draw[flow] (up3) -- (up4);
-    \draw[flow] (up4) -- (outc);
+        %% ── Flèches décodeur (vers le haut) ───────────────────────────────────
+        \draw[flow] (up1) -- (up2);
+        \draw[flow] (up2) -- (up3);
+        \draw[flow] (up3) -- (up4);
+        \draw[flow] (up4) -- (outc);
 
-    %% ── Skip connections (tiretés orange) ─────────────────────────────────
-    \draw[skip] (down3.east) -- node[above,font=\tiny] {cat} (up1.west);
-    \draw[skip] (down2.east) -- node[above,font=\tiny] {cat} (up2.west);
-    \draw[skip] (down1.east) -- node[above,font=\tiny] {cat} (up3.west);
-    \draw[skip]  (inc.east)  -- node[above,font=\tiny] {cat} (up4.west);
+        %% ── Skip connections (tiretés orange) ─────────────────────────────────
+        \draw[skip] (down3.east) -- node[above,font=\tiny] {cat} (up1.west);
+        \draw[skip] (down2.east) -- node[above,font=\tiny] {cat} (up2.west);
+        \draw[skip] (down1.east) -- node[above,font=\tiny] {cat} (up3.west);
+        \draw[skip]  (inc.east)  -- node[above,font=\tiny] {cat} (up4.west);
 
-    %% ── Labels entrée / sortie ─────────────────────────────────────────────
-    \node[above, gray, font=\footnotesize] at (inc.north)  {Entrée RGB ($512{\times}512$)};
-    \node[above, gray, font=\footnotesize] at (outc.north) {Flow $(dx,\,dy)$};
+        %% ── Labels entrée / sortie ─────────────────────────────────────────────
+        \node[above, gray, font=\footnotesize] at (inc.north)  {Entrée RGB ($512{\times}512$)};
+        \node[above, gray, font=\footnotesize] at (outc.north) {Flow $(dx,\,dy)$};
 
-    %% ── Légende ─────────────────────────────────────────────────────────────
-    \matrix [draw=gray!40, rounded corners, below right, font=\footnotesize,
-            row sep=4pt, column sep=6pt, inner sep=6pt]
-    at ($(bot.south west)+(0,-0.8)$) {
-    \node[enc, minimum width=1.6cm, minimum height=0.5cm]
-            {\footnotesize Encodeur}; &
-    \node[bot, minimum width=1.6cm, minimum height=0.5cm]
-            {\footnotesize Bottleneck}; &
-    \node[dec, minimum width=1.6cm, minimum height=0.5cm]
-            {\footnotesize Décodeur}; &
-    \draw[skip] (0,0) -- (0.8,0); \node[right=0.9cm]
-            {\footnotesize Skip (concat)}; \\
-    };
+        %% ── Légende ─────────────────────────────────────────────────────────────
+        \matrix [draw=gray!40, rounded corners, below right, font=\footnotesize,
+                row sep=4pt, column sep=6pt, inner sep=6pt]
+        at ($(bot.south west)+(0,-0.8)$) {
+        \node[enc, minimum width=1.6cm, minimum height=0.5cm]
+                {\footnotesize Encodeur}; &
+        \node[bot, minimum width=1.6cm, minimum height=0.5cm]
+                {\footnotesize Bottleneck}; &
+        \node[dec, minimum width=1.6cm, minimum height=0.5cm]
+                {\footnotesize Décodeur}; &
+        \draw[skip] (0,0) -- (0.8,0); \node[right=0.9cm]
+                {\footnotesize Skip (concat)}; \\
+        };
 
-    \end{tikzpicture}%
-    }
-    \end{center}
-    }
+        \end{tikzpicture}%
+        }
+        \end{center}
+        }
     }
 
     \block{3. Model Architectures}{

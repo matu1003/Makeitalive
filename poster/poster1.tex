@@ -1,0 +1,285 @@
+\documentclass[25pt, a0paper, portrait]{tikzposter}
+\usetheme{Rays}
+\usecolorstyle{Default}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, calc, positioning, matrix}
+
+\title{Makeitalive: Landscape Picture Animation}
+\author{Mathurin Petit, Arthur Fournier}
+\institute{CSC\_52002 --- Generative AI Project}
+
+\begin{document}
+\maketitle
+
+\begin{columns}
+
+%% ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+%%  LEFT COLUMN
+%% ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+\column{0.5}
+
+\block{1. Project Overview}{
+    The \textbf{Makeitalive} project explores the transformation of a static landscape
+    photograph into a realistic animation.
+    We preserve the original texture while injecting coherent, loopable movement.
+
+    \vspace{0.8em}
+    We investigated two complementary approaches:
+    \begin{itemize}
+        \item \textbf{Motion-Flow U-Net}: a lightweight CNN that predicts a dense optical
+              flow field $(dx, dy)$ per pixel; pixels are warped over time to create motion.
+        \item \textbf{SVD fine-tuning}: a Stable Video Diffusion model fine-tuned on
+              landscape drone footage to generate full video frames directly.
+    \end{itemize}
+}
+
+%% ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+\block{2. The Motion-Flow Concept}{
+    The approach estimates an \textit{Optical Flow} field from a single image:
+    \begin{itemize}
+        \item A U-Net predicts per-pixel displacement vectors $(dx, dy)$.
+        \item \textbf{Backward Mapping} warps the original image at each time-step $t$:
+              \[
+                I_{\text{anim}}(x,y,t)
+                  = I_{\text{orig}}\!\bigl(x - \alpha_t\,dx,\;y - \alpha_t\,dy\bigr)
+              \]
+        \item $\alpha_t$ oscillates sinusoidally to produce seamless loops.
+        \item Boundary condition \texttt{mode='reflect'} avoids edge artifacts.
+    \end{itemize}
+
+    \begin{center}
+        \includegraphics[width=0.85\linewidth]{motion_flow_grid.png}
+    \end{center}
+}
+
+%% ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+\block{3. MotionFlowUNet Architecture}{
+
+\textbf{Design rationale.}
+The network maps a single RGB image ($3 \times 512 \times 512$) to a
+two-channel flow field ($2 \times 512 \times 512$).
+A U-Net is ideal: skip connections preserve fine spatial detail.
+The channel widths are halved ($32 \to 64 \to 128 \to 256 \to 512$) to optimize VRAM.
+
+\vspace{0.5em}
+\begin{center}
+\resizebox{0.65\linewidth}{!}{% % Taille réduite de 0.75 à 0.65
+\begin{tikzpicture}[
+  every node/.style={font=\scriptsize},
+  enc/.style={draw=teal!70!black, fill=teal!15, rounded corners=3pt,
+              minimum width=2.2cm, minimum height=0.55cm, align=center},
+  btnk/.style={draw=orange!80!black, fill=orange!20, rounded corners=3pt,
+              minimum width=2.6cm, minimum height=0.70cm, align=center},
+  dec/.style={draw=violet!70!black, fill=violet!15, rounded corners=3pt,
+              minimum width=2.2cm, minimum height=0.55cm, align=center},
+  outnode/.style={draw=gray!60, fill=gray!10, rounded corners=3pt,
+              minimum width=2.2cm, minimum height=0.55cm, align=center},
+  skip/.style={-{Stealth[length=3pt]}, dashed, thick, orange!80!black,
+               shorten >=2pt, shorten <=2pt},
+  mainflow/.style={-{Stealth[length=3pt]}, thick, gray!60!black,
+               shorten >=2pt, shorten <=2pt},
+]
+
+%% Coordonnées optimisées (espacement vertical réduit à 1.1 au lieu de 1.5)
+%% Encoder
+\node[enc] (inc)   at (0,  0.0) {\textbf{inc -- DC}\\\tiny $3 \to 32 \cdot 512^2$};
+\node[enc] (down1) at (0, -1.1) {\textbf{down1 -- MP+DC}\\\tiny $32 \to 64 \cdot 256^2$};
+\node[enc] (down2) at (0, -2.2) {\textbf{down2 -- MP+DC}\\\tiny $64 \to 128 \cdot 128^2$};
+\node[enc] (down3) at (0, -3.3) {\textbf{down3 -- MP+DC}\\\tiny $128 \to 256 \cdot 64^2$};
+
+%% Bottleneck (rapproché)
+\node[btnk] (btnknode) at (2.8, -4.4) {\textbf{down4 -- Bottleneck}\\\tiny $256 \to 512 \cdot 32^2$};
+
+%% Decoder
+\node[dec] (up1) at (5.6, -3.3) {\textbf{up1 -- Up+DC}\\\tiny $768 \to 256 \cdot 64^2$};
+\node[dec] (up2) at (5.6, -2.2) {\textbf{up2 -- Up+DC}\\\tiny $384 \to 128 \cdot 128^2$};
+\node[dec] (up3) at (5.6, -1.1) {\textbf{up3 -- Up+DC}\\\tiny $192 \to 64 \cdot 256^2$};
+\node[dec] (up4) at (5.6,  0.0) {\textbf{up4 -- Up+DC}\\\tiny $96 \to 32 \cdot 512^2$};
+
+%% Output head
+\node[outnode] (outc) at (5.6, 1.1) {\textbf{outc -- Conv $1{\times}1$}\\\tiny $32 \to 2 \cdot 512^2$};
+
+%% Arbres et flux
+\draw[mainflow] (inc) -- (down1);
+\draw[mainflow] (down1) -- (down2);
+\draw[mainflow] (down2) -- (down3);
+\draw[mainflow] (down3) -- ++(0,-0.4) -| (btnknode);
+\draw[mainflow] (btnknode) -- ++(0, 0.4) -| (up1);
+\draw[mainflow] (up1) -- (up2);
+\draw[mainflow] (up2) -- (up3);
+\draw[mainflow] (up3) -- (up4);
+\draw[mainflow] (up4) -- (outc);
+
+%% Skip connections
+\draw[skip] (down3.east) -- node[above,font=\tiny,yshift=-2pt]{cat} (up1.west);
+\draw[skip] (down2.east) -- node[above,font=\tiny,yshift=-2pt]{cat} (up2.west);
+\draw[skip] (down1.east) -- node[above,font=\tiny,yshift=-2pt]{cat} (up3.west);
+\draw[skip] (inc.east)   -- node[above,font=\tiny,yshift=-2pt]{cat} (up4.west);
+
+%% IO labels
+\node[above, text=gray, font=\tiny] at (inc.north) {Input RGB ($512^2$)};
+\node[above, text=gray, font=\tiny] at (outc.north) {Output flow $(dx, dy)$};
+
+%% Legend repositionnée plus près
+\node[enc, minimum width=1.2cm] (leg1) at (0.5,-5.5) {\tiny Encoder};
+\node[btnk, minimum width=1.2cm] (leg2) at (2.2,-5.5) {\tiny Bottleneck};
+\node[dec, minimum width=1.2cm] (leg3) at (3.9,-5.5) {\tiny Decoder};
+\node[outnode, minimum width=1.2cm] (leg4) at (5.6,-5.5) {\tiny Output};
+
+\end{tikzpicture}%
+}
+\end{center}
+
+\vspace{0.3em}
+\textbf{DoubleConv block.}
+$\text{DC}(x) = \mathrm{ReLU}(\mathrm{BN}(\mathrm{Conv}_{3\times3}(\dots)))$.
+Skip connections preserve high-frequency spatial information via \texttt{torch.cat}.
+
+\vspace{0.5em}
+\begin{center}
+\footnotesize
+\begin{tabular}{|l|c|l|c|}
+    \hline
+    \textbf{Hyperparam.} & \textbf{Value} & \textbf{Epoch} & \textbf{Val Loss} \\
+    \hline
+    Optimizer & Adam $10^{-4}$ & 1 & 0.480 \\
+    Loss & MSE Flow & 50 & 0.052 \\
+    Epochs & 100 & 100 & \textbf{0.041} \\
+    \hline
+\end{tabular}
+\end{center}
+}
+%% ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+%%  RIGHT COLUMN
+%% ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+\column{0.5}
+
+\block{4. Data Extraction \& Filtering Pipeline}{
+    \textbf{Source:} 4K YouTube drone landscape videos.
+
+    \vspace{0.5em}
+    \textbf{Pair generation} --- for each video, consecutive frame pairs
+    $(I_A, I_B)$ are extracted:
+    \begin{itemize}
+        \item Sampling every \textbf{5 seconds} to ensure scene diversity.
+        \item \textbf{3-frame gap} between $I_A$ and $I_B$: large enough for
+              visible motion, small enough to avoid large displacements.
+    \end{itemize}
+
+    \vspace{0.5em}
+    \textbf{Cut detection} --- two complementary metrics reject scene changes:
+    \begin{itemize}
+        \item \textbf{Bhattacharyya distance} on colour histograms $> 0.35$
+        \item \textbf{Thumbnail MAE} (structural difference) $> 0.25$
+    \end{itemize}
+    This ensures the model learns genuine pixel movement, not montage jumps.
+}
+
+\block{5. Stable Video Diffusion (SVD) Approach}{
+    \textbf{Pipeline overview:}
+    \begin{itemize}
+        \item YouTube drone videos $\to$ frame extraction with
+              \texttt{frame\_gap=12} ($\approx$7\,s of real motion per clip)
+        \item Motion filtering: $3.0 < \text{score} < 40.0$
+              (rejects static scenes and hard cuts)
+        \item Fine-tuning via \textbf{SVD\_Xtend}: full UNet training,
+              $lr=10^{-5}$, 5\,000 steps on 2374 clips
+    \end{itemize}
+
+    \vspace{0.5em}
+    \textbf{Key design choices:}
+    \begin{itemize}
+        \item \texttt{noise\_aug\_strength=0.02}: adds noise to conditioning
+              frame, closes the train/inference gap.
+        \item CFG dropout: enables guidance-scale control at inference.
+        \item Post-processing: raw 7\,fps output slowed to 2\,fps then
+              interpolated to 24\,fps via \texttt{ffmpeg minterpolate}.
+    \end{itemize}
+
+    \vspace{0.5em}
+    \textbf{Loss convergence (SVD\_Xtend):}
+    \begin{center}
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Steps} & \textbf{Step Loss} \\
+        \hline
+        500  & $\sim$0.60 \\
+        1000 & $\sim$0.45 \\
+        3000 & $\sim$0.16 \\
+        5000 & $\sim$0.20 \\
+        \hline
+    \end{tabular}
+    \end{center}
+}
+
+\block{6. Comparison of Approaches}{
+    \begin{center}
+    \begin{tabular}{|l|c|c|}
+        \hline
+        \textbf{Criterion}   & \textbf{Motion Flow}     & \textbf{SVD fine-tuned} \\
+        \hline
+        Parameters           & $<$100\,MB               & 1.5\,B \\
+        Output               & Flow $(dx,dy)$            & Video frames \\
+        Training loss        & MSE on flow               & EDM diffusion loss \\
+        Inference speed      & Real-time                 & $\sim$25\,s / clip \\
+        Image fidelity       & Maximum (warp only)       & High \\
+        Hardware required    & CPU / light GPU           & High-end GPU \\
+        \hline
+    \end{tabular}
+    \end{center}
+}
+
+\block{7. Result Evaluation}{
+    \textbf{Qualitative analysis} (Input $\to$ Generated $\to$ Ground Truth):
+    \begin{itemize}
+        \item \textbf{Motion Flow strengths:} excellent on water surfaces and
+              smooth reflections where flow is coherent.
+        \item \textbf{Motion Flow limitations:} flow ambiguity on dense clouds;
+              some artifacts on high-frequency textures.
+        \item \textbf{SVD\_Xtend:} produces coherent drone-style camera motion;
+              $\Delta\text{loss} \approx -0.30$ vs.\ naive LoRA.
+        \item \textbf{SVD limitations:} interpolation artifacts on foliage;
+              motion amplitude constrained by \texttt{motion\_bucket\_id}.
+    \end{itemize}
+
+    \vspace{0.5em}
+    \textbf{Ablation --- impact of dataset quality:}
+    \begin{center}
+    \begin{tabular}{|l|c|c|}
+        \hline
+        \textbf{Setup}                      & \textbf{Final Loss} & \textbf{Motion quality} \\
+        \hline
+        LoRA, static clips                  & 0.46 & None \\
+        LoRA, motion-filtered               & 0.51 & Minimal \\
+        SVD\_Xtend, motion-filtered         & 0.16 & Cinematic \\
+        \hline
+    \end{tabular}
+    \end{center}
+}
+
+\block{8. Conclusion \& Perspectives}{
+    The hybridization of both approaches delivers the best of both worlds:
+    \textbf{structural speed} (Motion Flow, real-time, lightweight) combined
+    with \textbf{generative richness} (SVD, photorealistic motion).
+
+    \vspace{0.5em}
+    \textbf{Future work:}
+    \begin{itemize}
+        \item \textbf{Semantic segmentation}: apply distinct flow fields to
+              sky vs.\ water vs.\ vegetation.
+        \item \textbf{Multi-scale inference}: improve flow accuracy for
+              fine-grained details.
+        \item \textbf{Temporal refinement}: auto-regressive prediction for
+              smoother, longer loops.
+        \item \textbf{SVD + Flow hybrid}: use Motion Flow to seed SVD
+              conditioning for guided generation.
+    \end{itemize}
+}
+
+\end{columns}
+
+\end{document}
