@@ -56,165 +56,173 @@
     \end{center}
 }
 
+
+
+
+
 %% ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+%% ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+%% ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+%% ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+%% ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+%% ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 \block{3. MotionFlowUNet Architecture}{
 
 \textbf{Design rationale.}
-The network maps a single RGB image ($3 \times 512 \times 512$) to a
-two-channel flow field ($2 \times 512 \times 512$).
-A U-Net is ideal: skip connections preserve fine spatial detail.
-The channel widths are halved ($32 \to 64 \to 128 \to 256 \to 512$) to optimize VRAM.
+The network maps a single RGB image to a two-channel flow field ($dx, dy$). 
+The U-Net architecture with skip connections is used to maintain spatial resolution. 
+Channel widths: $32 \to 64 \to 128 \to 256 \to 512$.
 
-\vspace{0.5em}
+\vspace{1em}
 \begin{center}
-\resizebox{0.65\linewidth}{!}{% % Taille réduite de 0.75 à 0.65
+% Redimensionné à 50% de la largeur de la colonne
+\resizebox{0.5\linewidth}{!}{%
 \begin{tikzpicture}[
-  every node/.style={font=\scriptsize},
-  enc/.style={draw=teal!70!black, fill=teal!15, rounded corners=3pt,
-              minimum width=2.2cm, minimum height=0.55cm, align=center},
-  btnk/.style={draw=orange!80!black, fill=orange!20, rounded corners=3pt,
-              minimum width=2.6cm, minimum height=0.70cm, align=center},
-  dec/.style={draw=violet!70!black, fill=violet!15, rounded corners=3pt,
-              minimum width=2.2cm, minimum height=0.55cm, align=center},
-  outnode/.style={draw=gray!60, fill=gray!10, rounded corners=3pt,
-              minimum width=2.2cm, minimum height=0.55cm, align=center},
-  skip/.style={-{Stealth[length=3pt]}, dashed, thick, orange!80!black,
-               shorten >=2pt, shorten <=2pt},
-  mainflow/.style={-{Stealth[length=3pt]}, thick, gray!60!black,
-               shorten >=2pt, shorten <=2pt},
+  node distance=1.2cm and 2.2cm, 
+  every node/.style={font=\scriptsize, inner sep=5pt},
+  enc/.style={draw=teal!70!black, fill=teal!15, rounded corners=4pt, minimum width=2.6cm, minimum height=0.7cm, align=center},
+  btnk/.style={draw=orange!80!black, fill=orange!20, rounded corners=4pt, minimum width=3.0cm, minimum height=0.9cm, align=center},
+  dec/.style={draw=violet!70!black, fill=violet!15, rounded corners=4pt, minimum width=2.6cm, minimum height=0.7cm, align=center},
+  outnode/.style={draw=gray!60, fill=gray!10, rounded corners=4pt, minimum width=2.6cm, minimum height=0.7cm, align=center},
+  skip/.style={-{Stealth[length=4pt]}, dashed, orange!80!black, thick},
+  mainflow/.style={-{Stealth[length=4pt]}, thick, gray!60!black},
 ]
 
-%% Coordonnées optimisées (espacement vertical réduit à 1.1 au lieu de 1.5)
-%% Encoder
-\node[enc] (inc)   at (0,  0.0) {\textbf{inc -- DC}\\\tiny $3 \to 32 \cdot 512^2$};
-\node[enc] (down1) at (0, -1.1) {\textbf{down1 -- MP+DC}\\\tiny $32 \to 64 \cdot 256^2$};
-\node[enc] (down2) at (0, -2.2) {\textbf{down2 -- MP+DC}\\\tiny $64 \to 128 \cdot 128^2$};
-\node[enc] (down3) at (0, -3.3) {\textbf{down3 -- MP+DC}\\\tiny $128 \to 256 \cdot 64^2$};
+%% Colonne de Gauche (Encoder)
+\node[enc] (inc) {\textbf{inc -- DC}\\ $32 \cdot 512^2$};
+\node[enc, below=of inc] (down1) {\textbf{down1}\\ $64 \cdot 256^2$};
+\node[enc, below=of down1] (down2) {\textbf{down2}\\ $128 \cdot 128^2$};
+\node[enc, below=of down2] (down3) {\textbf{down3}\\ $256 \cdot 64^2$};
 
-%% Bottleneck (rapproché)
-\node[btnk] (btnknode) at (2.8, -4.4) {\textbf{down4 -- Bottleneck}\\\tiny $256 \to 512 \cdot 32^2$};
+%% Bottleneck
+\node[btnk, below right=1.0cm and -0.4cm of down3] (btnknode) {\textbf{down4 -- Bottleneck}\\ $512 \cdot 32^2$};
 
-%% Decoder
-\node[dec] (up1) at (5.6, -3.3) {\textbf{up1 -- Up+DC}\\\tiny $768 \to 256 \cdot 64^2$};
-\node[dec] (up2) at (5.6, -2.2) {\textbf{up2 -- Up+DC}\\\tiny $384 \to 128 \cdot 128^2$};
-\node[dec] (up3) at (5.6, -1.1) {\textbf{up3 -- Up+DC}\\\tiny $192 \to 64 \cdot 256^2$};
-\node[dec] (up4) at (5.6,  0.0) {\textbf{up4 -- Up+DC}\\\tiny $96 \to 32 \cdot 512^2$};
+%% Colonne de Droite (Decoder)
+\node[dec, above right=1.0cm and -0.4cm of btnknode] (up1) {\textbf{up1}\\ $256 \cdot 64^2$};
+\node[dec, above=of up1] (up2) {\textbf{up2}\\ $128 \cdot 128^2$};
+\node[dec, above=of up2] (up3) {\textbf{up3}\\ $64 \cdot 256^2$};
+\node[dec, above=of up3] (up4) {\textbf{up4}\\ $32 \cdot 512^2$};
 
-%% Output head
-\node[outnode] (outc) at (5.6, 1.1) {\textbf{outc -- Conv $1{\times}1$}\\\tiny $32 \to 2 \cdot 512^2$};
+%% Output
+\node[outnode, above=1.0cm of up4] (outc) {\textbf{outc -- Conv $1{\times}1$}\\ $2 \cdot 512^2$};
 
-%% Arbres et flux
+%% Connexions Flux Principal
 \draw[mainflow] (inc) -- (down1);
 \draw[mainflow] (down1) -- (down2);
 \draw[mainflow] (down2) -- (down3);
-\draw[mainflow] (down3) -- ++(0,-0.4) -| (btnknode);
-\draw[mainflow] (btnknode) -- ++(0, 0.4) -| (up1);
+\draw[mainflow] (down3.south) -- ++(0,-0.5) -| (btnknode.west);
+\draw[mainflow] (btnknode.east) -- ++(0.5,0) |- (up1.south);
 \draw[mainflow] (up1) -- (up2);
 \draw[mainflow] (up2) -- (up3);
 \draw[mainflow] (up3) -- (up4);
 \draw[mainflow] (up4) -- (outc);
 
-%% Skip connections
-\draw[skip] (down3.east) -- node[above,font=\tiny,yshift=-2pt]{cat} (up1.west);
-\draw[skip] (down2.east) -- node[above,font=\tiny,yshift=-2pt]{cat} (up2.west);
-\draw[skip] (down1.east) -- node[above,font=\tiny,yshift=-2pt]{cat} (up3.west);
-\draw[skip] (inc.east)   -- node[above,font=\tiny,yshift=-2pt]{cat} (up4.west);
+%% Skip Connections (cat)
+\draw[skip] (down3.east) -- node[above, font=\tiny, black, yshift=-2pt]{cat} (up1.west);
+\draw[skip] (down2.east) -- node[above, font=\tiny, black, yshift=-2pt]{cat} (up2.west);
+\draw[skip] (down1.east) -- node[above, font=\tiny, black, yshift=-2pt]{cat} (up3.west);
+\draw[skip] (inc.east)   -- node[above, font=\tiny, black, yshift=-2pt]{cat} (up4.west);
 
-%% IO labels
-\node[above, text=gray, font=\tiny] at (inc.north) {Input RGB ($512^2$)};
-\node[above, text=gray, font=\tiny] at (outc.north) {Output flow $(dx, dy)$};
+%% Labels Entrée/Sortie
+\node[above=3pt of inc, text=gray, font=\tiny] {Input RGB};
+\node[above=3pt of outc, text=gray, font=\tiny] {Output flow $(dx,dy)$};
 
-%% Legend repositionnée plus près
-\node[enc, minimum width=1.2cm] (leg1) at (0.5,-5.5) {\tiny Encoder};
-\node[btnk, minimum width=1.2cm] (leg2) at (2.2,-5.5) {\tiny Bottleneck};
-\node[dec, minimum width=1.2cm] (leg3) at (3.9,-5.5) {\tiny Decoder};
-\node[outnode, minimum width=1.2cm] (leg4) at (5.6,-5.5) {\tiny Output};
+%% Légende sur le côté droit
+\coordinate (leg_ref) at ($(up3.east) + (1.2cm, 0cm)$);
+
+\node[enc, minimum width=2.2cm, minimum height=0.6cm, anchor=west] (leg1) at (leg_ref) {\tiny Encoder};
+\node[btnk, minimum width=2.2cm, minimum height=0.6cm, anchor=west, below=0.4cm of leg1] (leg2) {\tiny Bottleneck};
+\node[dec, minimum width=2.2cm, minimum height=0.6cm, anchor=west, below=0.4cm of leg2] (leg3) {\tiny Decoder};
+\node[outnode, minimum width=2.2cm, minimum height=0.6cm, anchor=west, below=0.4cm of leg3] (leg4) {\tiny Output Head};
 
 \end{tikzpicture}%
 }
-\end{center}
-
-\vspace{0.3em}
-\textbf{DoubleConv block.}
-$\text{DC}(x) = \mathrm{ReLU}(\mathrm{BN}(\mathrm{Conv}_{3\times3}(\dots)))$.
-Skip connections preserve high-frequency spatial information via \texttt{torch.cat}.
-
-\vspace{0.5em}
-\begin{center}
-\footnotesize
-\begin{tabular}{|l|c|l|c|}
-    \hline
-    \textbf{Hyperparam.} & \textbf{Value} & \textbf{Epoch} & \textbf{Val Loss} \\
-    \hline
-    Optimizer & Adam $10^{-4}$ & 1 & 0.480 \\
-    Loss & MSE Flow & 50 & 0.052 \\
-    Epochs & 100 & 100 & \textbf{0.041} \\
-    \hline
-\end{tabular}
-\end{center}
+\end{center} 
 }
+
 %% ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 %%  RIGHT COLUMN
 %% ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 \column{0.5}
+\block{4. The SVD Architecture}{
+    \textbf{Design rationale.}
+    The SVD pipeline conditions a Temporal U-Net on a single image via a dual encoder
+    (VAE + CLIP). Only the temporal attention layers are fine-tuned; spatial attention
+    weights remain frozen.
 
-\block{4. Data Extraction \& Filtering Pipeline}{
-    \textbf{Source:} 4K YouTube drone landscape videos.
-
-    \vspace{0.5em}
-    \textbf{Pair generation} --- for each video, consecutive frame pairs
-    $(I_A, I_B)$ are extracted:
-    \begin{itemize}
-        \item Sampling every \textbf{5 seconds} to ensure scene diversity.
-        \item \textbf{3-frame gap} between $I_A$ and $I_B$: large enough for
-              visible motion, small enough to avoid large displacements.
-    \end{itemize}
-
-    \vspace{0.5em}
-    \textbf{Cut detection} --- two complementary metrics reject scene changes:
-    \begin{itemize}
-        \item \textbf{Bhattacharyya distance} on colour histograms $> 0.35$
-        \item \textbf{Thumbnail MAE} (structural difference) $> 0.25$
-    \end{itemize}
-    This ensures the model learns genuine pixel movement, not montage jumps.
-}
-
-\block{5. Stable Video Diffusion (SVD) Approach}{
-    \textbf{Pipeline overview:}
-    \begin{itemize}
-        \item YouTube drone videos $\to$ frame extraction with
-              \texttt{frame\_gap=12} ($\approx$7\,s of real motion per clip)
-        \item Motion filtering: $3.0 < \text{score} < 40.0$
-              (rejects static scenes and hard cuts)
-        \item Fine-tuning via \textbf{SVD\_Xtend}: full UNet training,
-              $lr=10^{-5}$, 5\,000 steps on 2374 clips
-    \end{itemize}
-
-    \vspace{0.5em}
-    \textbf{Key design choices:}
-    \begin{itemize}
-        \item \texttt{noise\_aug\_strength=0.02}: adds noise to conditioning
-              frame, closes the train/inference gap.
-        \item CFG dropout: enables guidance-scale control at inference.
-        \item Post-processing: raw 7\,fps output slowed to 2\,fps then
-              interpolated to 24\,fps via \texttt{ffmpeg minterpolate}.
-    \end{itemize}
-
-    \vspace{0.5em}
-    \textbf{Loss convergence (SVD\_Xtend):}
+    \vspace{1em}
     \begin{center}
-    \begin{tabular}{|c|c|}
-        \hline
-        \textbf{Steps} & \textbf{Step Loss} \\
-        \hline
-        500  & $\sim$0.60 \\
-        1000 & $\sim$0.45 \\
-        3000 & $\sim$0.16 \\
-        5000 & $\sim$0.20 \\
-        \hline
-    \end{tabular}
+    \resizebox{0.5\linewidth}{!}{%
+    \begin{tikzpicture}[
+      node distance=1.2cm and 2.2cm,
+      every node/.style={font=\scriptsize, inner sep=5pt},
+      enc/.style={draw=teal!70!black, fill=teal!15, rounded corners=4pt,
+                  minimum width=2.6cm, minimum height=0.7cm, align=center},
+      btnk/.style={draw=orange!80!black, fill=orange!20, rounded corners=4pt,
+                   minimum width=3.0cm, minimum height=0.9cm, align=center},
+      dec/.style={draw=violet!70!black, fill=violet!15, rounded corners=4pt,
+                  minimum width=2.6cm, minimum height=0.7cm, align=center},
+      outnode/.style={draw=gray!60, fill=gray!10, rounded corners=4pt,
+                      minimum width=2.6cm, minimum height=0.7cm, align=center},
+      skip/.style={-{Stealth[length=4pt]}, dashed, orange!80!black, thick},
+      mainflow/.style={-{Stealth[length=4pt]}, thick, gray!60!black},
+    ]
+
+    %% Inputs
+    \node[enc] (img)  {\textbf{Input Image}\\ RGB $512^2$};
+
+    %% Dual encoders — side by side below img
+    \node[enc, below left=1.4cm and 1.5cm of img]  (vae)  {\textbf{VAE Encoder}\\ $4 \cdot 64^2$};
+    \node[enc, below right=1.4cm and 1.5cm of img] (clip) {\textbf{CLIP Encoder}\\ $1024$-d};
+
+    %% Concat
+    \node[btnk, below=3.2cm of img] (cat)
+        {\textbf{Concat latents}\\ $8 \cdot 64^2$};
+
+    %% Temporal U-Net (bottleneck style)
+    \node[btnk, below=of cat] (unet)
+        {\textbf{Temporal U-Net}\\ {\tiny frozen spatial attn}\\{\tiny + fine-tuned temporal}};
+
+    %% Decoder
+    \node[dec, below=of unet] (dec) {\textbf{VAE Decoder}\\ $3 \cdot 512^2$};
+
+    %% Output
+    \node[outnode, below=of dec] (vid) {\textbf{$T$ Video Frames}\\ 7 fps $\to$ 24 fps};
+
+    %% Main flow
+    \draw[mainflow] (img.south) -- ++(0,-0.3) -| (vae.north);
+    \draw[mainflow] (img.south) -- ++(0,-0.3) -| (clip.north);
+    \draw[mainflow] (vae.south)  -- ++(0,-0.3) -| ([xshift=-0.6cm]cat.north);
+    \draw[mainflow] (clip.south) -- ++(0,-0.3) -| ([xshift= 0.6cm]cat.north);
+    \draw[mainflow] (cat)  -- (unet);
+    \draw[mainflow] (unet) -- (dec);
+    \draw[mainflow] (dec)  -- (vid);
+
+    %% Skip-style annotation: CLIP feeds cross-attention in the U-Net
+    \draw[skip] (clip.east) -- ++(1.2,0) |- node[right, font=\tiny, black]{cross-attn} (unet.east);
+
+    %% Labels
+    \node[above=3pt of img,  text=gray, font=\tiny] {Input};
+    \node[below=3pt of vid,  text=gray, font=\tiny] {Output};
+
+    %% Légende
+    \coordinate (leg_ref) at ($(unet.west) + (-1.5cm, 0.8cm)$);
+    \node[enc,     minimum width=2.2cm, minimum height=0.6cm, anchor=east] (leg1) at (leg_ref)              {\tiny Encoder};
+    \node[btnk,    minimum width=2.2cm, minimum height=0.6cm, anchor=east, below=0.4cm of leg1] (leg2)      {\tiny Core Module};
+    \node[dec,     minimum width=2.2cm, minimum height=0.6cm, anchor=east, below=0.4cm of leg2] (leg3)      {\tiny Decoder};
+    \node[outnode, minimum width=2.2cm, minimum height=0.6cm, anchor=east, below=0.4cm of leg3] (leg4)      {\tiny Output Head};
+
+    \end{tikzpicture}%
+    }
     \end{center}
 }
+
+%% ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+%%  RIGHT COLUMN
+%% ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+% \column{0.5}
 
 \block{6. Comparison of Approaches}{
     \begin{center}
