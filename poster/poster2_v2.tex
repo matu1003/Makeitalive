@@ -6,6 +6,9 @@
 \usepackage[english]{babel}
 \usepackage{amsmath,amssymb}
 
+\definecolor{monFond}{RGB}{30, 40, 80}
+\colorlet{backgroundcolor}{monFond}
+
 \title{Makeitalive: Landscape picture animation}
 \author{Mathurin Petit, Arthur Fournier}
 \institute{CSC\_52002 - Generative AI Project}
@@ -16,26 +19,25 @@
 \begin{columns}
     \column{0.5}
     \block{1. Extraction Strategy}{
-        The pipeline automates the creation of image pairs $(I\_A, I\_B)$:
-        \begin{itemize}
-            \item \textbf{Source:} 4K YouTube videos (Landscapes).
-            \item \textbf{Sampling:} Extraction every 5 seconds.
-            \item \textbf{Frame Gap:} 3-frame interval for fluid motion.
-        \end{itemize}
+        We built a pipeline that automates the creation of image pairs $(I_A, I_B)$ from a youtube video called \textit{10 Hours Fantastic Views of Nature 4K with Relaxation Music}.
+        The video is a compilation of drone views of landscapes which moves slowly forward. We extracted different pairs of images separated by a gap of 4 frames every 0.05 seconds to teach the model how to reconstruct successive images.
+        We limited this number of pairs to 10000 for the first, small, dataset and 100 000 for the bigger one.\\
+        We did not use the original format of the dataset. The video stream was reduced to 24 FPS and the extracted images were cropped to squares of 512 pixels and centered.
     }
 
     \block{2. Intelligent Data Filtering}{
-        Avoid "cuts" using two robust metrics:
+        The Youtube video is a succession of landscape clip. To remove the pairs of pictures belonging to 2 different video clips, we used a distance to remove them from the dataset.
+        We defined 2 different metrics :
         \begin{itemize}
             \item \textbf{Hist Distance}: Bhattacharyya ($>0.35$).
-            \item \textbf{Thumbnail MAE}: Structural difference ($>0.25$).
+            \item \textbf{Thumbnail MAE}: Structural difference. Compares two lower images with their grey version ($>0.25$).
         \end{itemize}
-        This filtering ensures the model only learns real movement and not montage jumps.
+        These 2 metrics are necessary because the MSE is no longer interesting as the images are not exactly the same.
+        Combined toghether they ensure the model only learns real movement and not montage jumps.
     }
 
     \block{3. Architecture Parameters}{
         \begin{itemize}
-            \item \textbf{Input:} $512 \times 512$ (Center Crop).
             \item \textbf{Optimizer:} Adam ($10^{-4}$).
             \item \textbf{Loss:} Mean Squared Error (MSE) on flow.
             \item \textbf{Epochs:} 100 on a dedicated local dataset.
