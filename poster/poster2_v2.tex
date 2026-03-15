@@ -58,7 +58,7 @@
 
     \column{0.5}
 
-    \block{5. Training Strategy}{
+    \block{5. SVD Training Strategy}{
     We explored two fine-tuning approaches on the same dataset of 2374 motion-filtered clips:
 
     \vspace{0.5em}
@@ -92,7 +92,7 @@
 }
     
 
-    \block{6. Performance (Loss Convergence)}{
+    \block{6. Motion Flow Performance (Loss Convergence)}{
         \begin{center}
         \begin{tabular}{|c|c|c|}
             \hline
@@ -131,6 +131,12 @@
         \item Post-processing: 7fps $\rightarrow$ 2fps $\rightarrow$ 24fps via \texttt{ffmpeg minterpolate}
         \item Remaining limitation: interpolation artifacts on high-frequency textures
     \end{itemize}
+    \begin{center}
+        \includegraphics[width=0.28\linewidth]{paralaxe1v2.png}\includegraphics[width=0.28\linewidth]{paralaxe2v2.png}\includegraphics[width=0.28\linewidth]{paralaxe3v2.png}
+
+        \vspace{0.3em}
+        {\small Frame 1 \hspace{3.5cm} Frame 7 \hspace{3.5cm} Frame 14}
+    \end{center}
 
     \vspace{0.5em}
     \textbf{Perspectives:}
