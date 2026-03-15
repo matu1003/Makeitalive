@@ -1,0 +1,126 @@
+\documentclass{tikzposter}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+\title{Makeitalive: Animation de Paysages Statiques via Generative AI}
+\author{Arthur et Equipe}
+\institute{Projet de Recherche en IA Générative}
+
+\begin{document}
+\maketitle
+
+\begin{columns}
+\begin{column}{0.33}
+\block{Contexte du Projet}{
+Le projet \textbf{Makeitalive} vise à animer des images statiques de paysages en utilisant des techniques d'Intelligence Artificielle Générative. L'objectif principal est de donner vie à des photographies de paysages en générant un mouvement naturel et fluide.
+
+\textbf{Problématique:} Comment transformer une image fixe en une séquence animée réaliste ?
+}
+
+\block{Collection de Données}{
+Nous avons collecté des données en extrayant des vidéos YouTube de paysages :
+\begin{itemize}
+\item Téléchargement automatique de vidéos haute qualité
+\item Extraction d'images consécutives (frames)
+\item Création de paires d'images pour l'entraînement
+\item Dataset final : milliers de paires img\_A $\rightarrow$ img\_B
+\end{itemize}
+
+\textbf{Commandes utilisées:}
+\begin{verbatim}
+uv run src/data/download_youtube.py \
+    --url "https://..." \
+    --out "./data/10hours.mp4"
+
+uv run src/data/make_dataset_video.py \
+    --video "./data/10hours.mp4" \
+    --name "dataset_local"
+\end{verbatim}
+}
+\end{column}
+
+\begin{column}{0.33}
+\block{Approches Techniques}{
+Nous avons implémenté deux stratégies principales :
+
+\textbf{1. Fine-tuning LoRa de Modèles Pré-entraînés}
+\begin{itemize}
+\item Utilisation de modèles de diffusion stables
+\item Adaptation légère via LoRa pour réduire la complexité
+\item Focus sur la génération conditionnée
+\end{itemize}
+
+\textbf{2. Entraînement from Scratch de Motion Flow}
+\begin{itemize}
+\item Architecture U-Net personnalisée
+\item Prédiction directe du champ de mouvement
+\item Entraînement end-to-end sur notre dataset
+\end{itemize}
+
+\textbf{Architecture MotionFlowUNet:}
+\begin{itemize}
+\item Encodeur: 4 niveaux de downsampling
+\item Bottleneck: 1024 canaux
+\item Décodeur: Upsampling avec skip connections
+\item Sortie: Champ de mouvement 2D (dx, dy)
+\end{itemize}
+}
+
+\block{Résultats Préliminaires}{
+\begin{itemize}
+\item Modèle entraîné sur 100 époques
+\item Loss MSE sur le flow prédit
+\item Génération de vidéos à partir d'images statiques
+\item Visualisation des champs de mouvement
+\end{itemize}
+
+\textbf{Métriques d'évaluation:}
+\begin{itemize}
+\item Précision du flow prédit
+\item Qualité visuelle des animations
+\item Cohérence temporelle
+\end{itemize}
+}
+\end{column}
+
+\begin{column}{0.33}
+\block{Impact et Applications}{
+\textbf{Applications potentielles:}
+\begin{itemize}
+\item Animation automatique de photographies
+\item Génération de contenu pour médias
+\item Outils créatifs pour artistes
+\item Recherche en vision par ordinateur
+\end{itemize}
+
+\textbf{Avantages de l'approche:}
+\begin{itemize}
+\item Pas de besoin de vidéos sources complexes
+\item Génération de mouvement naturel
+\item Contrôle fin du mouvement via le modèle
+\end{itemize}
+}
+
+\block{Prochaines Étapes}{
+\begin{itemize}
+\item Amélioration de la qualité des animations
+\item Intégration de conditions (direction, vitesse)
+\item Extension à d'autres types d'images
+\item Comparaison quantitative des approches
+\end{itemize}
+
+\textbf{Défis techniques:}
+\begin{itemize}
+\item Génération de mouvement réaliste
+\item Évitement des artefacts visuels
+\item Optimisation des performances
+\end{itemize}
+}
+\end{column}
+\end{columns}
+
+\end{document}
