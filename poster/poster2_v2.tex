@@ -43,7 +43,6 @@
         \end{center}
     }
 
-    \column{0.5}
     \block{4. Motion Flow Loss (Warping)}{
         Since we don't have "ground truth" motion vectors, we use a \textbf{self-supervised reconstruction loss}:
         \begin{itemize}
@@ -57,7 +56,43 @@
         \end{center}
     }
 
-    \block{5. Performance (Loss Convergence)}{
+    \column{0.5}
+
+    \block{5. Training Strategy}{
+    We explored two fine-tuning approaches on the same dataset of 2374 motion-filtered clips:
+
+    \vspace{0.5em}
+    \textbf{Approach A — LoRA on temporal attention layers:}
+    \begin{itemize}
+        \item Only $\sim$3.3M parameters trained (0.2\% of UNet)
+        \item Rank 16, $lr=10^{-4}$, 7 epochs, batch size 2
+        \item Naive MSE on EDM noise prediction
+    \end{itemize}
+
+    \vspace{0.5em}
+    \textbf{Approach B — Full fine-tuning via SVD\_Xtend:}
+    \begin{itemize}
+        \item All UNet parameters trained
+        \item $lr=10^{-5}$, 5000 steps, \texttt{noise\_aug\_strength=0.02}
+        \item Correct EDM loss with CFG dropout
+    \end{itemize}
+
+    \vspace{0.5em}
+    \begin{center}
+    \begin{tabular}{|l|c|c|}
+        \hline
+        \textbf{Setup} & \textbf{Final Loss} & \textbf{Motion} \\
+        \hline
+        LoRA, static clips     & 0.46 & None \\
+        LoRA, motion-filtered  & 0.51 & Minimal \\
+        SVD\_Xtend             & 0.16 & Cinematic \\
+        \hline
+    \end{tabular}
+    \end{center}
+}
+    
+
+    \block{6. Performance (Loss Convergence)}{
         \begin{center}
         \begin{tabular}{|c|c|c|}
             \hline
@@ -71,13 +106,40 @@
         \end{center}
     }
 
-    \block{6. Motion Flow results and perspectives}{
-        \begin{itemize}
-            \item \textbf{Strengths:} Easy to use, fast and close from the initial image.
-            \item \textbf{Limitation:} Cannot handle small details. Treats the image as a whole and do not create any pixel (only displacements).
-            \item \textbf{Impact:} Interesting for tiny animations but useless in practice.
-        \end{itemize}
-    }
+    \block{7. SVD Results \& Perspectives}{
+    \textbf{Motion Flow results:}
+    \begin{itemize}
+        \item \textbf{Strengths:} Easy to use, fast and close from the initial image.
+        \item \textbf{Limitation:} Cannot handle small details. Treats the image as a whole and do not create any pixel (only displacements).
+        \item \textbf{Impact:} Interesting for tiny animations but useless in practice.
+    \end{itemize}
+
+    \vspace{0.5em}
+    \textbf{Intermediate result --- LoRA rank 16, 7 epochs:}
+    \begin{center}
+        \includegraphics[width=0.28\linewidth]{paralaxe1.png}\includegraphics[width=0.28\linewidth]{paralaxe2.png}\includegraphics[width=0.28\linewidth]{paralaxe3.png}
+
+        \vspace{0.3em}
+        {\small Frame 1 \hspace{3.5cm} Frame 7 \hspace{3.5cm} Frame 14}
+    \end{center}
+    Slight parallax visible but lacks smoothness --- confirmed need for a stronger pipeline.
+
+    \vspace{0.5em}
+    \textbf{SVD\_Xtend results:}
+    \begin{itemize}
+        \item Smooth cinematic drone-style motion from a single image
+        \item Post-processing: 7fps $\rightarrow$ 2fps $\rightarrow$ 24fps via \texttt{ffmpeg minterpolate}
+        \item Remaining limitation: interpolation artifacts on high-frequency textures
+    \end{itemize}
+
+    \vspace{0.5em}
+    \textbf{Perspectives:}
+    \begin{itemize}
+        \item Replace \texttt{minterpolate} with RIFE for better interpolation
+        \item Use Motion Flow field as SVD conditioning signal
+        \item Sliding window for arbitrarily long videos
+    \end{itemize}
+}
 \end{columns}
 
 \end{document}
