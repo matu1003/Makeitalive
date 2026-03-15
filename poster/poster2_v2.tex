@@ -18,6 +18,10 @@
 
 \begin{columns}
     \column{0.5}
+    \colorlet{blocktitlefgcolor}{white}
+\colorlet{blocktitlebgcolor}{blue!80!black}
+\colorlet{blockbodybgcolor}{blue!10}
+\colorlet{blockbodyfgcolor}{black}
     \block{1. Extraction Strategy}{
         We built a pipeline that automates the creation of image pairs $(I_A, I_B)$ from a youtube video called \textit{10 Hours Fantastic Views of Nature 4K with Relaxation Music}.
         The video is a compilation of drone views of landscapes which moves slowly forward. We extracted different pairs of images separated by a gap of 4 frames every 0.05 seconds to teach the model how to reconstruct successive images.
@@ -71,7 +75,10 @@
         \end{tabular}
         \end{center}
     }
-
+    \colorlet{blocktitlefgcolor}{white}
+    \colorlet{blocktitlebgcolor}{violet!80!black}
+    \colorlet{blockbodybgcolor}{violet!10}
+    \colorlet{blockbodyfgcolor}{black}
     \block{6. SVD Training Strategy}{
     We explored two fine-tuning approaches on the same dataset of 2374 motion-filtered clips:
 

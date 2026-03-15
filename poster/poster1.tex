@@ -8,6 +8,9 @@
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows.meta, calc, positioning, matrix}
 
+\definecolor{monFond}{RGB}{30, 40, 80}
+\colorlet{backgroundcolor}{monFond}
+
 \title{Makeitalive: Landscape Picture Animation}
 \author{Mathurin Petit, Arthur Fournier}
 \institute{CSC\_52002 --- Generative AI Project}
@@ -21,7 +24,10 @@
 %%  LEFT COLUMN
 %% ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 \column{0.5}
-
+\colorlet{blocktitlefgcolor}{white}
+\colorlet{blocktitlebgcolor}{red!80!black}
+\colorlet{blockbodybgcolor}{red!10}
+\colorlet{blockbodyfgcolor}{black}
 \block{1. Project Overview}{
     The \textbf{Makeitalive} project explores the transformation of a static landscape
     photograph into a realistic animation.
@@ -38,6 +44,11 @@
 }
 
 %% ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+\colorlet{blocktitlefgcolor}{white}
+\colorlet{blocktitlebgcolor}{blue!80!black}
+\colorlet{blockbodybgcolor}{blue!10}
+\colorlet{blockbodyfgcolor}{black}
+
 \block{2. The Motion-Flow Concept}{
     The approach estimates an \textit{Optical Flow} field from a single image:
     \begin{itemize}
@@ -47,7 +58,7 @@
                 I_{\text{anim}}(x,y,t)
                   = I_{\text{orig}}\!\bigl(x - \alpha_t\,dx,\;y - \alpha_t\,dy\bigr)
               \]
-        \item $\alpha_t$ oscillates sinusoidally to produce seamless loops.
+        \item $\alpha_t$ is changed to produce seamless loops.
         \item Boundary condition \texttt{mode='reflect'} avoids edge artifacts.
     \end{itemize}
 
@@ -55,8 +66,6 @@
         \includegraphics[width=0.85\linewidth]{motion_flow_grid.png}
     \end{center}
 }
-
-
 
 
 
@@ -146,7 +155,32 @@ Channel widths: $32 \to 64 \to 128 \to 256 \to 512$.
 %%  RIGHT COLUMN
 %% ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 \column{0.5}
-\block{4. The SVD Architecture}{
+
+\block{4. Rendering \& Inference Strategies}{
+    Once the flow is predicted, two rendering strategies are used to animate the image:
+
+    \vspace{0.8em}
+    \textbf{A. Oscillatory Warping (Seamless Loop)}
+    \begin{itemize}
+        \item Uses a \textbf{single flow prediction} from the original image.
+        \item The displacement is modulated by an oscillating function (e.g., sine wave).
+        \item \textbf{Advantage:} Perfectly seamless cycles; preserves 100\% of original texture detail as it always warps from the source frame.
+    \end{itemize}
+
+    \vspace{0.8em}
+    \textbf{B. Auto-Regressive Inference (Recursive)}
+    \begin{itemize}
+        \item The model's output becomes its next input in a recursive loop:
+        \[ I_{n+1} = \text{Warp}(I_n, \text{Model}(I_n)) \]
+        \item \textbf{Advantage:} Generates \textbf{continuous, non-periodic motion} that can evolve over time.
+        \item \textbf{Trade-off:} Repeated resampling may lead to accumulated "blurring" after many steps.
+    \end{itemize}
+}
+\colorlet{blocktitlefgcolor}{white}
+\colorlet{blocktitlebgcolor}{violet!80!black}
+\colorlet{blockbodybgcolor}{violet!10}
+\colorlet{blockbodyfgcolor}{black}
+\block{5. The SVD Architecture}{
     \textbf{Design rationale.}
     The SVD pipeline conditions a Temporal U-Net on a single image via a dual encoder
     (VAE + CLIP). Only the temporal attention layers are fine-tuned; spatial attention
@@ -217,13 +251,29 @@ Channel widths: $32 \to 64 \to 128 \to 256 \to 512$.
     \end{tikzpicture}%
     }
     \end{center}
+    \vspace{1em}
+    \begin{center}
+    \begin{tabular}{|l|c|c|}
+        \hline
+        & \textbf{Motion Flow} & \textbf{SVD} \\
+        \hline
+        Parameters  & $<$100MB   & 1.5B \\
+        Output      & Flow $(dx,dy)$ & Video frames \\
+        Training    & MSE on flow & EDM diffusion loss \\
+        Inference   & Real-time  & $\sim$25s / clip \\
+        \hline
+    \end{tabular}
+    \end{center}
 }
 
 %% ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 %%  RIGHT COLUMN
 %% ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 % \column{0.5}
-
+\colorlet{blocktitlefgcolor}{white}
+\colorlet{blocktitlebgcolor}{red!80!black}
+\colorlet{blockbodybgcolor}{red!10}
+\colorlet{blockbodyfgcolor}{black}
 \block{6. Comparison of Approaches}{
     \begin{center}
     \begin{tabular}{|l|c|c|}

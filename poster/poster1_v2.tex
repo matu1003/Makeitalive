@@ -186,22 +186,15 @@
         \end{tikzpicture}
     \end{minipage}
 
-    \vspace{1em}
-    \begin{center}
-    \begin{tabular}{|l|c|c|}
-        \hline
-        & \textbf{Motion Flow} & \textbf{SVD} \\
-        \hline
-        Parameters  & $<$100MB   & 1.5B \\
-        Output      & Flow $(dx,dy)$ & Video frames \\
-        Training    & MSE on flow & EDM diffusion loss \\
-        Inference   & Real-time  & $\sim$25s / clip \\
-        \hline
-    \end{tabular}
-    \end{center}
+    
 }
 
     \column{0.5}
+    \colorlet{blocktitlefgcolor}{white}
+    \colorlet{blocktitlebgcolor}{purple!80!black}
+    \colorlet{blockbodybgcolor}{purple!10}
+    \colorlet{blockbodyfgcolor}{black}
+
     \block{4. Stable Video Diffusion (SVD) Approach}{
     \textbf{Pipeline overview:}
     \begin{itemize}
