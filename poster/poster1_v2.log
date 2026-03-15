@@ -1,118 +1,145 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2026.3.15)  15 MAR 2026 20:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2022.4.22)  15 MAR 2026 21:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**poster1_v2.tex
-(./poster1_v2.tex
-LaTeX2e <2022-11-01> patch level 1
-L3 programming layer <2023-01-16>
-(/usr/share/texlive/texmf-dist/tex/latex/tikzposter/tikzposter.cls
+**./poster1_v2.tex
+(poster1_v2.tex
+LaTeX2e <2021-11-15> patch level 1
+L3 programming layer <2022-04-10>
+(/Users/mat/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tikzpos
+ter/tikzposter.cls
 Document Class: tikzposter 2014/01/15 v2.0 LaTeX document class for Posters
-(/usr/share/texlive/texmf-dist/tex/latex/xkeyval/xkeyval.sty
-Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
 
-(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkeyval.tex
-(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/xkeyval/xkeyval.s
+ty
+Package: xkeyval 2020/11/20 v2.8 package option processing (HA)
+
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/xkeyval/xkeyval
+.tex
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/xkeyval/xkvutil
+s.tex
 \XKV@toks=\toks16
 \XKV@tempa@toks=\toks17
 
-(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/keyval.tex))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/xkeyval/keyval.
+tex))
 \XKV@depth=\count185
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 ))
-(/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tools/calc.sty
 Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
 \calc@Acount=\count186
 \calc@Bcount=\count187
-\calc@Adimen=\dimen140
-\calc@Bdimen=\dimen141
-\calc@Askip=\skip48
-\calc@Bskip=\skip49
+\calc@Adimen=\dimen138
+\calc@Bdimen=\dimen139
+\calc@Askip=\skip47
+\calc@Bskip=\skip48
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
 \calc@Ccount=\count188
-\calc@Cskip=\skip50
+\calc@Cskip=\skip49
 )
-(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
-Package: ifthen 2022/04/13 v1.1d Standard LaTeX ifthen package (DPC)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/ifthen.sty
+Package: ifthen 2020/11/24 v1.1c Standard LaTeX ifthen package (DPC)
 )
-(/usr/share/texlive/texmf-dist/tex/latex/ae/ae.sty
+(/Users/mat/Library/Application Support/MiKTeX/texmfs/install/tex/latex/ae/ae.s
+ty
 Package: ae 2001/02/12 1.3 Almost European Computer Modern
 
-(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/fontenc.sty
 Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
 ))
-(/usr/share/texlive/texmf-dist/tex/generic/xstring/xstring.sty
-(/usr/share/texlive/texmf-dist/tex/generic/xstring/xstring.tex
+(/Users/mat/Library/Application Support/MiKTeX/texmfs/install/tex/latex/xstring
+/xstring.sty
+(/Users/mat/Library/Application Support/MiKTeX/texmfs/install/tex/generic/xstri
+ng/xstring.tex
 \integerpart=\count189
 \decimalpart=\count190
 )
-Package: xstring 2023/01/14 v1.85 String manipulations (CT)
+Package: xstring 2021/07/21 v1.84 String manipulations (CT)
 )
-(/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/etoolbox/etoolbox
+.sty
 Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count191
 )
-(/usr/share/texlive/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
-(/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
-(/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/frontendlayer
+/tikz.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/basiclayer/pg
+f.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/utilities/pgf
+rcs.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/utilities/p
+gfutil-common.tex
 \pgfutil@everybye=\toks18
-\pgfutil@tempdima=\dimen142
-\pgfutil@tempdimb=\dimen143
-)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
-\pgfutil@abb=\box51
-)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/pgf.revision.tex)
-Package: pgfrcs 2023-01-15 v3.1.10 (3.1.10)
-))
-Package: pgf 2023-01-15 v3.1.10 (3.1.10)
+\pgfutil@tempdima=\dimen140
+\pgfutil@tempdimb=\dimen141
 
-(/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/utilities/p
+gfutil-common-lists.tex))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/utilities/p
+gfutil-latex.def
+\pgfutil@abb=\box50
+)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/utilities/p
+gfrcs.code.tex
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/pgf.revisio
+n.tex)
+Package: pgfrcs 2021/05/15 v3.1.9a (3.1.9a)
+))
+Package: pgf 2021/05/15 v3.1.9a (3.1.9a)
+
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/basiclayer/pg
+fcore.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/graphicx
+.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
 
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
-Package: graphics 2022/03/10 v1.4e Standard LaTeX Graphics (DPC,SPQR)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/graphics
+.sty
+Package: graphics 2021/03/04 v1.4d Standard LaTeX Graphics (DPC,SPQR)
 
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/trig.sty
 Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
 )
-(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics-cfg/grap
+hics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 107.
 
-(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
-File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics-def/pdft
+ex.def
+File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
 ))
-\Gin@req@height=\dimen144
-\Gin@req@width=\dimen145
+\Gin@req@height=\dimen142
+\Gin@req@width=\dimen143
 )
-(/usr/share/texlive/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
-Package: pgfsys 2023-01-15 v3.1.10 (3.1.10)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/systemlayer/p
+gfsys.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/systemlayer
+/pgfsys.code.tex
+Package: pgfsys 2021/05/15 v3.1.9a (3.1.9a)
 
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/utilities/p
+gfkeys.code.tex
 \pgfkeys@pathtoks=\toks19
 \pgfkeys@temptoks=\toks20
 
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeyslibraryfiltered
-.code.tex
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/utilities/p
+gfkeysfiltered.code.tex
 \pgfkeys@tmptoks=\toks21
 ))
-\pgf@x=\dimen146
-\pgf@y=\dimen147
-\pgf@xa=\dimen148
-\pgf@ya=\dimen149
-\pgf@xb=\dimen150
-\pgf@yb=\dimen151
-\pgf@xc=\dimen152
-\pgf@yc=\dimen153
-\pgf@xd=\dimen154
-\pgf@yd=\dimen155
+\pgf@x=\dimen144
+\pgf@y=\dimen145
+\pgf@xa=\dimen146
+\pgf@ya=\dimen147
+\pgf@xb=\dimen148
+\pgf@yb=\dimen149
+\pgf@xc=\dimen150
+\pgf@yc=\dimen151
+\pgf@xd=\dimen152
+\pgf@yd=\dimen153
 \w@pgf@writea=\write3
 \r@pgf@reada=\read2
 \c@pgf@counta=\count192
@@ -123,451 +150,484 @@ Package: pgfsys 2023-01-15 v3.1.10 (3.1.10)
 \t@pgf@tokb=\toks23
 \t@pgf@tokc=\toks24
 \pgf@sys@id@count=\count196
- (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
-File: pgf.cfg 2023-01-15 v3.1.10 (3.1.10)
+
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/systemlayer
+/pgf.cfg
+File: pgf.cfg 2021/05/15 v3.1.9a (3.1.9a)
 )
 Driver file for pgf: pgfsys-pdftex.def
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.def
-File: pgfsys-pdftex.def 2023-01-15 v3.1.10 (3.1.10)
 
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-pdf.de
-f
-File: pgfsys-common-pdf.def 2023-01-15 v3.1.10 (3.1.10)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/systemlayer
+/pgfsys-pdftex.def
+File: pgfsys-pdftex.def 2021/05/15 v3.1.9a (3.1.9a)
+
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/systemlayer
+/pgfsys-common-pdf.def
+File: pgfsys-common-pdf.def 2021/05/15 v3.1.9a (3.1.9a)
 )))
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.
-tex
-File: pgfsyssoftpath.code.tex 2023-01-15 v3.1.10 (3.1.10)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/systemlayer
+/pgfsyssoftpath.code.tex
+File: pgfsyssoftpath.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 \pgfsyssoftpath@smallbuffer@items=\count197
 \pgfsyssoftpath@bigbuffer@items=\count198
 )
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.
-tex
-File: pgfsysprotocol.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)) (/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
-Package: xcolor 2022/06/12 v2.14 LaTeX color extensions (UK)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/systemlayer
+/pgfsysprotocol.code.tex
+File: pgfsysprotocol.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2021/10/31 v2.13 LaTeX color extensions (UK)
 
-(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics-cfg/colo
+r.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package xcolor Info: Driver file: pdftex.def on input line 227.
-
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/mathcolor.ltx)
-Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1353.
-Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1357.
-Package xcolor Info: Model `RGB' extended on input line 1369.
-Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1371.
-Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1372.
-Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1373.
-Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1374.
-Package xcolor Info: Model `Gray' substituted by `gray' on input line 1375.
-Package xcolor Info: Model `wave' substituted by `hsb' on input line 1376.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1352.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1356.
+Package xcolor Info: Model `RGB' extended on input line 1368.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1370.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1371.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1372.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1373.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1374.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1375.
 )
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
-Package: pgfcore 2023-01-15 v3.1.10 (3.1.10)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcore.code.tex
+Package: pgfcore 2021/05/15 v3.1.9a (3.1.9a)
 
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
-\pgfmath@dimen=\dimen156
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+h.code.tex
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hcalc.code.tex
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hutil.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hparser.code.tex
+\pgfmath@dimen=\dimen154
 \pgfmath@count=\count199
-\pgfmath@box=\box52
+\pgfmath@box=\box51
 \pgfmath@toks=\toks25
 \pgfmath@stack@operand=\toks26
 \pgfmath@stack@operation=\toks27
 )
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code
-.tex)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonomet
-ric.code.tex)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.random.cod
-e.tex)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comparison
-.code.tex)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code.
-tex)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round.code
-.tex)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.
-tex)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerari
-thmetics.code.tex)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hfunctions.code.tex
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hfunctions.basic.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hfunctions.trigonometric.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hfunctions.random.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hfunctions.comparison.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hfunctions.base.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hfunctions.round.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hfunctions.misc.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hfunctions.integerarithmetics.code.tex)))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+hfloat.code.tex
 \c@pgfmathroundto@lastzeros=\count266
 ))
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.te
-x
-File: pgfcorepoints.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@picminx=\dimen157
-\pgf@picmaxx=\dimen158
-\pgf@picminy=\dimen159
-\pgf@picmaxy=\dimen160
-\pgf@pathminx=\dimen161
-\pgf@pathmaxx=\dimen162
-\pgf@pathminy=\dimen163
-\pgf@pathmaxy=\dimen164
-\pgf@xx=\dimen165
-\pgf@xy=\dimen166
-\pgf@yx=\dimen167
-\pgf@yy=\dimen168
-\pgf@zx=\dimen169
-\pgf@zy=\dimen170
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfint
+.code.tex)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcorepoints.code.tex
+File: pgfcorepoints.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgf@picminx=\dimen155
+\pgf@picmaxx=\dimen156
+\pgf@picminy=\dimen157
+\pgf@picmaxy=\dimen158
+\pgf@pathminx=\dimen159
+\pgf@pathmaxx=\dimen160
+\pgf@pathminy=\dimen161
+\pgf@pathmaxy=\dimen162
+\pgf@xx=\dimen163
+\pgf@xy=\dimen164
+\pgf@yx=\dimen165
+\pgf@yy=\dimen166
+\pgf@zx=\dimen167
+\pgf@zy=\dimen168
 )
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconstruct.
-code.tex
-File: pgfcorepathconstruct.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@path@lastx=\dimen171
-\pgf@path@lasty=\dimen172
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcorepathconstruct.code.tex
+File: pgfcorepathconstruct.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgf@path@lastx=\dimen169
+\pgf@path@lasty=\dimen170
 )
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage.code
-.tex
-File: pgfcorepathusage.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@shorten@end@additional=\dimen173
-\pgf@shorten@start@additional=\dimen174
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcorepathusage.code.tex
+File: pgfcorepathusage.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgf@shorten@end@additional=\dimen171
+\pgf@shorten@start@additional=\dimen172
 )
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.code.te
-x
-File: pgfcorescopes.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfpic=\box53
-\pgf@hbox=\box54
-\pgf@layerbox@main=\box55
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcorescopes.code.tex
+File: pgfcorescopes.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgfpic=\box52
+\pgf@hbox=\box53
+\pgf@layerbox@main=\box54
 \pgf@picture@serial@count=\count267
 )
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.c
-ode.tex
-File: pgfcoregraphicstate.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgflinewidth=\dimen175
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcoregraphicstate.code.tex
+File: pgfcoregraphicstate.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgflinewidth=\dimen173
 )
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransformation
-s.code.tex
-File: pgfcoretransformations.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@pt@x=\dimen176
-\pgf@pt@y=\dimen177
-\pgf@pt@temp=\dimen178
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcoretransformations.code.tex
+File: pgfcoretransformations.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgf@pt@x=\dimen174
+\pgf@pt@y=\dimen175
+\pgf@pt@temp=\dimen176
 )
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.code.tex
-File: pgfcorequick.code.tex 2023-01-15 v3.1.10 (3.1.10)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcorequick.code.tex
+File: pgfcorequick.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 )
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.code.t
-ex
-File: pgfcoreobjects.code.tex 2023-01-15 v3.1.10 (3.1.10)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcoreobjects.code.tex
+File: pgfcoreobjects.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 )
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathprocessing
-.code.tex
-File: pgfcorepathprocessing.code.tex 2023-01-15 v3.1.10 (3.1.10)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcorepathprocessing.code.tex
+File: pgfcorepathprocessing.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 )
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.code.te
-x
-File: pgfcorearrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfarrowsep=\dimen179
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcorearrows.code.tex
+File: pgfcorearrows.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgfarrowsep=\dimen177
 )
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
-File: pgfcoreshade.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@max=\dimen180
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcoreshade.code.tex
+File: pgfcoreshade.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgf@max=\dimen178
 \pgf@sys@shading@range@num=\count268
 \pgf@shadingcount=\count269
 )
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
-File: pgfcoreimage.code.tex 2023-01-15 v3.1.10 (3.1.10)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcoreimage.code.tex
+File: pgfcoreimage.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcoreexternal.code.tex
+File: pgfcoreexternal.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgfexternal@startupbox=\box55
+))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcorelayers.code.tex
+File: pgfcorelayers.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 )
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.
-tex
-File: pgfcoreexternal.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfexternal@startupbox=\box56
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcoretransparency.code.tex
+File: pgfcoretransparency.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 )
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.code.te
-x
-File: pgfcorelayers.code.tex 2023-01-15 v3.1.10 (3.1.10)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcorepatterns.code.tex
+File: pgfcorepatterns.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 )
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransparency.c
-ode.tex
-File: pgfcoretransparency.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.code.
-tex
-File: pgfcorepatterns.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.tex
-File: pgfcorerdf.code.tex 2023-01-15 v3.1.10 (3.1.10)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/
+pgfcorerdf.code.tex
+File: pgfcorerdf.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 )))
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.code.tex
-File: pgfmoduleshapes.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfnodeparttextbox=\box57
-) (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.tex
-File: pgfmoduleplot.code.tex 2023-01-15 v3.1.10 (3.1.10)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/modules/pgf
+moduleshapes.code.tex
+File: pgfmoduleshapes.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgfnodeparttextbox=\box56
 )
-(/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-0-65
-.sty
-Package: pgfcomp-version-0-65 2023-01-15 v3.1.10 (3.1.10)
-\pgf@nodesepstart=\dimen181
-\pgf@nodesepend=\dimen182
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/modules/pgf
+moduleplot.code.tex
+File: pgfmoduleplot.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 )
-(/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-1-18
-.sty
-Package: pgfcomp-version-1-18 2023-01-15 v3.1.10 (3.1.10)
-)) (/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgffor.sty
-(/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex))
-(/usr/share/texlive/texmf-dist/tex/latex/pgf/math/pgfmath.sty
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex))
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
-Package: pgffor 2023-01-15 v3.1.10 (3.1.10)
-\pgffor@iter=\dimen183
-\pgffor@skip=\dimen184
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/compatibility
+/pgfcomp-version-0-65.sty
+Package: pgfcomp-version-0-65 2021/05/15 v3.1.9a (3.1.9a)
+\pgf@nodesepstart=\dimen179
+\pgf@nodesepend=\dimen180
+)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/compatibility
+/pgfcomp-version-1-18.sty
+Package: pgfcomp-version-1-18 2021/05/15 v3.1.9a (3.1.9a)
+))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/utilities/pgf
+for.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/utilities/pgf
+keys.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/utilities/p
+gfkeys.code.tex))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/math/pgfmath.
+sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+h.code.tex))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/utilities/p
+gffor.code.tex
+Package: pgffor 2021/05/15 v3.1.9a (3.1.9a)
+
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmat
+h.code.tex)
+\pgffor@iter=\dimen181
+\pgffor@skip=\dimen182
 \pgffor@stack=\toks28
 \pgffor@toks=\toks29
 ))
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
-Package: tikz 2023-01-15 v3.1.10 (3.1.10)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/frontendlay
+er/tikz/tikz.code.tex
+Package: tikz 2021/05/15 v3.1.9a (3.1.9a)
 
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers
-.code.tex
-File: pgflibraryplothandlers.code.tex 2023-01-15 v3.1.10 (3.1.10)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/libraries/p
+gflibraryplothandlers.code.tex
+File: pgflibraryplothandlers.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 \pgf@plot@mark@count=\count270
-\pgfplotmarksize=\dimen185
+\pgfplotmarksize=\dimen183
 )
-\tikz@lastx=\dimen186
-\tikz@lasty=\dimen187
-\tikz@lastxsaved=\dimen188
-\tikz@lastysaved=\dimen189
-\tikz@lastmovetox=\dimen190
-\tikz@lastmovetoy=\dimen191
-\tikzleveldistance=\dimen192
-\tikzsiblingdistance=\dimen193
-\tikz@figbox=\box58
-\tikz@figbox@bg=\box59
-\tikz@tempbox=\box60
-\tikz@tempbox@bg=\box61
+\tikz@lastx=\dimen184
+\tikz@lasty=\dimen185
+\tikz@lastxsaved=\dimen186
+\tikz@lastysaved=\dimen187
+\tikz@lastmovetox=\dimen188
+\tikz@lastmovetoy=\dimen189
+\tikzleveldistance=\dimen190
+\tikzsiblingdistance=\dimen191
+\tikz@figbox=\box57
+\tikz@figbox@bg=\box58
+\tikz@tempbox=\box59
+\tikz@tempbox@bg=\box60
 \tikztreelevel=\count271
 \tikznumberofchildren=\count272
 \tikznumberofcurrentchild=\count273
 \tikz@fig@count=\count274
 
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
-File: pgfmodulematrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/modules/pgf
+modulematrix.code.tex
+File: pgfmodulematrix.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 \pgfmatrixcurrentrow=\count275
 \pgfmatrixcurrentcolumn=\count276
 \pgf@matrix@numberofcolumns=\count277
 )
 \tikz@expandcount=\count278
 
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
-zlibrarytopaths.code.tex
-File: tikzlibrarytopaths.code.tex 2023-01-15 v3.1.10 (3.1.10)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/frontendlay
+er/tikz/libraries/tikzlibrarytopaths.code.tex
+File: tikzlibrarytopaths.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 )))
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
-zlibraryshapes.code.tex
-File: tikzlibraryshapes.code.tex 2023-01-15 v3.1.10 (3.1.10)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/frontendlay
+er/tikz/libraries/tikzlibraryshapes.code.tex
+File: tikzlibraryshapes.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
-zlibraryshapes.geometric.code.tex
-File: tikzlibraryshapes.geometric.code.tex 2023-01-15 v3.1.10 (3.1.10)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/frontendlay
+er/tikz/libraries/tikzlibraryshapes.geometric.code.tex
+File: tikzlibraryshapes.geometric.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
-s.geometric.code.tex
-File: pgflibraryshapes.geometric.code.tex 2023-01-15 v3.1.10 (3.1.10)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/libraries/s
+hapes/pgflibraryshapes.geometric.code.tex
+File: pgflibraryshapes.geometric.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 ))
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
-zlibraryshapes.misc.code.tex
-File: tikzlibraryshapes.misc.code.tex 2023-01-15 v3.1.10 (3.1.10)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/frontendlay
+er/tikz/libraries/tikzlibraryshapes.misc.code.tex
+File: tikzlibraryshapes.misc.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
-s.misc.code.tex
-File: pgflibraryshapes.misc.code.tex 2023-01-15 v3.1.10 (3.1.10)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/libraries/s
+hapes/pgflibraryshapes.misc.code.tex
+File: pgflibraryshapes.misc.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 ))
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
-zlibraryshapes.symbols.code.tex
-File: tikzlibraryshapes.symbols.code.tex 2023-01-15 v3.1.10 (3.1.10)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/frontendlay
+er/tikz/libraries/tikzlibraryshapes.symbols.code.tex
+File: tikzlibraryshapes.symbols.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
-s.symbols.code.tex
-File: pgflibraryshapes.symbols.code.tex 2023-01-15 v3.1.10 (3.1.10)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/libraries/s
+hapes/pgflibraryshapes.symbols.code.tex
+File: pgflibraryshapes.symbols.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 ))
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
-zlibraryshapes.arrows.code.tex
-File: tikzlibraryshapes.arrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/frontendlay
+er/tikz/libraries/tikzlibraryshapes.arrows.code.tex
+File: tikzlibraryshapes.arrows.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
-s.arrows.code.tex
-File: pgflibraryshapes.arrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/libraries/s
+hapes/pgflibraryshapes.arrows.code.tex
+File: pgflibraryshapes.arrows.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 ))
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
-zlibraryshapes.callouts.code.tex
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
-s.callouts.code.tex))
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
-zlibraryshapes.multipart.code.tex
-File: tikzlibraryshapes.multipart.code.tex 2023-01-15 v3.1.10 (3.1.10)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/frontendlay
+er/tikz/libraries/tikzlibraryshapes.callouts.code.tex
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/libraries/s
+hapes/pgflibraryshapes.callouts.code.tex))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/frontendlay
+er/tikz/libraries/tikzlibraryshapes.multipart.code.tex
+File: tikzlibraryshapes.multipart.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
-s.multipart.code.tex
-File: pgflibraryshapes.multipart.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfnodepartlowerbox=\box62
-\pgfnodeparttwobox=\box63
-\pgfnodepartthreebox=\box64
-\pgfnodepartfourbox=\box65
-\pgfnodeparttwentybox=\box66
-\pgfnodepartnineteenbox=\box67
-\pgfnodeparteighteenbox=\box68
-\pgfnodepartseventeenbox=\box69
-\pgfnodepartsixteenbox=\box70
-\pgfnodepartfifteenbox=\box71
-\pgfnodepartfourteenbox=\box72
-\pgfnodepartthirteenbox=\box73
-\pgfnodeparttwelvebox=\box74
-\pgfnodepartelevenbox=\box75
-\pgfnodeparttenbox=\box76
-\pgfnodepartninebox=\box77
-\pgfnodeparteightbox=\box78
-\pgfnodepartsevenbox=\box79
-\pgfnodepartsixbox=\box80
-\pgfnodepartfivebox=\box81
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/libraries/s
+hapes/pgflibraryshapes.multipart.code.tex
+File: pgflibraryshapes.multipart.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgfnodepartlowerbox=\box61
+\pgfnodeparttwobox=\box62
+\pgfnodepartthreebox=\box63
+\pgfnodepartfourbox=\box64
+\pgfnodeparttwentybox=\box65
+\pgfnodepartnineteenbox=\box66
+\pgfnodeparteighteenbox=\box67
+\pgfnodepartseventeenbox=\box68
+\pgfnodepartsixteenbox=\box69
+\pgfnodepartfifteenbox=\box70
+\pgfnodepartfourteenbox=\box71
+\pgfnodepartthirteenbox=\box72
+\pgfnodeparttwelvebox=\box73
+\pgfnodepartelevenbox=\box74
+\pgfnodeparttenbox=\box75
+\pgfnodepartninebox=\box76
+\pgfnodeparteightbox=\box77
+\pgfnodepartsevenbox=\box78
+\pgfnodepartsixbox=\box79
+\pgfnodepartfivebox=\box80
 )))
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
-zlibrarydecorations.code.tex
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduledecorations.cod
-e.tex
-\pgfdecoratedcompleteddistance=\dimen194
-\pgfdecoratedremainingdistance=\dimen195
-\pgfdecoratedinputsegmentcompleteddistance=\dimen196
-\pgfdecoratedinputsegmentremainingdistance=\dimen197
-\pgf@decorate@distancetomove=\dimen198
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/frontendlay
+er/tikz/libraries/tikzlibrarydecorations.code.tex
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/modules/pgf
+moduledecorations.code.tex
+\pgfdecoratedcompleteddistance=\dimen192
+\pgfdecoratedremainingdistance=\dimen193
+\pgfdecoratedinputsegmentcompleteddistance=\dimen194
+\pgfdecoratedinputsegmentremainingdistance=\dimen195
+\pgf@decorate@distancetomove=\dimen196
 \pgf@decorate@repeatstate=\count279
-\pgfdecorationsegmentamplitude=\dimen199
-\pgfdecorationsegmentlength=\dimen256
+\pgfdecorationsegmentamplitude=\dimen197
+\pgfdecorationsegmentlength=\dimen198
 )
-\tikz@lib@dec@box=\box82
+\tikz@lib@dec@box=\box81
 )
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
-zlibraryshadows.code.tex
-File: tikzlibraryshadows.code.tex 2023-01-15 v3.1.10 (3.1.10)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/frontendlay
+er/tikz/libraries/tikzlibraryshadows.code.tex
+File: tikzlibraryshadows.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
-zlibraryfadings.code.tex
-File: tikzlibraryfadings.code.tex 2023-01-15 v3.1.10 (3.1.10)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/frontendlay
+er/tikz/libraries/tikzlibraryfadings.code.tex
+File: tikzlibraryfadings.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryfadings.code
-.tex
-File: pgflibraryfadings.code.tex 2023-01-15 v3.1.10 (3.1.10)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/libraries/p
+gflibraryfadings.code.tex
+File: pgflibraryfadings.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 )))
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
-zlibrarybackgrounds.code.tex
-File: tikzlibrarybackgrounds.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@layerbox@background=\box83
-\pgf@layerboxsaved@background=\box84
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/frontendlay
+er/tikz/libraries/tikzlibrarybackgrounds.code.tex
+File: tikzlibrarybackgrounds.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgf@layerbox@background=\box82
+\pgf@layerboxsaved@background=\box83
 )
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
-zlibrarycalc.code.tex
-File: tikzlibrarycalc.code.tex 2023-01-15 v3.1.10 (3.1.10)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/frontendlay
+er/tikz/libraries/tikzlibrarycalc.code.tex
+File: tikzlibrarycalc.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 )
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
-zlibraryfit.code.tex
-File: tikzlibraryfit.code.tex 2023-01-15 v3.1.10 (3.1.10)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/frontendlay
+er/tikz/libraries/tikzlibraryfit.code.tex
+File: tikzlibraryfit.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 )
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
-zlibrarydecorations.pathmorphing.code.tex
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrary
-decorations.pathmorphing.code.tex))
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.code.
-tex
-File: pgflibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\arrowsize=\dimen257
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/frontendlay
+er/tikz/libraries/tikzlibrarydecorations.pathmorphing.code.tex
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/libraries/d
+ecorations/pgflibrarydecorations.pathmorphing.code.tex))
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/libraries/p
+gflibraryarrows.code.tex
+File: pgflibraryarrows.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\arrowsize=\dimen199
 )
-\TP@innermargin=\dimen258
-\TP@visibletextwidth=\dimen259
-\TP@visibletextheight=\dimen260
-\TP@titlewidth=\dimen261
-\titlewidth=\dimen262
-\TP@titlelinewidth=\dimen263
-\titlelinewidth=\dimen264
-\titleinnersep=\dimen265
-\TP@titleinnersep=\dimen266
-\TP@titletotopverticalspace=\dimen267
-\titletotopverticalspace=\dimen268
-\TP@titletoblockverticalspace=\dimen269
-\TP@titleheight=\dimen270
-\titleheight=\dimen271
-\titlegraphicheight=\dimen272
-\titleposleft=\dimen273
-\titleposright=\dimen274
-\titlepostop=\dimen275
-\titleposbottom=\dimen276
-\TP@titlegraphictotitledistance=\dimen277
-\TP@colspace=\dimen278
-\TP@coltop=\dimen279
-\TP@colbottom=\dimen280
-\TP@colcenter=\dimen281
-\colwidth=\dimen282
-\TP@subcolspace=\dimen283
-\TP@subcoltop=\dimen284
-\TP@subcolbottom=\dimen285
-\TP@subcolcenter=\dimen286
-\subcolwidth=\dimen287
-\TP@blockverticalspace=\dimen288
-\TP@blockcenter=\dimen289
-\TP@blocktitleinnersep=\dimen290
-\blocktitleinnersep=\dimen291
-\TP@blockbodyinnersep=\dimen292
-\blockbodyinnersep=\dimen293
-\TP@blocktitlebox=\box85
-\TP@blockbodybox=\box86
-\TP@blocktitlewidth=\dimen294
-\TP@blockbodywidth=\dimen295
-\TP@blockbodyheight=\dimen296
-\TP@blocktitleheight=\dimen297
-\TP@blocktop=\dimen298
-\TP@blocktitleoffsetx=\dimen299
-\TP@blocktitleoffsety=\dimen300
-\TP@blockbodyoffsetx=\dimen301
-\TP@blockbodyoffsety=\dimen302
-\TP@blockbodyverticalshift=\dimen303
-\blocklinewidth=\dimen304
-\TP@innerblockcenter=\dimen305
-\TP@innerblocktitleinnersep=\dimen306
-\innerblocktitleinnersep=\dimen307
-\TP@innerblockbodyinnersep=\dimen308
-\innerblockbodyinnersep=\dimen309
-\TP@innerblocktitlebox=\box87
-\TP@innerblockbodybox=\box88
-\TP@innerblocktitlewidth=\dimen310
-\TP@innerblockbodywidth=\dimen311
-\TP@innerblockbodyheight=\dimen312
-\TP@innerblocktitleheight=\dimen313
-\TP@innerblocktitleoffsetx=\dimen314
-\TP@innerblocktitleoffsety=\dimen315
-\TP@innerblockbodyoffsetx=\dimen316
-\TP@innerblockbodyoffsety=\dimen317
-\TP@innerblockbodyverticalshift=\dimen318
-\innerblocklinewidth=\dimen319
-\TP@coloredbox=\box89
-\TP@coloredboxwidth=\dimen320
-\TP@coloredboxlinewidth=\dimen321
-\TP@coloredboxinnersep=\dimen322
-\TP@coloredboxheight=\dimen323
-\TP@noteinnersep=\dimen324
-\noteinnersep=\dimen325
-\TP@notetargetoffsetx=\dimen326
-\TP@notetargetoffsety=\dimen327
-\TP@noteradius=\dimen328
-\TP@notewidth=\dimen329
-\TP@noteheight=\dimen330
-\TP@notebox=\box90
-\notelinewidth=\dimen331
- (/usr/share/texlive/texmf-dist/tex/latex/extsizes/extarticle.cls
+\TP@innermargin=\dimen256
+\TP@visibletextwidth=\dimen257
+\TP@visibletextheight=\dimen258
+\TP@titlewidth=\dimen259
+\titlewidth=\dimen260
+\TP@titlelinewidth=\dimen261
+\titlelinewidth=\dimen262
+\titleinnersep=\dimen263
+\TP@titleinnersep=\dimen264
+\TP@titletotopverticalspace=\dimen265
+\titletotopverticalspace=\dimen266
+\TP@titletoblockverticalspace=\dimen267
+\TP@titleheight=\dimen268
+\titleheight=\dimen269
+\titlegraphicheight=\dimen270
+\titleposleft=\dimen271
+\titleposright=\dimen272
+\titlepostop=\dimen273
+\titleposbottom=\dimen274
+\TP@titlegraphictotitledistance=\dimen275
+\TP@colspace=\dimen276
+\TP@coltop=\dimen277
+\TP@colbottom=\dimen278
+\TP@colcenter=\dimen279
+\colwidth=\dimen280
+\TP@subcolspace=\dimen281
+\TP@subcoltop=\dimen282
+\TP@subcolbottom=\dimen283
+\TP@subcolcenter=\dimen284
+\subcolwidth=\dimen285
+\TP@blockverticalspace=\dimen286
+\TP@blockcenter=\dimen287
+\TP@blocktitleinnersep=\dimen288
+\blocktitleinnersep=\dimen289
+\TP@blockbodyinnersep=\dimen290
+\blockbodyinnersep=\dimen291
+\TP@blocktitlebox=\box84
+\TP@blockbodybox=\box85
+\TP@blocktitlewidth=\dimen292
+\TP@blockbodywidth=\dimen293
+\TP@blockbodyheight=\dimen294
+\TP@blocktitleheight=\dimen295
+\TP@blocktop=\dimen296
+\TP@blocktitleoffsetx=\dimen297
+\TP@blocktitleoffsety=\dimen298
+\TP@blockbodyoffsetx=\dimen299
+\TP@blockbodyoffsety=\dimen300
+\TP@blockbodyverticalshift=\dimen301
+\blocklinewidth=\dimen302
+\TP@innerblockcenter=\dimen303
+\TP@innerblocktitleinnersep=\dimen304
+\innerblocktitleinnersep=\dimen305
+\TP@innerblockbodyinnersep=\dimen306
+\innerblockbodyinnersep=\dimen307
+\TP@innerblocktitlebox=\box86
+\TP@innerblockbodybox=\box87
+\TP@innerblocktitlewidth=\dimen308
+\TP@innerblockbodywidth=\dimen309
+\TP@innerblockbodyheight=\dimen310
+\TP@innerblocktitleheight=\dimen311
+\TP@innerblocktitleoffsetx=\dimen312
+\TP@innerblocktitleoffsety=\dimen313
+\TP@innerblockbodyoffsetx=\dimen314
+\TP@innerblockbodyoffsety=\dimen315
+\TP@innerblockbodyverticalshift=\dimen316
+\innerblocklinewidth=\dimen317
+\TP@coloredbox=\box88
+\TP@coloredboxwidth=\dimen318
+\TP@coloredboxlinewidth=\dimen319
+\TP@coloredboxinnersep=\dimen320
+\TP@coloredboxheight=\dimen321
+\TP@noteinnersep=\dimen322
+\noteinnersep=\dimen323
+\TP@notetargetoffsetx=\dimen324
+\TP@notetargetoffsety=\dimen325
+\TP@noteradius=\dimen326
+\TP@notewidth=\dimen327
+\TP@noteheight=\dimen328
+\TP@notebox=\box89
+\notelinewidth=\dimen329
+
+(/Users/mat/Library/Application Support/MiKTeX/texmfs/install/tex/latex/extsize
+s/extarticle.cls
 Document Class: extarticle 1996/10/08 v1.0 Non Standard LaTeX document class
-(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
-File: size10.clo 2022/07/02 v1.4n Standard LaTeX file (size option)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/size10.clo
+File: size10.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
 )
-(/usr/share/texlive/texmf-dist/tex/latex/base/exscale.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/exscale.sty
 Package: exscale 2018/09/24 v2.1i Standard LaTeX package exscale
 LaTeX Font Info:    Redeclaring symbol font `largesymbols' on input line 57.
 LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
 (Font)                  OMX/cmex/m/n --> OMX/cmex/m/n on input line 57.
 LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
 (Font)                  OMX/cmex/m/n --> OMX/cmex/m/n on input line 57.
-\big@size=\dimen332
+\big@size=\dimen330
 )
 \c@part=\count280
 \c@section=\count281
@@ -577,144 +637,154 @@ LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
 \c@subparagraph=\count285
 \c@figure=\count286
 \c@table=\count287
-\abovecaptionskip=\skip51
-\belowcaptionskip=\skip52
-\bibindent=\dimen333
+\abovecaptionskip=\skip50
+\belowcaptionskip=\skip51
+\bibindent=\dimen331
 )
-(/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
+(/Users/mat/Library/Application Support/MiKTeX/texmfs/install/tex/latex/geometr
+y/geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
 
-(/usr/share/texlive/texmf-dist/tex/generic/iftex/ifvtex.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/iftex/ifvtex.st
+y
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 
-(/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/iftex/iftex.sty
 Package: iftex 2022/02/03 v1.0f TeX engine tests
 ))
 \Gm@cnth=\count288
 \Gm@cntv=\count289
 \c@Gm@tempcnt=\count290
-\Gm@bindingoffset=\dimen334
-\Gm@wd@mp=\dimen335
-\Gm@odd@mp=\dimen336
-\Gm@even@mp=\dimen337
-\Gm@layoutwidth=\dimen338
-\Gm@layoutheight=\dimen339
-\Gm@layouthoffset=\dimen340
-\Gm@layoutvoffset=\dimen341
+\Gm@bindingoffset=\dimen332
+\Gm@wd@mp=\dimen333
+\Gm@odd@mp=\dimen334
+\Gm@even@mp=\dimen335
+\Gm@layoutwidth=\dimen336
+\Gm@layoutheight=\dimen337
+\Gm@layouthoffset=\dimen338
+\Gm@layoutvoffset=\dimen339
 \Gm@dimlist=\toks30
-)
-(/usr/share/texlive/texmf-dist/tex/latex/a0poster/a0size.sty
+
+(/Users/mat/Library/Application Support/MiKTeX/texmfs/install/tex/latex/geometr
+y/geometry.cfg))
+(/Users/mat/Library/Application Support/MiKTeX/texmfs/install/tex/latex/a0poste
+r/a0size.sty
 File: a0size.sty 2004/01/31 v1.22b a0poster class (GK, MW)
 LaTeX Font Info:    Redeclaring symbol font `largesymbols' on input line 229.
 LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
 (Font)                  OMX/cmex/m/n --> OMX/cmex/m/n on input line 229.
 LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
 (Font)                  OMX/cmex/m/n --> OMX/cmex/m/n on input line 229.
-\big@size=\dimen342
+\big@size=\dimen340
 )
-\pgf@layerbox@backgroundlayer=\box91
-\pgf@layerboxsaved@backgroundlayer=\box92
-\pgf@layerbox@notelayer=\box93
-\pgf@layerboxsaved@notelayer=\box94
+\pgf@layerbox@backgroundlayer=\box90
+\pgf@layerboxsaved@backgroundlayer=\box91
+\pgf@layerbox@notelayer=\box92
+\pgf@layerboxsaved@notelayer=\box93
 
-(/usr/share/texlive/texmf-dist/tex/latex/tikzposter/tikzposterColorpalettes.tex
-) (/usr/share/texlive/texmf-dist/tex/latex/tikzposter/tikzposterColorstyles.tex
-)
-(/usr/share/texlive/texmf-dist/tex/latex/tikzposter/tikzposterBackgroundstyles.
-tex)
-(/usr/share/texlive/texmf-dist/tex/latex/tikzposter/tikzposterTitlestyles.tex)
-(/usr/share/texlive/texmf-dist/tex/latex/tikzposter/tikzposterBlockstyles.tex)
-(/usr/share/texlive/texmf-dist/tex/latex/tikzposter/tikzposterInnerblockstyles.
-tex)
-(/usr/share/texlive/texmf-dist/tex/latex/tikzposter/tikzposterNotestyles.tex)
-(/usr/share/texlive/texmf-dist/tex/latex/tikzposter/tikzposterLayoutthemes.tex)
+(/Users/mat/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tikzpos
+ter/tikzposterColorpalettes.tex)
+(/Users/mat/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tikzpos
+ter/tikzposterColorstyles.tex)
+(/Users/mat/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tikzpos
+ter/tikzposterBackgroundstyles.tex)
+(/Users/mat/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tikzpos
+ter/tikzposterTitlestyles.tex)
+(/Users/mat/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tikzpos
+ter/tikzposterBlockstyles.tex)
+(/Users/mat/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tikzpos
+ter/tikzposterInnerblockstyles.tex)
+(/Users/mat/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tikzpos
+ter/tikzposterNotestyles.tex)
+(/Users/mat/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tikzpos
+ter/tikzposterLayoutthemes.tex)
 \c@figurecounter=\count291
-) (/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
+)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/inputenc.sty
 Package: inputenc 2021/02/14 v1.3d Input encoding file
 \inpenc@prehook=\toks31
 \inpenc@posthook=\toks32
 )
-(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/fontenc.sty
 Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
 LaTeX Font Info:    Trying to load font information for T1+aer on input line 11
 2.
 
-(/usr/share/texlive/texmf-dist/tex/latex/ae/t1aer.fd
+(/Users/mat/Library/Application Support/MiKTeX/texmfs/install/tex/latex/ae/t1ae
+r.fd
 File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
 ))
-(/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
-Package: babel 2022/12/26 3.84 The Babel package
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/babel/babel.sty
+Package: babel 2022/02/26 3.73 The Babel package
 \babel@savecnt=\count292
-\U@D=\dimen343
-\l@unhyphenated=\language3
+\U@D=\dimen341
+\l@unhyphenated=\language79
 
-(/usr/share/texlive/texmf-dist/tex/generic/babel/txtbabel.def)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/babel/txtbabel.
+def)
 \bbl@readstream=\read3
 \bbl@dirlevel=\count293
 
-(/usr/share/texlive/texmf-dist/tex/generic/babel-english/english.ldf
+*************************************
+* Local config file bblopts.cfg used
+*
+
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/arabi/bblopts.cfg
+File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of
+ babel
+)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/babel-english/eng
+lish.ldf
 Language: english 2017/06/06 v3.3r English support from the babel system
-Package babel Info: Hyphen rules for 'british' set to \l@english
-(babel)             (\language0). Reported on input line 82.
-Package babel Info: Hyphen rules for 'UKenglish' set to \l@english
-(babel)             (\language0). Reported on input line 83.
 Package babel Info: Hyphen rules for 'canadian' set to \l@english
 (babel)             (\language0). Reported on input line 102.
-Package babel Info: Hyphen rules for 'australian' set to \l@english
-(babel)             (\language0). Reported on input line 105.
-Package babel Info: Hyphen rules for 'newzealand' set to \l@english
-(babel)             (\language0). Reported on input line 108.
+Package babel Info: Hyphen rules for 'australian' set to \l@ukenglish
+(babel)             (\language73). Reported on input line 105.
+Package babel Info: Hyphen rules for 'newzealand' set to \l@ukenglish
+(babel)             (\language73). Reported on input line 108.
 ))
-(/usr/share/texlive/texmf-dist/tex/generic/babel/locale/en/babel-english.tex
-Package babel Info: Importing font and identification data for english
-(babel)             from babel-en.ini. Reported on input line 11.
-)
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
-Package: amsmath 2022/04/08 v2.17n AMS math features
-\@mathmargin=\skip53
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/amsmath/amsmath.s
+ty
+Package: amsmath 2021/10/15 v2.17l AMS math features
+\@mathmargin=\skip52
 
 For additional information on amsmath, use the `?' option.
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/amsmath/amstext.s
+ty
 Package: amstext 2021/08/26 v2.01 AMS text
 
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/amsmath/amsgen.st
+y
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks33
-\ex@=\dimen344
+\ex@=\dimen342
 ))
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/amsmath/amsbsy.st
+y
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen345
+\pmbraise@=\dimen343
 )
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
-Package: amsopn 2022/04/08 v2.04 operator names
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/amsmath/amsopn.st
+y
+Package: amsopn 2021/08/26 v2.02 operator names
 )
 \inf@bad=\count294
 LaTeX Info: Redefining \frac on input line 234.
 \uproot@=\count295
 \leftroot@=\count296
 LaTeX Info: Redefining \overline on input line 399.
-LaTeX Info: Redefining \colon on input line 410.
 \classnum@=\count297
 \DOTSCASE@=\count298
 LaTeX Info: Redefining \ldots on input line 496.
 LaTeX Info: Redefining \dots on input line 499.
 LaTeX Info: Redefining \cdots on input line 620.
-\Mathstrutbox@=\box95
-\strutbox@=\box96
-LaTeX Info: Redefining \big on input line 722.
-LaTeX Info: Redefining \Big on input line 723.
-LaTeX Info: Redefining \bigg on input line 724.
-LaTeX Info: Redefining \Bigg on input line 725.
-\big@size=\dimen346
+\Mathstrutbox@=\box94
+\strutbox@=\box95
+\big@size=\dimen344
 LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
 \macc@depth=\count299
-LaTeX Info: Redefining \bmod on input line 905.
-LaTeX Info: Redefining \pmod on input line 910.
-LaTeX Info: Redefining \smash on input line 940.
-LaTeX Info: Redefining \relbar on input line 970.
-LaTeX Info: Redefining \Relbar on input line 971.
 \c@MaxMatrixCols=\count300
 \dotsspace@=\muskip16
 \c@parentequation=\count301
@@ -724,23 +794,25 @@ LaTeX Info: Redefining \Relbar on input line 971.
 \column@=\count304
 \maxfields@=\count305
 \andhelp@=\toks35
-\eqnshift@=\dimen347
-\alignsep@=\dimen348
-\tagshift@=\dimen349
-\tagwidth@=\dimen350
-\totwidth@=\dimen351
-\lineht@=\dimen352
+\eqnshift@=\dimen345
+\alignsep@=\dimen346
+\tagshift@=\dimen347
+\tagwidth@=\dimen348
+\totwidth@=\dimen349
+\lineht@=\dimen350
 \@envbody=\toks36
-\multlinegap=\skip54
-\multlinetaggap=\skip55
+\multlinegap=\skip53
+\multlinetaggap=\skip54
 \mathdisplay@stack=\toks37
-LaTeX Info: Redefining \[ on input line 2953.
-LaTeX Info: Redefining \] on input line 2954.
+LaTeX Info: Redefining \[ on input line 2938.
+LaTeX Info: Redefining \] on input line 2939.
 )
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/amsfonts/amssymb.
+sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
 
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/amsfonts/amsfonts
+.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
@@ -748,20 +820,20 @@ LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
-zlibraryarrows.code.tex
-File: tikzlibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/frontendlay
+er/tikz/libraries/tikzlibraryarrows.code.tex
+File: tikzlibraryarrows.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 )
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
-zlibrarypositioning.code.tex
-File: tikzlibrarypositioning.code.tex 2023-01-15 v3.1.10 (3.1.10)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/frontendlay
+er/tikz/libraries/tikzlibrarypositioning.code.tex
+File: tikzlibrarypositioning.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 )
-(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
-File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/l3backend/l3backe
+nd-pdftex.def
+File: l3backend-pdftex.def 2022-04-14 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count306
-\l__pdf_internal_box=\box97
-)
-(./poster1_v2.aux)
+\l__pdf_internal_box=\box96
+) (poster1_v2.aux)
 \openout1 = `poster1_v2.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
@@ -779,27 +851,30 @@ LaTeX Font Info:    ... okay on input line 15.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 15.
 LaTeX Font Info:    ... okay on input line 15.
 
-(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+(/Library/Application Support/MiKTeX/texmfs/install/tex/context/base/mkii/supp-
+pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count307
-\scratchdimen=\dimen353
-\scratchbox=\box98
+\scratchdimen=\dimen351
+\scratchbox=\box97
 \nofMPsegments=\count308
 \nofMParguments=\count309
 \everyMPshowfont=\toks38
 \MPscratchCnt=\count310
-\MPscratchDim=\dimen354
+\MPscratchDim=\dimen352
 \MPnumerator=\count311
 \makeMPintoPDFobject=\count312
 \everyMPtoPDFconversion=\toks39
-) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+)
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/epstopdf-pkg/epst
+opdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
 
-(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
-e
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/00miktex/epstopdf
+-sys.cfg
+File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -837,13 +912,12 @@ e
 
 LaTeX Font Info:    Trying to load font information for U+msa on input line 15.
 
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Trying to load font information for U+msb on input line 15.
 
-
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+(/Library/Application Support/MiKTeX/texmfs/install/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 Missing character: There is no 1 in font nullfont!
@@ -858,37 +932,49 @@ LaTeX Font Warning: Font shape `TS1/aer/m/n' undefined
 (Font)              for symbol `textbullet' on input line 31.
 
 
-Overfull \hbox (55.9213pt too wide) in paragraph at lines 73--73
- [][]\T1/aer/m/n/29.86 Bottleneck 
+Overfull \hbox (17.11604pt too wide) in paragraph at lines 119--119
+ [][]\T1/aer/m/n/20.74 Bottleneck 
  []
 
-[1
+LaTeX Info: Symbol \textrightarrow not provided by
+            font family aer in TS1 encoding.
+            Default family used instead on input line 152.
+LaTeX Font Info:    Trying to load font information for T1+aett on input line 1
+52.
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./poster1_v2.aux)
+(/Users/mat/Library/Application Support/MiKTeX/texmfs/install/tex/latex/ae/t1ae
+tt.fd
+File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
+) [1
+
+{/Users/mat/Library/Application Support/MiKTeX/texmfs/data/fonts/map/pdftex/pdf
+tex.map}] (poster1_v2.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 19988 strings out of 478051
- 428534 string characters out of 5840943
- 1892330 words of memory out of 5000000
- 39679 multiletter control sequences out of 15000+600000
- 561572 words of font info for 133 fonts, out of 8000000 for 9000
- 14 hyphenation exceptions out of 8191
- 117i,10n,118p,483b,1479s stack positions out of 10000i,1000n,20000p,200000b,200000s
-{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmb10.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/font
-s/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmti12.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm2986
-.pfb>
-Output written on poster1_v2.pdf (1 page, 101868 bytes).
+ 20014 strings out of 478553
+ 436498 string characters out of 2839094
+ 823403 words of memory out of 3000000
+ 37776 multiletter control sequences out of 15000+600000
+ 524768 words of font info for 140 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 115i,14n,118p,485b,1492s stack positions out of 10000i,1000n,20000p,200000b,80000s
+ </Users/mat/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/j
+knappen/ec/dpi600/tcrm2986.pk></Library/Application Support/MiKTeX/texmfs/insta
+ll/fonts/type1/public/amsfonts/cm/cmb10.pfb></Library/Application Support/MiKTe
+X/texmfs/install/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></Library/Applicati
+on Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi12.pfb></Li
+brary/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/
+cmr12.pfb></Library/Application Support/MiKTeX/texmfs/install/fonts/type1/publi
+c/amsfonts/cm/cmr17.pfb></Library/Application Support/MiKTeX/texmfs/install/fon
+ts/type1/public/amsfonts/cm/cmsy10.pfb></Library/Application Support/MiKTeX/tex
+mfs/install/fonts/type1/public/amsfonts/cm/cmti12.pfb></Library/Application Sup
+port/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on poster1_v2.pdf (1 page, 132238 bytes).
 PDF statistics:
- 73 PDF objects out of 1000 (max. 8388607)
- 38 compressed objects within 1 object stream
+ 81 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  115 words of extra memory for PDF output out of 10000 (max. 10000000)
 
