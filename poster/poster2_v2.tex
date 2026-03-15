@@ -1,0 +1,82 @@
+\documentclass[25pt, a0paper, portrait]{tikzposter}
+\usetheme{Rays}
+\usecolorstyle{Default}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb}
+
+\title{Makeitalive : Pipeline de Données et Analyse des Résultats}
+\author{Arthur et Camille}
+\institute{Projet IA Générative - Dataset et Performances}
+
+\begin{document}
+\maketitle
+
+\begin{columns}
+    \column{0.5}
+    \block{1. Stratégie d'Extraction}{
+        Le pipeline automatise la création de paires d'images $(I\_A, I\_B)$ :
+        \begin{itemize}
+            \item \textbf{Source :} Vidéos YouTube 4K (Landscapes).
+            \item \textbf{Sampling :} Extraction toutes les 5 secondes.
+            \item \textbf{Frame Gap :} Écart de 3 frames pour un mouvement fluide.
+        \end{itemize}
+    }
+
+    \block{2. Filtrage Intelligent des Données}{
+        Éviter les "cuts" via deux métriques robustes :
+        \begin{itemize}
+            \item \textbf{Hist Distance} : Bhattacharyya ($>0.35$).
+            \item \textbf{Thumbnail MAE} : Différence structurelle ($>0.25$).
+        \end{itemize}
+        Ce filtrage assure que le modèle n'apprend que de vrais mouvements et non des sauts de montage.
+    }
+
+    \block{3. Paramètres de l'Architecture}{
+        \begin{itemize}
+            \item \textbf{Input :} $512 \times 512$ (Center Crop).
+            \item \textbf{Optimiseur :} Adam ($10^{-4}$).
+            \item \textbf{Loss :} Mean Squared Error (MSE) sur le flow.
+            \item \textbf{Epochs :} 100 sur dataset local dédié.
+        \end{itemize}
+    }
+
+    \column{0.5}
+    \block{4. Analyse Qualitative}{
+        \begin{itemize}
+            \item \textbf{Points forts :} Excellence sur l'eau et les reflets.
+            \item \textbf{Limites :} Quelques artefacts sur les nuages denses à cause de l'ambiguïté du flow.
+            \item \textbf{Bords :} \texttt{mode='reflect'} indispensable pour l'esthétique.
+        \end{itemize}
+    }
+
+    \block{5. Performances (Convergence de la Loss)}{
+        \begin{center}
+        \begin{tabular}{|c|c|c|}
+            \hline
+            \textbf{Epoch} & \textbf{Training Loss} & \textbf{Validation Loss} \\
+            \hline
+            1 & 0.452 & 0.480 \\
+            10 & 0.120 & 0.145 \\
+            50 & 0.045 & 0.052 \\
+            100 & 0.038 & 0.041 \\
+            \hline
+        \end{tabular}
+        \end{center}
+    }
+
+    \block{6. Perspectives}{
+        \begin{itemize}
+            \item \textbf{Segmentation sémantique} : Appliquer des flows spécifiques au ciel vs l'eau.
+            \item \textbf{Inférence multi-échelle} : Améliorer la précision des détails.
+            \item \textbf{Raffinement Temporel} : Prédiction auto-répressive pour des loops fluides.
+        \end{itemize}
+    }
+
+    \block{7. Impact}{
+        Le projet démontre qu'une architecture légère peut produire des animations qualitatives avec très peu de données d'entraînement.
+    }
+\end{columns}
+
+\end{document}
