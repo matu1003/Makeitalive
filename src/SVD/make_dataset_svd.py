@@ -107,7 +107,7 @@ def extract_clips(
     out_path = Path(output_dir)
     out_path.mkdir(parents=True, exist_ok=True)
 
-    tmp_video = "/content/tmp_landscape.mp4"
+    tmp_video = str(out_path / "tmp_landscape.mp4")
     print(f"Downloading video...")
     local_path, video_fps = download_video(youtube_url, tmp_video)
 
