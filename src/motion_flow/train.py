@@ -7,9 +7,31 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader
 from tqdm import tqdm
-
+from torch.amp import autocast, GradScaler
 from data.dataset import LandscapeMotionDataset
 from motion_flow.model import MotionFlowUNet
+
+import torch.nn.functional as F
+
+def warp(img, flow):
+    B, C, H, W = img.shape
+    # Crée une grille de coordonnées normalisées entre -1 et 1
+    grid_y, grid_x = torch.meshgrid(
+        torch.linspace(-1, 1, H, device=img.device),
+        torch.linspace(-1, 1, W, device=img.device),
+        indexing='ij'
+    )
+    grid = torch.stack([grid_x, grid_y], dim=-1).unsqueeze(0).repeat(B, 1, 1, 1)
+    
+    # Normalise le flow par rapport à la taille de l'image
+    flow_normalized = torch.stack([
+        flow[:, 0] / (W / 2),
+        flow[:, 1] / (H / 2)
+    ], dim=-1)
+    
+    # Applique le déplacement
+    grid = grid + flow_normalized
+    return F.grid_sample(img, grid, mode='bilinear', padding_mode='border', align_corners=True)
 
 def train(args):
     """
@@ -38,7 +60,9 @@ def train(args):
             batch_size=args.batch_size, 
             shuffle=True, 
             num_workers=args.num_workers,
-            pin_memory=True if torch.cuda.is_available() else False
+            pin_memory=False
+            # pin_memory=True if torch.cuda.is_available() else False
+            
         )
         print(f"Dataset chargé: {len(dataset)} paires. ({len(dataloader)} batches par époque)")
     except Exception as e:
@@ -59,7 +83,7 @@ def train(args):
     print("="*50 + "\n")
     
     best_loss = float('inf')
-    
+    scaler = GradScaler(device='cuda')
     for epoch in range(1, args.epochs + 1):
         model.train()
         epoch_loss = 0.0
@@ -79,15 +103,21 @@ def train(args):
             # Pour l'instant, faisons au plus simple (on a besoin d'une baseline !).
             
             # Le réseau prédit le motion flow
-            pred_flow = model(img_A)
-            
-            # TODO: Il nous manque la fonction de warping différentiable ! 
-            # (torch.nn.functional.grid_sample).
-            # En l'absence de "Ground Truth Flow" (vrai target en pixels),
-            # nous ferons ici un simple mock-up pour vérifier que la pipeline tourne 
-            # (Pénalisons le flow pour l'instant vers 0 juste pour compiler).
-            
-            loss = criterion(pred_flow, torch.zeros_like(pred_flow)) # /!\ LOSS TEMPORAIRE /!\
+            # with autocast(device_type='cuda'):
+            #     pred_flow = model(img_A)
+            #     target = torch.zeros_like(pred_flow, requires_grad=False)
+            #     loss = criterion(pred_flow, target)
+            #     del target
+
+            with autocast(device_type='cuda'):
+                pred_flow = model(img_A)
+                img_B_pred = warp(img_A, pred_flow)
+                loss = criterion(img_B_pred, img_B)  # On compare le warp avec la vraie image B
+
+            optimizer.zero_grad()
+            scaler.scale(loss).backward()
+            scaler.step(optimizer)
+            scaler.update()
             
             # --- BACKWARD PASS ---
             optimizer.zero_grad()
