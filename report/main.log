@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2026.3.15)  30 MAR 2026 11:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2026.3.15)  30 MAR 2026 16:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -405,7 +405,7 @@ Package cleveref Info: always capitalise cross-reference names on input line 78
 52.
 )
 LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 2
-7.
+9.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
@@ -415,28 +415,28 @@ File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count304
 \l__pdf_internal_box=\box54
 )
-No file main.aux.
+(./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+ (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count305
 \scratchdimen=\dimen178
@@ -471,67 +471,136 @@ Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
 
 ABD: EveryShipout initializing macros
-Package backref Info: ** backref set up for natbib ** on input line 27.
-Package hyperref Info: Link coloring ON on input line 27.
+Package backref Info: ** backref set up for natbib ** on input line 29.
+Package hyperref Info: Link coloring ON on input line 29.
  (./main.out) (./main.out)
 \@outlinefile=\write3
 \openout3 = `main.out'.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 29.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 31.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 29.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 31.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
+LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 3
+1.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1pcr.fd
+File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
+)
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 4
-0.
+2.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 ) [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
-]
-LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 9
-8.
+] [2] [3]
+<images/samples.png, id=78, 1438.173pt x 1162.8243pt>
+File: images/samples.png Graphic file (type png)
+<use images/samples.png>
+Package pdftex.def Info: images/samples.png  used on input line 144.
+(pdftex.def)             Requested size: 237.13594pt x 191.73352pt.
+<images/motion_flow_grid.png, id=80, 702.4644pt x 292.6935pt>
+File: images/motion_flow_grid.png Graphic file (type png)
+<use images/motion_flow_grid.png>
+Package pdftex.def Info: images/motion_flow_grid.png  used on input line 151.
+(pdftex.def)             Requested size: 189.70947pt x 79.04616pt.
+<images/motion_flow_example.png, id=81, 1045.7469pt x 357.7365pt>
+File: images/motion_flow_example.png Graphic file (type png)
+<use images/motion_flow_example.png>
+Package pdftex.def Info: images/motion_flow_example.png  used on input line 158
+.
+(pdftex.def)             Requested size: 237.13594pt x 81.12042pt.
 
-(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1pcr.fd
-File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-) [2]
+Overfull \hbox (19.70174pt too wide) in paragraph at lines 198--207
+ [][] 
+ []
+
+<images/paralaxe1.png, id=82, 1261.71375pt x 659.46375pt>
+File: images/paralaxe1.png Graphic file (type png)
+<use images/paralaxe1.png>
+Package pdftex.def Info: images/paralaxe1.png  used on input line 231.
+(pdftex.def)             Requested size: 75.88522pt x 39.65668pt.
+<images/paralaxe2.png, id=83, 1261.71375pt x 659.46375pt>
+File: images/paralaxe2.png Graphic file (type png)
+<use images/paralaxe2.png>
+Package pdftex.def Info: images/paralaxe2.png  used on input line 232.
+(pdftex.def)             Requested size: 75.88522pt x 39.65668pt.
+<images/paralaxe3.png, id=84, 1261.71375pt x 659.46375pt>
+File: images/paralaxe3.png Graphic file (type png)
+<use images/paralaxe3.png>
+Package pdftex.def Info: images/paralaxe3.png  used on input line 233.
+(pdftex.def)             Requested size: 75.88522pt x 39.65668pt.
+<images/paralaxe1v2.png, id=85, 1261.71375pt x 659.46375pt>
+File: images/paralaxe1v2.png Graphic file (type png)
+<use images/paralaxe1v2.png>
+Package pdftex.def Info: images/paralaxe1v2.png  used on input line 240.
+(pdftex.def)             Requested size: 75.88522pt x 39.65668pt.
+<images/paralaxe2v2.png, id=86, 1261.71375pt x 659.46375pt>
+File: images/paralaxe2v2.png Graphic file (type png)
+<use images/paralaxe2v2.png>
+Package pdftex.def Info: images/paralaxe2v2.png  used on input line 241.
+(pdftex.def)             Requested size: 75.88522pt x 39.65668pt.
+<images/paralaxe3v2.png, id=87, 1261.71375pt x 659.46375pt>
+File: images/paralaxe3v2.png Graphic file (type png)
+<use images/paralaxe3v2.png>
+Package pdftex.def Info: images/paralaxe3v2.png  used on input line 242.
+(pdftex.def)             Requested size: 75.88522pt x 39.65668pt.
 No file main.bbl.
-[3] (./main.aux)
-Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 1B45C4F6A1607C2E0B3D8FD4F04955D8;1460.
+[4
+
+ <./images/samples.png> <./images/motion_flow_grid.png> <./images/motion_flow_e
+xample.png> <./images/paralaxe1.png> <./images/paralaxe2.png> <./images/paralax
+e3.png>] [5
+
+ <./images/paralaxe1v2.png> <./images/paralaxe2v2.png> <./images/paralaxe3v2.pn
+g>] (./main.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `main.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `main.out':
+(rerunfilecheck)             Before: 1B45C4F6A1607C2E0B3D8FD4F04955D8;1460
+(rerunfilecheck)             After:  AF59C50301418FA282784D52E61A8F42;2383.
  ) 
 Here is how much of TeX's memory you used:
- 14690 strings out of 478051
- 243840 string characters out of 5840943
- 1872330 words of memory out of 5000000
- 34612 multiletter control sequences out of 15000+600000
- 534172 words of font info for 81 fonts, out of 8000000 for 9000
+ 14815 strings out of 478051
+ 246317 string characters out of 5840943
+ 1871330 words of memory out of 5000000
+ 34702 multiletter control sequences out of 15000+600000
+ 538936 words of font info for 92 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 90i,9n,90p,1118b,439s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 90i,9n,90p,1118b,558s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb>
-</usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/tex
-live/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (3 pages, 136188 bytes).
+fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></
+usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/ur
+w/times/utmri8a.pfb>
+Output written on main.pdf (5 pages, 28459214 bytes).
 PDF statistics:
- 131 PDF objects out of 1000 (max. 8388607)
- 102 compressed objects within 2 object streams
- 17 named destinations out of 1000 (max. 500000)
- 97 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 185 PDF objects out of 1000 (max. 8388607)
+ 132 compressed objects within 2 object streams
+ 32 named destinations out of 1000 (max. 500000)
+ 142 words of extra memory for PDF output out of 10000 (max. 10000000)
 

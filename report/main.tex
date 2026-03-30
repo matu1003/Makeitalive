@@ -19,9 +19,11 @@
 \title{Makeitalive: Landscape Picture Animation}
 
 %%%%%%%%% AUTHORS
-\author{Arthur Fournier \and Mathurin Petit\\
-CSC\_52002 - Generative AI Project\\
-March 2026
+\author{
+Arthur Fournier \quad Mathurin Petit \\[4pt]
+\normalsize CSC\_52002 - Generative AI Project \\
+\normalsize March 2026 \\[4pt]
+\url{https://github.com/matu1003/Makeitalive}
 }
 
 \begin{document}
@@ -128,6 +130,119 @@ To formulate standard video sequences, we implemented a post-processing pipeline
 The Makeitalive project successfully explored and implemented two complementary strategies for landscape image animation. The Motion Flow framework effectively discerns and models macroscopic spatial displacement, boasting immense speed and lightweight constraints, yet it fundamentally fails at generating unseen occlusions. Conversely, fine-tuned Stable Video Diffusion achieves breathtaking generative textual richness and fluid cinematic parallax at the expense of high computational latency and massive architectural weight. 
 
 Reflecting forward, an isolated approach is constrained by its own internal paradigm. The ideal architecture would likely involve the hybridization of the two methodologies: leveraging the deterministic structural speed and lightweight execution of a Motion Flow field as an explicit spatial conditioning signal for an SVD-like generative upsampler. Incorporating advanced frame interpolation tools such as RIFE in the post-processing pipeline would further smooth artifacts. Such a combination holds the most promising potential to deliver effortless, high-fidelity landscape animation applicable to broad real-world scenarios.
+
+\clearpage
+\appendix
+\section{Appendix: Supplementary Figures and Tables}
+
+This appendix contains the figures and quantitative tables utilized during our poster presentations to illustrate the data pipeline, model performance, and visual results of the Makeitalive project.
+
+\subsection{Dataset and Core Concepts}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\linewidth]{images/samples.png}
+    \caption{\textbf{Dataset Pair Examples.} Extracts from the drone video dataset. Notice the first pair which has not been eliminated during the creation of the dataset but that represents two different scenes, demonstrating the need for intelligent filtering via Bhattacharyya distance and Thumbnail MAE.}
+    \label{fig:samples}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/motion_flow_grid.png}
+    \caption{\textbf{The Motion Flow Concept.} The model predicts an optical flow field consisting of $(dx, dy)$ vectors per pixel. We then use backward mapping to render the animated image by displacing pixels horizontally and vertically.}
+    \label{fig:mf_grid}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\linewidth]{images/motion_flow_example.png}
+    \caption{\textbf{Motion Flow Warping Loss.} Since there is no ground truth, a self-supervised reconstruction loss is used. The model predicts a flow from Image A, warps Image A, and the loss is the MSE between the predicted warped image and the real Image B.}
+    \label{fig:mf_loss}
+\end{figure}
+
+\subsection{Quantitative Results and Architectures}
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{|l|c|c|}
+        \hline
+        \textbf{Epoch} & \textbf{Training Loss} & \textbf{Validation Loss} \\
+        \hline
+        1 & 0.0038 & 0.045 \\
+        10 & 0.0019 & 0.027 \\
+        50 & 0.0009 & 0.012 \\
+        \hline
+    \end{tabular}
+    \caption{\textbf{Motion Flow Performance.} Loss convergence over 50 epochs demonstrating successful spatial transformation learning.}
+    \label{tab:mf_perf}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Steps} & \textbf{Step Loss} \\
+        \hline
+        500   & $\sim$0.60 \\
+        1000  & $\sim$0.45 \\
+        3000  & $\sim$0.16 \\
+        5000  & $\sim$0.20 \\
+        \hline
+    \end{tabular}
+    \caption{\textbf{Loss convergence (SVD\_Xtend).} Full fine-tuning training loss progression over 5000 steps on 2374 clips.}
+    \label{tab:svd_loss}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{|l|c|c|}
+        \hline
+        \textbf{Setup} & \textbf{Final Loss} & \textbf{Motion quality} \\
+        \hline
+        LoRA, static clips        & 0.46 & None \\
+        LoRA, motion-filtered     & 0.51 & Minimal \\
+        SVD\_Xtend, motion-filtered & 0.16 & Cinematic \\
+        \hline
+    \end{tabular}
+    \caption{\textbf{SVD Training Strategy Ablation.} Impact of dataset quality and architectural approach (LoRA vs. Full fine-tuning) on final performance.}
+    \label{tab:ablation}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{|l|c|c|}
+        \hline
+        \textbf{Criterion} & \textbf{Motion Flow} & \textbf{SVD + LoRA} \\
+        \hline
+        Fidelity & Maximum & High \\
+        Speed & Instant & Several seconds \\
+        Weight & Light & Heavy \\
+        Resources & CPU/GPU & High-End GPU \\
+        \hline
+    \end{tabular}
+    \caption{\textbf{Comparison of Techniques.} High-level comparison between the non-generative Motion Flow and generative Stable Video Diffusion.}
+    \label{tab:comparison}
+\end{table}
+
+\subsection{Qualitative Parallax Results}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.32\linewidth]{images/paralaxe1.png}\hfill
+    \includegraphics[width=0.32\linewidth]{images/paralaxe2.png}\hfill
+    \includegraphics[width=0.32\linewidth]{images/paralaxe3.png}
+    \caption{\textbf{Intermediate Result: LoRA rank 16 (7 epochs).} From left to right: Frame 1, Frame 7, and Frame 14. Slight parallax is visible but movement is minimal and lacks profound depth.}
+    \label{fig:lora_result}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.32\linewidth]{images/paralaxe1v2.png}\hfill
+    \includegraphics[width=0.32\linewidth]{images/paralaxe2v2.png}\hfill
+    \includegraphics[width=0.32\linewidth]{images/paralaxe3v2.png}
+    \caption{\textbf{Final Result: SVD\_Xtend.} From left to right: Frame 1, Frame 7, and Frame 14. Smooth, cinematic drone-style motion sweeping across the landscape.}
+    \label{fig:svd_result}
+\end{figure}
 
 {\small
 \bibliographystyle{ieeenat_fullname}
