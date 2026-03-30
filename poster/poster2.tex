@@ -1,0 +1,160 @@
+\documentclass[25pt, a0paper, portrait]{tikzposter}
+\usetheme{Rays}
+\usecolorstyle{Default}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{amsmath,amssymb}
+
+\definecolor{monFond}{RGB}{30, 40, 80}
+\colorlet{backgroundcolor}{monFond}
+
+\title{Makeitalive: Landscape picture animation}
+\author{Mathurin Petit, Arthur Fournier}
+\institute{CSC\_52002 - Generative AI Project}
+
+\begin{document}
+\maketitle
+
+\begin{columns}
+    \column{0.5}
+    \colorlet{blocktitlefgcolor}{white}
+\colorlet{blocktitlebgcolor}{blue!80!black}
+\colorlet{blockbodybgcolor}{blue!10}
+\colorlet{blockbodyfgcolor}{black}
+    \block{1. Extraction Strategy}{
+        We built a pipeline that automates the creation of image pairs $(I_A, I_B)$ from a youtube video called \textit{10 Hours Fantastic Views of Nature 4K with Relaxation Music}.
+        The video is a compilation of drone views of landscapes which moves slowly forward. We extracted different pairs of images separated by a gap of 4 frames every 0.05 seconds to teach the model how to reconstruct successive images.
+        We limited this number of pairs to 10,000 for the first, small, dataset and 100,000 for the bigger one.\\
+        We did not use the original format of the dataset. The video stream was reduced to 24 FPS and the extracted images were cropped to squares of 512 pixels and centered.
+    }
+
+    \block{2. Intelligent Data Filtering}{
+        The Youtube video is a succession of landscape clips. To remove the pairs of pictures belonging to 2 different video clips, we used a distance metric.
+        We defined 2 different metrics:
+        \begin{itemize}
+            \item \textbf{Hist Distance}: Bhattacharyya ($>0.35$).
+            \item \textbf{Thumbnail MAE}: Structural difference. Compares two lower resolution images in grayscale ($>0.25$).
+        \end{itemize}
+        These 2 metrics are necessary because MSE is insensitive to semantic "cuts".
+        Combined together, they ensure the model only learns real movement and not montage jumps.
+    }
+
+    \block{3. Samples}{
+        Different pair examples. Notice the first pair which has not been eliminated during the creation of the dataset but that represent 2 different scenes.
+        \begin{center}
+            \includegraphics[width=0.85\linewidth]{images/samples.png}
+        \end{center}
+    }
+
+    \block{4. Motion Flow Loss (Warping)}{
+        Since we don't have "ground truth" motion vectors, we use a \textbf{self-supervised reconstruction loss}:
+        \begin{itemize}
+            \item The model predicts a flow $(dx, dy)$ from image $I_A$.
+            \item We \textbf{warp} $I_A$ using this flow to reconstruct $I_B$.
+            \item The loss is the Mean Squared Error (MSE) between the predicted $I_{B'}$ and the real $I_B$:
+            \[ \mathcal{L} = \| \text{Warp}(I_A, \text{Flow}) - I_B \|^2 \]
+        \end{itemize}
+        \begin{center}
+            \includegraphics[width=0.85\linewidth]{images/motion_flow_example.png}
+        \end{center}
+    }
+
+    \column{0.5}
+
+    \block{5. Motion Flow Performance (Loss Convergence)}{
+        \begin{center}
+        \begin{tabular}{|c|c|c|}
+            \hline
+            \textbf{Epoch} & \textbf{Training Loss} & \textbf{Validation Loss} \\
+            \hline
+            1 & 0.0038 & 0.045 \\
+            10 & 0.0019 & 0.027 \\
+            50 & 0.0009 & 0.012 \\
+            \hline
+        \end{tabular}
+        \end{center}
+    }
+    \colorlet{blocktitlefgcolor}{white}
+    \colorlet{blocktitlebgcolor}{violet!80!black}
+    \colorlet{blockbodybgcolor}{violet!10}
+    \colorlet{blockbodyfgcolor}{black}
+    \block{6. SVD Training Strategy}{
+    We explored two fine-tuning approaches on the same dataset of 2374 motion-filtered clips:
+
+    \vspace{0.5em}
+    \textbf{Approach A — LoRA on temporal attention layers:}
+    \begin{itemize}
+        \item Only $\sim$3.3M parameters trained (0.2\% of UNet)
+        \item Rank 16, $lr=10^{-4}$, 7 epochs, batch size 2
+        \item Naive MSE on EDM noise prediction
+    \end{itemize}
+
+    \vspace{0.5em}
+    \textbf{Approach B — Full fine-tuning via SVD\_Xtend:}
+    \begin{itemize}
+        \item All UNet parameters trained
+        \item $lr=10^{-5}$, 5000 steps, \texttt{noise\_aug\_strength=0.02}
+        \item Correct EDM loss with CFG dropout
+    \end{itemize}
+
+    \vspace{0.5em}
+    \begin{center}
+    \begin{tabular}{|l|c|c|}
+        \hline
+        \textbf{Setup} & \textbf{Final Loss} & \textbf{Motion} \\
+        \hline
+        LoRA, static clips     & 0.46 & None \\
+        LoRA, motion-filtered  & 0.51 & Minimal \\
+        SVD\_Xtend             & 0.16 & Cinematic \\
+        \hline
+    \end{tabular}
+    \end{center}
+}
+    
+
+    
+
+    \block{7. SVD Results \& Perspectives}{
+    \textbf{Motion Flow results:}
+    \begin{itemize}
+        \item \textbf{Strengths:} Easy to use, fast and close from the initial image.
+        \item \textbf{Limitation:} Cannot handle small details. Treats the image as a whole and do not create any pixel (only displacements).
+        \item \textbf{Impact:} Interesting for tiny animations but useless in practice.
+    \end{itemize}
+
+    \vspace{0.5em}
+    \textbf{Intermediate result --- LoRA rank 16, 7 epochs:}
+    \begin{center}
+        \includegraphics[width=0.28\linewidth]{images/paralaxe1.png}\includegraphics[width=0.28\linewidth]{images/paralaxe2.png}\includegraphics[width=0.28\linewidth]{images/paralaxe3.png}
+
+        \vspace{0.3em}
+        {\small Frame 1 \hspace{3.5cm} Frame 7 \hspace{3.5cm} Frame 14}
+    \end{center}
+    Slight parallax visible but lacks smoothness --- confirmed need for a stronger pipeline.
+
+    \vspace{0.5em}
+    \textbf{SVD\_Xtend results:}
+    \begin{itemize}
+        \item Smooth cinematic drone-style motion from a single image
+        \item Post-processing: 7fps $\rightarrow$ 2fps $\rightarrow$ 24fps via \texttt{ffmpeg minterpolate}
+        \item Remaining limitation: interpolation artifacts on high-frequency textures
+    \end{itemize}
+    \begin{center}
+        \includegraphics[width=0.28\linewidth]{images/paralaxe1v2.png}\includegraphics[width=0.28\linewidth]{images/paralaxe2v2.png}\includegraphics[width=0.28\linewidth]{images/paralaxe3v2.png}
+
+        \vspace{0.3em}
+        {\small Frame 1 \hspace{3.5cm} Frame 7 \hspace{3.5cm} Frame 14}
+    \end{center}
+
+    \vspace{0.5em}
+    \textbf{Perspectives:}
+    \begin{itemize}
+        \item Replace \texttt{minterpolate} with RIFE for better interpolation
+        \item Use Motion Flow field as SVD conditioning signal
+        \item Sliding window for arbitrarily long videos
+    \end{itemize}
+}
+\end{columns}
+
+\end{document}
