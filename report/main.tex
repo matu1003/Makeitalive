@@ -1,0 +1,137 @@
+% CVPR 2026 Paper Template; see https://github.com/cvpr-org/author-kit
+
+\documentclass[10pt,twocolumn,letterpaper]{article}
+
+%%%%%%%%% PAPER TYPE  - PLEASE UPDATE FOR FINAL VERSION
+\usepackage[pagenumbers]{cvpr}      % changed from review to pagenumbers to show authors
+
+\input{preamble}
+
+\definecolor{cvprblue}{rgb}{0.21,0.49,0.74}
+\usepackage[pagebackref,breaklinks,colorlinks,allcolors=cvprblue]{hyperref}
+
+%%%%%%%%% PAPER ID
+\def\paperID{*****}
+\def\confName{CVPR}
+\def\confYear{2026}
+
+%%%%%%%%% TITLE
+\title{Makeitalive: Landscape Picture Animation}
+
+%%%%%%%%% AUTHORS
+\author{Arthur Fournier \and Mathurin Petit\\
+CSC\_52002 - Generative AI Project\\
+March 2026
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The Makeitalive project explores the transformation of a static landscape photograph into a realistic video animation. While we initially aimed to breathe life into various subjects, including human faces, the profound complexity of generalized animation directed our focus toward landscape scenes. In this report, we investigate two distinct methodologies to tackle this challenge. First, we present a Motion Flow approach, which utilizes a U-Net architecture to predict optical flow vectors and animate imagery through pixel displacement. Finding that this method, although fast and lightweight, struggles to synthesize new details and handle occlusions, we subsequently explore a generative approach. In the second part of this project, we leverage Stable Video Diffusion (SVD). By fine-tuning SVD on a custom, motion-filtered dataset of drone footage, we achieve cinematic drone-style motion from a single input image. Ultimately, we demonstrate the strengths and trade-offs of both approaches and suggest future perspectives for combining their respective advantages into a unified generative pipeline.
+\end{abstract}
+
+\section{Introduction}
+
+Breathing life into still images is a captivating challenge in the field of computer vision and generative AI. The sheer breadth of dynamic content in the real world---from the subtle articulation of human faces to the sweeping expanses of nature---makes generalized zero-shot image animation profoundly complex. Consequently, to make the problem tractable while achieving high visual fidelity, we constrained our objective to the animation of natural landscapes.
+
+Our project, \textbf{Makeitalive}, addresses the problem of animating a static landscape photograph. The objective is to preserve the aesthetic and structural integrity of the initial image while injecting coherent, realistic movement. To accomplish this, we designed, implemented, and compared two distinct animation methodologies:
+\begin{itemize}
+    \item \textbf{Motion Flow}: A warping-based method that computes a flow field to displace the original image pixels, generating motion without explicitly synthesizing new visual content.
+    \item \textbf{Generative Diffusion (SVD)}: A video generation approach that fine-tunes a large-scale latent diffusion model to deeply understand and generate environmental motion.
+\end{itemize}
+
+This report details the datasets constructed, the model architectures deployed, the training procedures, and a critical evaluation of the results for both approaches.
+
+\section{Motion Flow Approach}
+
+The core concept of the Motion Flow technique is grounded in self-supervised optical flow estimation. Instead of creating new pixels, the model predicts a vector field representing horizontal and vertical displacements $(dx, dy)$ for each pixel. The final animation is rendered via backward mapping.
+
+\subsection{Dataset}
+
+To train a model capable of recognizing and reproducing structural motion in landscape scenes, we required a dataset of consecutive frame pairs. We built an automated data extraction pipeline using a 10-hour 4K compilation video of relaxing drone landscapes sourced from YouTube. 
+
+The video stream was standardized to 24 frames per second (FPS), and center-cropped square images of $512 \times 512$ pixels were extracted. To teach the model spatial transitions, we defined pairs of images $(I_A, I_B)$ separated by a gap of 4 frames (sampled every 0.05 seconds). 
+
+A critical challenge in automated video extraction is the presence of scene cuts. To prevent the model from attempting to learn discontinuous ``montage jumps,'' we implemented an intelligent filtering strategy utilizing two distance metrics:
+\begin{itemize}
+    \item \textbf{Bhattacharyya Distance} on image histograms (rejecting pairs with distance $>0.35$).
+    \item \textbf{Thumbnail Mean Absolute Error (MAE)} to assess structural differences in grayscale lower-resolution representations (rejecting pairs with error $>0.25$).
+\end{itemize}
+This dual-metric filtration proved far more robust than standard Mean Squared Error (MSE), successfully curating clean, continuous motion vectors. We established a small subset of $10,000$ pairs and a comprehensive dataset of $100,000$ pairs for training.
+
+\subsection{Architecture and Models}
+
+The Motion Flow predictor is modeled with a custom \textbf{MotionFlow U-Net} architecture. The network transforms an input RGB image ($512 \times 512 \times 3$) into a dense 2-channel 2D flow field ($512 \times 512 \times 2$).
+
+The architecture features:
+\begin{itemize}
+    \item \textbf{Encoder}: A series of strided convolutional blocks that heavily downsample the feature maps, increasing the channel depth from 3 to 256.
+    \item \textbf{Bottleneck}: A deep representational layer with 512 channels, operating at a spatial resolution of $32 \times 32$.
+    \item \textbf{Decoder}: Symmetrical upsampling layers combined with skip connections from the encoder via channel concatenation. These skip connections assist in preserving high-frequency spatial details required for precise flow localization.
+    \item \textbf{Output Head}: A final $1 \times 1$ convolution layer mapping the features to the two $dx$ and $dy$ prediction channels.
+\end{itemize}
+
+\subsection{Training}
+
+Since we do not possess ground-truth motion vectors for real-world YouTube datasets, we employed a self-supervised reconstruction loss. Specifically, the network predicts a flow field solely from the first image $I_A$. The predicted flow is then used to warp $I_A$ through backward mapping to form an estimate of the subsequent frame $I_{B'}$. 
+
+The model optimizes the Mean Squared Error (MSE) between the synthesized image $I_{B'}$ and the true target image $I_B$:
+\begin{equation}
+\mathcal{L} = \| \text{Warp}(I_A, \text{Flow}) - I_B \|^2
+\end{equation}
+
+Training demonstrated rapid convergence. Over the course of 50 epochs, the training loss dropped significantly from $0.0038$ to $0.0009$, and the validation loss improved from $0.045$ to $0.012$, indicating that the self-supervised objective successfully captured coherent spatial transformations.
+
+\subsection{Results}
+
+The Motion Flow approach exhibited several compelling advantages: generating the animation is virtually instant (CPU and GPU friendly) and the model weights are exceptionally light. Furthermore, because the output is simply a warped version of the original image, maximum texture fidelity is theoretically retained.
+
+However, the methodology's intrinsic limitations hampered its real-world applicability. The primary drawback is that this model does not hallucinate or create new information. Consequently, it struggles profoundly with small details, high-frequency textures, and dis-occlusions (areas revealed behind moving objects). It treats the image globally as a stretchy membrane rather than understanding 3D depth relationships. Ultimately, while interesting for very minor, localized sub-pixel animations, it proved insufficient for generating dynamic, wide-angle cinematic drone movements.
+
+\section{Generative Diffusion Approach}
+
+Having identified the limitations of simple pixel displacement, we pivoted toward generative AI, specifically fine-tuning the Stable Video Diffusion (SVD) model. Unlike Motion Flow, diffusion models possess a deep intrinsic understanding of natural image priors and can synthesize entirely new pixels to populate newly revealed scenic structures.
+
+\subsection{Dataset}
+
+We repurposed the continuous drone video collection but adapted the extraction logic for video sequence generation. We sampled clips, employing a \texttt{frame\_gap=12} to encompass approximately 7 seconds of genuine physical motion per segment.
+
+To maximize the quality of the generative prior, we tightened our motion filtering criteria, accepting only sequences exhibiting a motion score between $3.0$ and $40.0$. This effectively purged entirely static scenes and abrupt hard cuts. In total, the fine-tuning dataset comprised 2,374 high-quality motion-filtered clips.
+
+\subsection{Architecture and Models}
+
+The base architecture is Stability AI's Stable Video Diffusion (SVD) Image-to-Video model. SVD relies on a pre-trained VAE encoder to map the conditioning input image into a latent space. A CLIP visionary encoder further extracts localized semantic features. In the core processing stage, SVD utilizes a Temporal U-Net equipped with 3D convolutions and attention mechanisms. 
+
+To fine-tune this massive architecture without excessive overfitting or catastrophic forgetting, we adopted the \textbf{SVD\_Xtend} strategy. We explicitly froze the spatial attention components of the U-Net---relying on the model's pre-existing knowledge of 2D image structure---and fully fine-tuned the temporal layers to teach the model our specific drone-style pacing and landscape motion dynamics.
+
+\subsection{Training}
+
+We evaluated two parallel training approaches to gauge the balance between computational cost and output quality.
+
+\textbf{Approach A: Low-Rank Adaptation (LoRA).} We injected rank-16 LoRA adapters exclusively into the temporal attention layers. This constrained configuration trained a mere $\sim$3.3 million parameters (roughly $0.2\%$ of the UNet). The model was trained with a batch size of 2 and a learning rate of $10^{-4}$ for 7 epochs. This setup relied on a naive MSE applied on the EDM noise prediction.
+
+\textbf{Approach B: Full Temporal Fine-tuning (SVD\_Xtend).} In this setting, we unfroze all temporal UNet parameters. The model was trained for 5,000 steps at a diminished learning rate ($10^{-5}$). A key design choice was setting \texttt{noise\_aug\_strength=0.02}, gently injecting noise into the conditioning initialization frame to bridge the distribution gap between training (where inputs are perfect frames) and inference. We also enabled Classifier-Free Guidance (CFG) dropout to maintain prompt scale manipulability during generation. The loss formulations adhered to the correct continuous-time EDM loss.
+
+\subsection{Results}
+
+Our evaluations underscored a stark contrast between the two paradigms.
+
+The LoRA approach failed to capture the complexity of the domain. When trained on static clips, the model converged (loss: 0.46) but produced entirely frozen videos. Even when trained on the motion-filtered dataset (loss: 0.51), the LoRA model generated only slight, constrained parallax effects that critically lacked fluidity and depth.
+
+Conversely, the SVD\_Xtend full fine-tuning approach demonstrated excellent convergence (final loss: 0.16) and yielded cinematic, sweeping drone-style motions from a single landscape image. The generative capability allowed it to effortlessly handle dense foliage and sweeping horizons where the Motion Flow approach failed. However, the model requires powerful hardware and significantly more computational overhead to generate a few frames.
+
+To formulate standard video sequences, we implemented a post-processing pipeline: the raw SVD output (generated at a low framerate of roughly 7\,fps) was temporally slowed to 2\,fps to exaggerate the amplitude of the movement, and subsequently upsampled to a seamless 24\,fps utilizing \texttt{ffmpeg minterpolate}. While highly effective, minor interpolation artifacts on extremely high-frequency textures underscore a continuing challenge.
+
+\section{Conclusion}
+
+The Makeitalive project successfully explored and implemented two complementary strategies for landscape image animation. The Motion Flow framework effectively discerns and models macroscopic spatial displacement, boasting immense speed and lightweight constraints, yet it fundamentally fails at generating unseen occlusions. Conversely, fine-tuned Stable Video Diffusion achieves breathtaking generative textual richness and fluid cinematic parallax at the expense of high computational latency and massive architectural weight. 
+
+Reflecting forward, an isolated approach is constrained by its own internal paradigm. The ideal architecture would likely involve the hybridization of the two methodologies: leveraging the deterministic structural speed and lightweight execution of a Motion Flow field as an explicit spatial conditioning signal for an SVD-like generative upsampler. Incorporating advanced frame interpolation tools such as RIFE in the post-processing pipeline would further smooth artifacts. Such a combination holds the most promising potential to deliver effortless, high-fidelity landscape animation applicable to broad real-world scenarios.
+
+{\small
+\bibliographystyle{ieeenat_fullname}
+\bibliography{main}
+}
+
+\end{document}
