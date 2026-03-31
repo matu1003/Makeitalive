@@ -2,10 +2,13 @@
 \providecommand\hyper@newdestlabel[2]{}
 \providecommand\HyperFirstAtBeginDocument{\AtBeginDocument}
 \HyperFirstAtBeginDocument{\ifx\hyper@anchor\@undefined
+\global\let\oldcontentsline\contentsline
+\gdef\contentsline#1#2#3#4{\oldcontentsline{#1}{#2}{#3}}
 \global\let\oldnewlabel\newlabel
 \gdef\newlabel#1#2{\newlabelxx{#1}#2}
 \gdef\newlabelxx#1#2#3#4#5#6{\oldnewlabel{#1}{{#2}{#3}}}
 \AtEndDocument{\ifx\hyper@anchor\@undefined
+\let\contentsline\oldcontentsline
 \let\newlabel\oldnewlabel
 \fi}
 \fi}
@@ -21,42 +24,43 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.4}\hskip -1em.\nobreakspace  {}Results}{2}{subsection.2.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {3}\hskip -1em.\nobreakspace  {}Generative Diffusion Approach}{2}{section.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1}\hskip -1em.\nobreakspace  {}Dataset}{2}{subsection.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}\hskip -1em.\nobreakspace  {}Architecture and Models}{2}{subsection.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}\hskip -1em.\nobreakspace  {}Training}{2}{subsection.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}\hskip -1em.\nobreakspace  {}Architecture and Models}{3}{subsection.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}\hskip -1em.\nobreakspace  {}Training}{3}{subsection.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Hardware and Resources.}{3}{section*.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.4}\hskip -1em.\nobreakspace  {}Results}{3}{subsection.3.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {4}\hskip -1em.\nobreakspace  {}Conclusion}{3}{section.4}\protected@file@percent }
 \bibstyle{ieeenat_fullname}
 \bibdata{main}
 \@writefile{toc}{\contentsline {section}{\numberline {A}\hskip -1em.\nobreakspace  {}Appendix: Supplementary Figures and Tables}{4}{appendix.A}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {A.1}\hskip -1em.\nobreakspace  {}Dataset and Core Concepts}{4}{subsection.A.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \textbf  {Dataset Pair Examples.} Extracts from the drone video dataset. Notice the first pair which has not been eliminated during the creation of the dataset but that represents two different scenes, demonstrating the need for intelligent filtering via Bhattacharyya distance and Thumbnail MAE.\relax }}{4}{figure.caption.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \textbf  {Dataset Pair Examples.} Extracts from the drone video dataset. Notice the first pair which has not been eliminated during the creation of the dataset but that represents two different scenes, demonstrating the need for intelligent filtering via Bhattacharyya distance and Thumbnail MAE.\relax }}{4}{figure.caption.2}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:samples}{{1}{4}{\textbf {Dataset Pair Examples.} Extracts from the drone video dataset. Notice the first pair which has not been eliminated during the creation of the dataset but that represents two different scenes, demonstrating the need for intelligent filtering via Bhattacharyya distance and Thumbnail MAE.\relax }{figure.caption.1}{}}
+\newlabel{fig:samples}{{1}{4}{\textbf {Dataset Pair Examples.} Extracts from the drone video dataset. Notice the first pair which has not been eliminated during the creation of the dataset but that represents two different scenes, demonstrating the need for intelligent filtering via Bhattacharyya distance and Thumbnail MAE.\relax }{figure.caption.2}{}}
 \newlabel{fig:samples@cref}{{[figure][1][2147483647]1}{[1][4][]4}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \textbf  {The Motion Flow Concept.} The model predicts an optical flow field consisting of $(dx, dy)$ vectors per pixel. We then use backward mapping to render the animated image by displacing pixels horizontally and vertically.\relax }}{4}{figure.caption.2}\protected@file@percent }
-\newlabel{fig:mf_grid}{{2}{4}{\textbf {The Motion Flow Concept.} The model predicts an optical flow field consisting of $(dx, dy)$ vectors per pixel. We then use backward mapping to render the animated image by displacing pixels horizontally and vertically.\relax }{figure.caption.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \textbf  {The Motion Flow Concept.} The model predicts an optical flow field consisting of $(dx, dy)$ vectors per pixel. We then use backward mapping to render the animated image by displacing pixels horizontally and vertically.\relax }}{4}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:mf_grid}{{2}{4}{\textbf {The Motion Flow Concept.} The model predicts an optical flow field consisting of $(dx, dy)$ vectors per pixel. We then use backward mapping to render the animated image by displacing pixels horizontally and vertically.\relax }{figure.caption.3}{}}
 \newlabel{fig:mf_grid@cref}{{[figure][2][2147483647]2}{[1][4][]4}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {A.2}\hskip -1em.\nobreakspace  {}Quantitative Results and Architectures}{4}{subsection.A.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {A.3}\hskip -1em.\nobreakspace  {}Qualitative Parallax Results}{4}{subsection.A.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \textbf  {Motion Flow Warping Loss.} Since there is no ground truth, a self-supervised reconstruction loss is used. The model predicts a flow from Image A, warps Image A, and the loss is the MSE between the predicted warped image and the real Image B.\relax }}{4}{figure.caption.3}\protected@file@percent }
-\newlabel{fig:mf_loss}{{3}{4}{\textbf {Motion Flow Warping Loss.} Since there is no ground truth, a self-supervised reconstruction loss is used. The model predicts a flow from Image A, warps Image A, and the loss is the MSE between the predicted warped image and the real Image B.\relax }{figure.caption.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \textbf  {Motion Flow Warping Loss.} Since there is no ground truth, a self-supervised reconstruction loss is used. The model predicts a flow from Image A, warps Image A, and the loss is the MSE between the predicted warped image and the real Image B.\relax }}{4}{figure.caption.4}\protected@file@percent }
+\newlabel{fig:mf_loss}{{3}{4}{\textbf {Motion Flow Warping Loss.} Since there is no ground truth, a self-supervised reconstruction loss is used. The model predicts a flow from Image A, warps Image A, and the loss is the MSE between the predicted warped image and the real Image B.\relax }{figure.caption.4}{}}
 \newlabel{fig:mf_loss@cref}{{[figure][3][2147483647]3}{[1][4][]4}}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces \textbf  {Motion Flow Performance.} Loss convergence over 50 epochs demonstrating successful spatial transformation learning.\relax }}{4}{table.caption.4}\protected@file@percent }
-\newlabel{tab:mf_perf}{{1}{4}{\textbf {Motion Flow Performance.} Loss convergence over 50 epochs demonstrating successful spatial transformation learning.\relax }{table.caption.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces \textbf  {Motion Flow Performance.} Loss convergence over 50 epochs demonstrating successful spatial transformation learning.\relax }}{4}{table.caption.5}\protected@file@percent }
+\newlabel{tab:mf_perf}{{1}{4}{\textbf {Motion Flow Performance.} Loss convergence over 50 epochs demonstrating successful spatial transformation learning.\relax }{table.caption.5}{}}
 \newlabel{tab:mf_perf@cref}{{[table][1][2147483647]1}{[1][4][]4}}
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces \textbf  {Loss convergence (SVD\_Xtend).} Full fine-tuning training loss progression over 5000 steps on 2374 clips.\relax }}{4}{table.caption.5}\protected@file@percent }
-\newlabel{tab:svd_loss}{{2}{4}{\textbf {Loss convergence (SVD\_Xtend).} Full fine-tuning training loss progression over 5000 steps on 2374 clips.\relax }{table.caption.5}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces \textbf  {Loss convergence (SVD\_Xtend).} Full fine-tuning training loss progression over 5000 steps on 2374 clips.\relax }}{4}{table.caption.6}\protected@file@percent }
+\newlabel{tab:svd_loss}{{2}{4}{\textbf {Loss convergence (SVD\_Xtend).} Full fine-tuning training loss progression over 5000 steps on 2374 clips.\relax }{table.caption.6}{}}
 \newlabel{tab:svd_loss@cref}{{[table][2][2147483647]2}{[1][4][]4}}
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces \textbf  {SVD Training Strategy Ablation.} Impact of dataset quality and architectural approach (LoRA vs. Full fine-tuning) on final performance.\relax }}{4}{table.caption.6}\protected@file@percent }
-\newlabel{tab:ablation}{{3}{4}{\textbf {SVD Training Strategy Ablation.} Impact of dataset quality and architectural approach (LoRA vs. Full fine-tuning) on final performance.\relax }{table.caption.6}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces \textbf  {SVD Training Strategy Ablation.} Impact of dataset quality and architectural approach (LoRA vs. Full fine-tuning) on final performance.\relax }}{4}{table.caption.7}\protected@file@percent }
+\newlabel{tab:ablation}{{3}{4}{\textbf {SVD Training Strategy Ablation.} Impact of dataset quality and architectural approach (LoRA vs. Full fine-tuning) on final performance.\relax }{table.caption.7}{}}
 \newlabel{tab:ablation@cref}{{[table][3][2147483647]3}{[1][4][]4}}
-\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces \textbf  {Comparison of Techniques.} High-level comparison between the non-generative Motion Flow and generative Stable Video Diffusion.\relax }}{4}{table.caption.7}\protected@file@percent }
-\newlabel{tab:comparison}{{4}{4}{\textbf {Comparison of Techniques.} High-level comparison between the non-generative Motion Flow and generative Stable Video Diffusion.\relax }{table.caption.7}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces \textbf  {Comparison of Techniques.} High-level comparison between the non-generative Motion Flow and generative Stable Video Diffusion.\relax }}{4}{table.caption.8}\protected@file@percent }
+\newlabel{tab:comparison}{{4}{4}{\textbf {Comparison of Techniques.} High-level comparison between the non-generative Motion Flow and generative Stable Video Diffusion.\relax }{table.caption.8}{}}
 \newlabel{tab:comparison@cref}{{[table][4][2147483647]4}{[1][4][]4}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces \textbf  {Intermediate Result: LoRA rank 16 (7 epochs).} From left to right: Frame 1, Frame 7, and Frame 14. Slight parallax is visible but movement is minimal and lacks profound depth.\relax }}{4}{figure.caption.8}\protected@file@percent }
-\newlabel{fig:lora_result}{{4}{4}{\textbf {Intermediate Result: LoRA rank 16 (7 epochs).} From left to right: Frame 1, Frame 7, and Frame 14. Slight parallax is visible but movement is minimal and lacks profound depth.\relax }{figure.caption.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces \textbf  {Intermediate Result: LoRA rank 16 (7 epochs).} From left to right: Frame 1, Frame 7, and Frame 14. Slight parallax is visible but movement is minimal and lacks profound depth.\relax }}{4}{figure.caption.9}\protected@file@percent }
+\newlabel{fig:lora_result}{{4}{4}{\textbf {Intermediate Result: LoRA rank 16 (7 epochs).} From left to right: Frame 1, Frame 7, and Frame 14. Slight parallax is visible but movement is minimal and lacks profound depth.\relax }{figure.caption.9}{}}
 \newlabel{fig:lora_result@cref}{{[figure][4][2147483647]4}{[1][4][]4}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces \textbf  {Final Result: SVD\_Xtend.} From left to right: Frame 1, Frame 7, and Frame 14. Smooth, cinematic drone-style motion sweeping across the landscape.\relax }}{5}{figure.caption.9}\protected@file@percent }
-\newlabel{fig:svd_result}{{5}{5}{\textbf {Final Result: SVD\_Xtend.} From left to right: Frame 1, Frame 7, and Frame 14. Smooth, cinematic drone-style motion sweeping across the landscape.\relax }{figure.caption.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces \textbf  {Final Result: SVD\_Xtend.} From left to right: Frame 1, Frame 7, and Frame 14. Smooth, cinematic drone-style motion sweeping across the landscape.\relax }}{5}{figure.caption.10}\protected@file@percent }
+\newlabel{fig:svd_result}{{5}{5}{\textbf {Final Result: SVD\_Xtend.} From left to right: Frame 1, Frame 7, and Frame 14. Smooth, cinematic drone-style motion sweeping across the landscape.\relax }{figure.caption.10}{}}
 \newlabel{fig:svd_result@cref}{{[figure][5][2147483647]5}{[1][4][]5}}
 \gdef \@abspage@last{5}

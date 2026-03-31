@@ -89,17 +89,24 @@ Training demonstrated rapid convergence. Over the course of 50 epochs, the train
 
 The Motion Flow approach exhibited several compelling advantages: generating the animation is virtually instant (CPU and GPU friendly) and the model weights are exceptionally light. Furthermore, because the output is simply a warped version of the original image, maximum texture fidelity is theoretically retained.
 
-However, the methodology's intrinsic limitations hampered its real-world applicability. The primary drawback is that this model does not hallucinate or create new information. Consequently, it struggles profoundly with small details, high-frequency textures, and dis-occlusions (areas revealed behind moving objects). It treats the image globally as a stretchy membrane rather than understanding 3D depth relationships. Ultimately, while interesting for very minor, localized sub-pixel animations, it proved insufficient for generating dynamic, wide-angle cinematic drone movements.
+However, the methodology's intrinsic limitations hampered its real-world applicability. The primary drawback is that this model is purely interpolative: it cannot synthesize new visual content beyond what is already present in the input image. Consequently, it struggles profoundly with small details, high-frequency textures, and dis-occlusions (areas revealed behind moving objects). It treats the image globally as a stretchy membrane rather than understanding 3D depth relationships. Ultimately, while interesting for very minor, localized sub-pixel animations, it proved insufficient for generating dynamic, wide-angle cinematic drone movements.
 
 \section{Generative Diffusion Approach}
 
-Having identified the limitations of simple pixel displacement, we pivoted toward generative AI, specifically fine-tuning the Stable Video Diffusion (SVD) model. Unlike Motion Flow, diffusion models possess a deep intrinsic understanding of natural image priors and can synthesize entirely new pixels to populate newly revealed scenic structures.
+Having identified the limitations of simple pixel displacement, we pivoted toward generative AI, specifically fine-tuning the Stable Video Diffusion (SVD) model. 
+Unlike Motion Flow, diffusion models possess a deep intrinsic understanding of natural image priors and can synthesize entirely new pixels to populate newly revealed scenic structures.
+Running the full SVD architecture on some sample inputs revealed that the model had a very good semantic understanding of the landscape domain, and was able to fill in alongside the motion with rich, detailed textures. 
+However, the model's default pacing and motion dynamics were not aligned with our drone-style objectives, nor were the movements coherent with the depth of field, necessitating fine-tuning on a custom dataset.
 
 \subsection{Dataset}
 
-We repurposed the continuous drone video collection but adapted the extraction logic for video sequence generation. We sampled clips, employing a \texttt{frame\_gap=12} to encompass approximately 7 seconds of genuine physical motion per segment.
-
+We repurposed the continuous drone video collection to sample videos into sequences of 12 images to ensure compatibility with the SVD architecture, which is designed to process video clips rather than isolated frame pairs. 
+We maintained the same resolution and cropping strategy as before. 
+However, we significantly reduced the framerate to 2\,fps (sampling every 12 frames) to capture more pronounced motion between frames, which is essential for training the model to learn dynamic parallax effects. 
+Indeed, first training operations showed that the default pacing of the dataset was too slow, and the model was not learning any motion, rather it was simply reconstructing the input image with minor noise.
+We sampled clips, employing a \texttt{frame\_gap=12} to encompass approximately 7 seconds of genuine physical motion per segment.
 To maximize the quality of the generative prior, we tightened our motion filtering criteria, accepting only sequences exhibiting a motion score between $3.0$ and $40.0$. This effectively purged entirely static scenes and abrupt hard cuts. In total, the fine-tuning dataset comprised 2,374 high-quality motion-filtered clips.
+To reverse the slow down effect of the low framerate, we implemented a post-processing pipeline that interpolates the generated frames back to a smooth 24\,fps video, which is discussed in the results section.
 
 \subsection{Architecture and Models}
 
@@ -114,6 +121,9 @@ We evaluated two parallel training approaches to gauge the balance between compu
 \textbf{Approach A: Low-Rank Adaptation (LoRA).} We injected rank-16 LoRA adapters exclusively into the temporal attention layers. This constrained configuration trained a mere $\sim$3.3 million parameters (roughly $0.2\%$ of the UNet). The model was trained with a batch size of 2 and a learning rate of $10^{-4}$ for 7 epochs. This setup relied on a naive MSE applied on the EDM noise prediction.
 
 \textbf{Approach B: Full Temporal Fine-tuning (SVD\_Xtend).} In this setting, we unfroze all temporal UNet parameters. The model was trained for 5,000 steps at a diminished learning rate ($10^{-5}$). A key design choice was setting \texttt{noise\_aug\_strength=0.02}, gently injecting noise into the conditioning initialization frame to bridge the distribution gap between training (where inputs are perfect frames) and inference. We also enabled Classifier-Free Guidance (CFG) dropout to maintain prompt scale manipulability during generation. The loss formulations adhered to the correct continuous-time EDM loss.
+
+\paragraph{Hardware and Resources.} The LoRa and SVD\_Xtend training were conducted on a single A100 32 GB GPU. The LoRA approach completed in under 2 hours, while the full fine-tuning required approximately 12 hours to reach convergence.
+One of the key challenges of the SVD approach was the hosting of data on google drive, where we quickly reached quotas and ran into siginifcant checkpoint issues as we tried to realise persistance through drive saving and not using live runtime. 
 
 \subsection{Results}
 
