@@ -9,6 +9,8 @@
 
 \definecolor{cvprblue}{rgb}{0.21,0.49,0.74}
 \usepackage[pagebackref,breaklinks,colorlinks,allcolors=cvprblue]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,positioning,calc,arrows.meta}
 
 %%%%%%%%% PAPER ID
 \def\paperID{*****}
@@ -64,7 +66,7 @@ This dual-metric filtration proved far more robust than standard Mean Squared Er
 
 \subsection{Architecture and Models}
 
-The Motion Flow predictor is modeled with a custom \textbf{MotionFlow U-Net} architecture. The network transforms an input RGB image ($512 \times 512 \times 3$) into a dense 2-channel 2D flow field ($512 \times 512 \times 2$) (see Figure \ref{fig:mf_grid}). We specifically opted for the U-Net architecture because it excels at image-to-image translation tasks compared to other models, leveraging its signature skip connections to directly relay fine-grained spatial information from the input to the output.
+The Motion Flow predictor is modeled with a custom \textbf{MotionFlow U-Net} architecture (detailed in Figure \ref{fig:unet_arch}). The network transforms an input RGB image ($512 \times 512 \times 3$) into a dense 2-channel 2D flow field ($512 \times 512 \times 2$) (see Figure \ref{fig:mf_grid}). We specifically opted for the U-Net architecture because it excels at image-to-image translation tasks compared to other models, leveraging its signature skip connections to directly relay fine-grained spatial information from the input to the output.
 
 The architecture features:
 \begin{itemize}
@@ -78,12 +80,12 @@ The architecture features:
 
 Since we do not possess ground-truth motion vectors for real-world YouTube datasets, we employed a self-supervised reconstruction loss. Specifically, the network predicts a flow field solely from the first image $I_A$. The predicted flow is then used to warp $I_A$ through backward mapping to form an estimate of the subsequent frame $I_{B'}$. 
 
-The model optimizes the Mean Squared Error (MSE) between the synthesized image $I_{B'}$ and the true target image $I_B$:
+The model optimizes the Mean Squared Error (MSE) between the synthesized image $I_{B'}$ and the true target image $I_B$ (as illustrated in Figure \ref{fig:mf_loss}):
 \begin{equation}
 \mathcal{L} = \| \text{Warp}(I_A, \text{Flow}) - I_B \|^2
 \end{equation}
 
-Training demonstrated rapid convergence (illustrated in Figure \ref{fig:mf_loss}). Over the course of 50 epochs, the training loss dropped significantly from $0.0038$ to $0.0009$, and the validation loss improved from $0.045$ to $0.012$, indicating that the self-supervised objective successfully captured coherent spatial transformations. It should be noted that the exceptionally small magnitude of these loss values is primarily due to the inherent similarity of the two consecutive images being compared.
+Training demonstrated rapid convergence. Over the course of 50 epochs, the training loss dropped significantly from $0.0038$ to $0.0009$, and the validation loss improved from $0.045$ to $0.012$, indicating that the self-supervised objective successfully captured coherent spatial transformations. It should be noted that the exceptionally small magnitude of these loss values is primarily due to the inherent similarity of the two consecutive images being compared.
 
 \subsection{Results}
 
@@ -174,7 +176,74 @@ This appendix contains the figures and quantitative tables utilized during our p
 
 \subsection{Quantitative Results and Architectures}
 
-This section details the quantitative metrics obtained during model training, encompassing the loss progression of the Motion Flow model, the Stable Video Diffusion fine-tuning steps, and an ablation study of the SVD training strategies.
+This section details the quantitative metrics obtained during model training, encompassing the loss progression of the Motion Flow model, the Stable Video Diffusion fine-tuning steps, and an ablation study of the SVD training strategies. Furthermore, the specialized architecture developed to support the Motion Flow processing is documented below.
+
+\begin{figure}[htbp]
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[
+  node distance=1.2cm and 2.2cm, 
+  every node/.style={font=\scriptsize, inner sep=5pt},
+  enc/.style={draw=teal!70!black, fill=teal!15, rounded corners=4pt, minimum width=2.6cm, minimum height=0.7cm, align=center},
+  btnk/.style={draw=orange!80!black, fill=orange!20, rounded corners=4pt, minimum width=3.0cm, minimum height=0.9cm, align=center},
+  dec/.style={draw=violet!70!black, fill=violet!15, rounded corners=4pt, minimum width=2.6cm, minimum height=0.7cm, align=center},
+  outnode/.style={draw=gray!60, fill=gray!10, rounded corners=4pt, minimum width=2.6cm, minimum height=0.7cm, align=center},
+  skip/.style={-{Stealth[length=4pt]}, dashed, orange!80!black, thick},
+  mainflow/.style={-{Stealth[length=4pt]}, thick, gray!60!black},
+]
+
+%% Colonne de Gauche (Encoder)
+\node[enc] (inc) {\textbf{inc -- DC}\\ $32 \cdot 512^2$};
+\node[enc, below=of inc] (down1) {\textbf{down1}\\ $64 \cdot 256^2$};
+\node[enc, below=of down1] (down2) {\textbf{down2}\\ $128 \cdot 128^2$};
+\node[enc, below=of down2] (down3) {\textbf{down3}\\ $256 \cdot 64^2$};
+
+%% Bottleneck
+\node[btnk, below right=1.0cm and -0.4cm of down3] (btnknode) {\textbf{down4 -- Bottleneck}\\ $512 \cdot 32^2$};
+
+%% Colonne de Droite (Decoder)
+\node[dec, above right=1.0cm and -0.4cm of btnknode] (up1) {\textbf{up1}\\ $256 \cdot 64^2$};
+\node[dec, above=of up1] (up2) {\textbf{up2}\\ $128 \cdot 128^2$};
+\node[dec, above=of up2] (up3) {\textbf{up3}\\ $64 \cdot 256^2$};
+\node[dec, above=of up3] (up4) {\textbf{up4}\\ $32 \cdot 512^2$};
+
+%% Output
+\node[outnode, above=1.0cm of up4] (outc) {\textbf{outc -- Conv $1{\times}1$}\\ $2 \cdot 512^2$};
+
+%% Connexions Flux Principal
+\draw[mainflow] (inc) -- (down1);
+\draw[mainflow] (down1) -- (down2);
+\draw[mainflow] (down2) -- (down3);
+\draw[mainflow] (down3.south) -- ++(0,-0.5) -| (btnknode.west);
+\draw[mainflow] (btnknode.east) -- ++(0.5,0) |- (up1.south);
+\draw[mainflow] (up1) -- (up2);
+\draw[mainflow] (up2) -- (up3);
+\draw[mainflow] (up3) -- (up4);
+\draw[mainflow] (up4) -- (outc);
+
+%% Skip Connections (cat)
+\draw[skip] (down3.east) -- node[above, font=\tiny, black, yshift=-2pt]{cat} (up1.west);
+\draw[skip] (down2.east) -- node[above, font=\tiny, black, yshift=-2pt]{cat} (up2.west);
+\draw[skip] (down1.east) -- node[above, font=\tiny, black, yshift=-2pt]{cat} (up3.west);
+\draw[skip] (inc.east)   -- node[above, font=\tiny, black, yshift=-2pt]{cat} (up4.west);
+
+%% Labels Entrée/Sortie
+\node[above=3pt of inc, text=gray, font=\tiny] {Input RGB};
+\node[above=3pt of outc, text=gray, font=\tiny] {Output flow $(dx,dy)$};
+
+%% Légende sur le côté droit
+\coordinate (leg_ref) at ($(up3.east) + (1.2cm, 0cm)$);
+
+\node[enc, minimum width=2.2cm, minimum height=0.6cm, anchor=west] (leg1) at (leg_ref) {\tiny Encoder};
+\node[btnk, minimum width=2.2cm, minimum height=0.6cm, anchor=west, below=0.4cm of leg1] (leg2) {\tiny Bottleneck};
+\node[dec, minimum width=2.2cm, minimum height=0.6cm, anchor=west, below=0.4cm of leg2] (leg3) {\tiny Decoder};
+\node[outnode, minimum width=2.2cm, minimum height=0.6cm, anchor=west, below=0.4cm of leg3] (leg4) {\tiny Output Head};
+
+\end{tikzpicture}%
+}
+\caption{\textbf{Motion Flow U-Net Architecture.} Diagram illustrating the distinct layers and connections within our custom U-Net model engineered for optical flow prediction.}
+\label{fig:unet_arch}
+\end{figure}
 
 \begin{table}[htbp]
     \centering

@@ -41,23 +41,26 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \textbf  {Motion Flow Warping Loss.} Since there is no ground truth, a self-supervised reconstruction loss is used. The model predicts a flow from Image A, warps Image A, and the loss is the MSE between the predicted warped image and the real Image B.\relax }}{5}{figure.caption.4}\protected@file@percent }
 \newlabel{fig:mf_loss}{{3}{5}{\textbf {Motion Flow Warping Loss.} Since there is no ground truth, a self-supervised reconstruction loss is used. The model predicts a flow from Image A, warps Image A, and the loss is the MSE between the predicted warped image and the real Image B.\relax }{figure.caption.4}{}}
 \newlabel{fig:mf_loss@cref}{{[figure][3][2147483647]3}{[1][5][]5}}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces \textbf  {Motion Flow Performance.} Loss convergence over 50 epochs demonstrating successful spatial transformation learning.\relax }}{5}{table.caption.5}\protected@file@percent }
-\newlabel{tab:mf_perf}{{1}{5}{\textbf {Motion Flow Performance.} Loss convergence over 50 epochs demonstrating successful spatial transformation learning.\relax }{table.caption.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces \textbf  {Motion Flow U-Net Architecture.} Diagram illustrating the distinct layers and connections within our custom U-Net model engineered for optical flow prediction.\relax }}{5}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:unet_arch}{{4}{5}{\textbf {Motion Flow U-Net Architecture.} Diagram illustrating the distinct layers and connections within our custom U-Net model engineered for optical flow prediction.\relax }{figure.caption.5}{}}
+\newlabel{fig:unet_arch@cref}{{[figure][4][2147483647]4}{[1][5][]5}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces \textbf  {Motion Flow Performance.} Loss convergence over 50 epochs demonstrating successful spatial transformation learning.\relax }}{5}{table.caption.6}\protected@file@percent }
+\newlabel{tab:mf_perf}{{1}{5}{\textbf {Motion Flow Performance.} Loss convergence over 50 epochs demonstrating successful spatial transformation learning.\relax }{table.caption.6}{}}
 \newlabel{tab:mf_perf@cref}{{[table][1][2147483647]1}{[1][5][]5}}
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces \textbf  {Loss convergence (SVD\_Xtend).} Full fine-tuning training loss progression over 5000 steps on 2374 clips.\relax }}{5}{table.caption.6}\protected@file@percent }
-\newlabel{tab:svd_loss}{{2}{5}{\textbf {Loss convergence (SVD\_Xtend).} Full fine-tuning training loss progression over 5000 steps on 2374 clips.\relax }{table.caption.6}{}}
-\newlabel{tab:svd_loss@cref}{{[table][2][2147483647]2}{[1][5][]5}}
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces \textbf  {SVD Training Strategy Ablation.} Impact of dataset quality and architectural approach (LoRA vs. Full fine-tuning) on final performance.\relax }}{5}{table.caption.7}\protected@file@percent }
-\newlabel{tab:ablation}{{3}{5}{\textbf {SVD Training Strategy Ablation.} Impact of dataset quality and architectural approach (LoRA vs. Full fine-tuning) on final performance.\relax }{table.caption.7}{}}
-\newlabel{tab:ablation@cref}{{[table][3][2147483647]3}{[1][5][]5}}
-\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces \textbf  {Comparison of Techniques.} High-level comparison between the non-generative Motion Flow and generative Stable Video Diffusion.\relax }}{5}{table.caption.8}\protected@file@percent }
-\newlabel{tab:comparison}{{4}{5}{\textbf {Comparison of Techniques.} High-level comparison between the non-generative Motion Flow and generative Stable Video Diffusion.\relax }{table.caption.8}{}}
-\newlabel{tab:comparison@cref}{{[table][4][2147483647]4}{[1][5][]5}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {A.3}\hskip -1em.\nobreakspace  {}Qualitative Parallax Results}{5}{subsection.A.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces \textbf  {Intermediate Result: LoRA rank 16 (7 epochs).} From left to right: Frame 1, Frame 7, and Frame 14. Slight parallax is visible but movement is minimal and lacks profound depth.\relax }}{6}{figure.caption.9}\protected@file@percent }
-\newlabel{fig:lora_result}{{4}{6}{\textbf {Intermediate Result: LoRA rank 16 (7 epochs).} From left to right: Frame 1, Frame 7, and Frame 14. Slight parallax is visible but movement is minimal and lacks profound depth.\relax }{figure.caption.9}{}}
-\newlabel{fig:lora_result@cref}{{[figure][4][2147483647]4}{[1][5][]6}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces \textbf  {Final Result: SVD\_Xtend.} From left to right: Frame 1, Frame 7, and Frame 14. Smooth, cinematic drone-style motion sweeping across the landscape.\relax }}{6}{figure.caption.10}\protected@file@percent }
-\newlabel{fig:svd_result}{{5}{6}{\textbf {Final Result: SVD\_Xtend.} From left to right: Frame 1, Frame 7, and Frame 14. Smooth, cinematic drone-style motion sweeping across the landscape.\relax }{figure.caption.10}{}}
-\newlabel{fig:svd_result@cref}{{[figure][5][2147483647]5}{[1][5][]6}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces \textbf  {Loss convergence (SVD\_Xtend).} Full fine-tuning training loss progression over 5000 steps on 2374 clips.\relax }}{6}{table.caption.7}\protected@file@percent }
+\newlabel{tab:svd_loss}{{2}{6}{\textbf {Loss convergence (SVD\_Xtend).} Full fine-tuning training loss progression over 5000 steps on 2374 clips.\relax }{table.caption.7}{}}
+\newlabel{tab:svd_loss@cref}{{[table][2][2147483647]2}{[1][5][]6}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces \textbf  {SVD Training Strategy Ablation.} Impact of dataset quality and architectural approach (LoRA vs. Full fine-tuning) on final performance.\relax }}{6}{table.caption.8}\protected@file@percent }
+\newlabel{tab:ablation}{{3}{6}{\textbf {SVD Training Strategy Ablation.} Impact of dataset quality and architectural approach (LoRA vs. Full fine-tuning) on final performance.\relax }{table.caption.8}{}}
+\newlabel{tab:ablation@cref}{{[table][3][2147483647]3}{[1][5][]6}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces \textbf  {Comparison of Techniques.} High-level comparison between the non-generative Motion Flow and generative Stable Video Diffusion.\relax }}{6}{table.caption.9}\protected@file@percent }
+\newlabel{tab:comparison}{{4}{6}{\textbf {Comparison of Techniques.} High-level comparison between the non-generative Motion Flow and generative Stable Video Diffusion.\relax }{table.caption.9}{}}
+\newlabel{tab:comparison@cref}{{[table][4][2147483647]4}{[1][5][]6}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces \textbf  {Intermediate Result: LoRA rank 16 (7 epochs).} From left to right: Frame 1, Frame 7, and Frame 14. Slight parallax is visible but movement is minimal and lacks profound depth.\relax }}{6}{figure.caption.10}\protected@file@percent }
+\newlabel{fig:lora_result}{{5}{6}{\textbf {Intermediate Result: LoRA rank 16 (7 epochs).} From left to right: Frame 1, Frame 7, and Frame 14. Slight parallax is visible but movement is minimal and lacks profound depth.\relax }{figure.caption.10}{}}
+\newlabel{fig:lora_result@cref}{{[figure][5][2147483647]5}{[1][5][]6}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces \textbf  {Final Result: SVD\_Xtend.} From left to right: Frame 1, Frame 7, and Frame 14. Smooth, cinematic drone-style motion sweeping across the landscape.\relax }}{6}{figure.caption.11}\protected@file@percent }
+\newlabel{fig:svd_result}{{6}{6}{\textbf {Final Result: SVD\_Xtend.} From left to right: Frame 1, Frame 7, and Frame 14. Smooth, cinematic drone-style motion sweeping across the landscape.\relax }{figure.caption.11}{}}
+\newlabel{fig:svd_result@cref}{{[figure][6][2147483647]6}{[1][5][]6}}
 \gdef \@abspage@last{6}

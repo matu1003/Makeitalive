@@ -7,6 +7,10 @@ venv/
 /data
 checkpoints/
 *.mp4
+
+!example/SVD/*.mp4
+!example/Motion_Flow/*.mp4
+
 *.wav
 *.pth
 *.pt
