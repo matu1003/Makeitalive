@@ -30,12 +30,12 @@ Arthur Fournier \quad Mathurin Petit \\[4pt]
 \maketitle
 
 \begin{abstract}
-The Makeitalive project explores the transformation of a static landscape photograph into a realistic video animation. While we initially aimed to breathe life into various subjects, including human faces, the profound complexity of generalized animation directed our focus toward landscape scenes. In this report, we investigate two distinct methodologies to tackle this challenge. First, we present a Motion Flow approach, which utilizes a U-Net architecture to predict optical flow vectors and animate imagery through pixel displacement. Finding that this method, although fast and lightweight, struggles to synthesize new details and handle occlusions, we subsequently explore a generative approach. In the second part of this project, we leverage Stable Video Diffusion (SVD). By fine-tuning SVD on a custom, motion-filtered dataset of drone footage, we achieve cinematic drone-style motion from a single input image. Ultimately, we demonstrate the strengths and trade-offs of both approaches and suggest future perspectives for combining their respective advantages into a unified generative pipeline.
+The Makeitalive project explores the transformation of a static landscape photograph into a realistic video animation. While we initially aimed to breathe life into various subjects, including human faces, the profound complexity of generalized animation directed our focus toward landscape scenes. In this report, we investigate two distinct methodologies to tackle this challenge. First, we present a Motion Flow approach, which utilizes a U-Net architecture to predict optical flow vectors and animate imagery through pixel displacement. This method stems from our desire to train a model entirely from scratch utilizing architectures studied in class. While its operational nature precludes pure image generation, it provides a valuable opportunity to build a functional architecture from the ground up. Finding that this method, although fast and lightweight, struggles to synthesize new details and handle occlusions, we subsequently explore a generative approach. In the second part of this project, we leverage Stable Video Diffusion (SVD). By fine-tuning SVD on a custom, motion-filtered dataset of drone footage, we achieve cinematic drone-style motion from a single input image. Ultimately, we demonstrate the strengths and trade-offs of both approaches and suggest future perspectives for combining their respective advantages into a unified generative pipeline.
 \end{abstract}
 
 \section{Introduction}
 
-Breathing life into still images is a captivating challenge in the field of computer vision and generative AI. The sheer breadth of dynamic content in the real world---from the subtle articulation of human faces to the sweeping expanses of nature---makes generalized zero-shot image animation profoundly complex. Consequently, to make the problem tractable while achieving high visual fidelity, we constrained our objective to the animation of natural landscapes.
+Breathing life into still images is a captivating challenge in the field of computer vision and generative AI. The sheer breadth of dynamic content in the real world, from the subtle articulation of human faces to the sweeping expanses of nature, makes generalized zero-shot image animation profoundly complex. Consequently, to make the problem tractable while achieving high visual fidelity, we constrained our objective to the animation of natural landscapes.
 
 Our project, \textbf{Makeitalive}, addresses the problem of animating a static landscape photograph. The objective is to preserve the aesthetic and structural integrity of the initial image while injecting coherent, realistic movement. To accomplish this, we designed, implemented, and compared two distinct animation methodologies:
 \begin{itemize}
@@ -51,7 +51,7 @@ The core concept of the Motion Flow technique is grounded in self-supervised opt
 
 \subsection{Dataset}
 
-To train a model capable of recognizing and reproducing structural motion in landscape scenes, we required a dataset of consecutive frame pairs. We built an automated data extraction pipeline using a 10-hour 4K compilation video of relaxing drone landscapes sourced from YouTube. 
+To train a model capable of recognizing and reproducing structural motion in landscape scenes, we required a dataset of consecutive frame pairs. We built an automated data extraction pipeline using a 10-hour 4K compilation video\footnote{\url{https://www.youtube.com/watch?v=AKeUssuu3Is}} of relaxing drone landscapes sourced from YouTube. 
 
 The video stream was standardized to 24 frames per second (FPS), and center-cropped square images of $512 \times 512$ pixels were extracted. To teach the model spatial transitions, we defined pairs of images $(I_A, I_B)$ separated by a gap of 4 frames (sampled every 0.05 seconds). 
 
@@ -60,11 +60,11 @@ A critical challenge in automated video extraction is the presence of scene cuts
     \item \textbf{Bhattacharyya Distance} on image histograms (rejecting pairs with distance $>0.35$).
     \item \textbf{Thumbnail Mean Absolute Error (MAE)} to assess structural differences in grayscale lower-resolution representations (rejecting pairs with error $>0.25$).
 \end{itemize}
-This dual-metric filtration proved far more robust than standard Mean Squared Error (MSE), successfully curating clean, continuous motion vectors. We established a small subset of $10,000$ pairs and a comprehensive dataset of $100,000$ pairs for training.
+This dual-metric filtration proved far more robust than standard Mean Squared Error (MSE), successfully curating clean, continuous motion vectors (see Figure \ref{fig:samples}). As illustrated in the figure, this filtering is nearly perfect: the first pair shows the most distant images accepted by our thresholds, which happens to be a false pair (a scene cut). Tighter restrictions would inadvertently remove valid pairs, highlighting the delicate balance achieved. We established a small subset of $10,000$ pairs and a comprehensive dataset of $100,000$ pairs for training.
 
 \subsection{Architecture and Models}
 
-The Motion Flow predictor is modeled with a custom \textbf{MotionFlow U-Net} architecture. The network transforms an input RGB image ($512 \times 512 \times 3$) into a dense 2-channel 2D flow field ($512 \times 512 \times 2$).
+The Motion Flow predictor is modeled with a custom \textbf{MotionFlow U-Net} architecture. The network transforms an input RGB image ($512 \times 512 \times 3$) into a dense 2-channel 2D flow field ($512 \times 512 \times 2$) (see Figure \ref{fig:mf_grid}). We specifically opted for the U-Net architecture because it excels at image-to-image translation tasks compared to other models, leveraging its signature skip connections to directly relay fine-grained spatial information from the input to the output.
 
 The architecture features:
 \begin{itemize}
@@ -83,13 +83,15 @@ The model optimizes the Mean Squared Error (MSE) between the synthesized image $
 \mathcal{L} = \| \text{Warp}(I_A, \text{Flow}) - I_B \|^2
 \end{equation}
 
-Training demonstrated rapid convergence. Over the course of 50 epochs, the training loss dropped significantly from $0.0038$ to $0.0009$, and the validation loss improved from $0.045$ to $0.012$, indicating that the self-supervised objective successfully captured coherent spatial transformations.
+Training demonstrated rapid convergence (illustrated in Figure \ref{fig:mf_loss}). Over the course of 50 epochs, the training loss dropped significantly from $0.0038$ to $0.0009$, and the validation loss improved from $0.045$ to $0.012$, indicating that the self-supervised objective successfully captured coherent spatial transformations. It should be noted that the exceptionally small magnitude of these loss values is primarily due to the inherent similarity of the two consecutive images being compared.
 
 \subsection{Results}
 
-The Motion Flow approach exhibited several compelling advantages: generating the animation is virtually instant (CPU and GPU friendly) and the model weights are exceptionally light. Furthermore, because the output is simply a warped version of the original image, maximum texture fidelity is theoretically retained.
+The Motion Flow approach exhibited several compelling advantages: generating the animation is virtually instant (CPU and GPU friendly) and the model weights are exceptionally light. Furthermore, because the output is simply a warped version of the original image, maximum texture fidelity is theoretically retained. In practice, this method allows for two distinct video generation techniques. The first involves applying a progressively stronger motion flow field to the initial static image; while stable, this produces less dynamic animations. The second technique involves autoregressively generating image $n$ based on image $n-1$ and the flow predicted from image $n-1$. This yields more continuous motion but is susceptible to accumulated warping artifacts over time.
 
-However, the methodology's intrinsic limitations hampered its real-world applicability. The primary drawback is that this model is purely interpolative: it cannot synthesize new visual content beyond what is already present in the input image. Consequently, it struggles profoundly with small details, high-frequency textures, and dis-occlusions (areas revealed behind moving objects). It treats the image globally as a stretchy membrane rather than understanding 3D depth relationships. Ultimately, while interesting for very minor, localized sub-pixel animations, it proved insufficient for generating dynamic, wide-angle cinematic drone movements.
+However, the methodology's intrinsic limitations hampered its real-world applicability. The primary drawback is that this model is purely interpolative: it cannot synthesize new visual content beyond what is already present in the input image. Consequently, it struggles profoundly with small details, high-frequency textures, and dis-occlusions (areas revealed behind moving objects). It treats the image globally as a stretchy membrane rather than understanding 3D depth relationships. 
+
+Despite these visual shortcomings rendering the output only moderately appealing, the model displays a solid understanding of both camera motions and independent object dynamics. For instance, it effectively captures camera movements by shifting different landscape elements accordingly (as demonstrated in \texttt{example/Motion\_Flow/Video\_2\_Lake.mp4} and \texttt{example/Motion\_Flow/Video\_3\_Waterfall.mp4} in our repository), while also understanding complex multi-directional movements, such as wheat swaying independently from the shifting clouds in \texttt{example/Motion\_Flow/Video\_1\_Wheat.mp4}. Ultimately, while interesting for very minor, localized sub-pixel animations, it proved insufficient for generating dynamic, wide-angle cinematic drone movements.
 
 \section{Generative Diffusion Approach}
 
@@ -112,7 +114,7 @@ To reverse the slow down effect of the low framerate, we implemented a post-proc
 
 The base architecture is Stability AI's Stable Video Diffusion (SVD) Image-to-Video model. SVD relies on a pre-trained VAE encoder to map the conditioning input image into a latent space. A CLIP visionary encoder further extracts localized semantic features. In the core processing stage, SVD utilizes a Temporal U-Net equipped with 3D convolutions and attention mechanisms. 
 
-To fine-tune this massive architecture without excessive overfitting or catastrophic forgetting, we adopted the \textbf{SVD\_Xtend} strategy. We explicitly froze the spatial attention components of the U-Net---relying on the model's pre-existing knowledge of 2D image structure---and fully fine-tuned the temporal layers to teach the model our specific drone-style pacing and landscape motion dynamics.
+To fine-tune this massive architecture without excessive overfitting or catastrophic forgetting, we adopted the \textbf{SVD\_Xtend} strategy. We explicitly froze the spatial attention components of the U-Net, relying on the model's pre-existing knowledge of 2D image structure, and fully fine-tuned the temporal layers to teach the model our specific drone-style pacing and landscape motion dynamics.
 
 \subsection{Training}
 
@@ -171,6 +173,8 @@ This appendix contains the figures and quantitative tables utilized during our p
 \end{figure}
 
 \subsection{Quantitative Results and Architectures}
+
+This section details the quantitative metrics obtained during model training, encompassing the loss progression of the Motion Flow model, the Stable Video Diffusion fine-tuning steps, and an ablation study of the SVD training strategies.
 
 \begin{table}[htbp]
     \centering
@@ -235,6 +239,8 @@ This appendix contains the figures and quantitative tables utilized during our p
 \end{table}
 
 \subsection{Qualitative Parallax Results}
+
+The following visualizations demonstrate the qualitative differences in parallax and motion depth achieved by our models across sequential frames.
 
 \begin{figure}[htbp]
     \centering
