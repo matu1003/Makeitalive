@@ -23,6 +23,8 @@ from tqdm import tqdm
 import argparse
 import subprocess
 
+from data.video_utils import preprocess_frame
+
 
 def download_video(youtube_url: str, output_path: str) -> tuple[str, float]:
     if os.path.exists(output_path):
@@ -48,18 +50,6 @@ def download_video(youtube_url: str, output_path: str) -> tuple[str, float]:
     return output_path, fps
 
 
-def preprocess_frame(frame: np.ndarray, target_size: int) -> np.ndarray:
-    h, w = frame.shape[:2]
-    if h < w:
-        new_h, new_w = target_size, int(w * target_size / h)
-    else:
-        new_h, new_w = int(h * target_size / w), target_size
-    resized = cv2.resize(frame, (new_w, new_h), interpolation=cv2.INTER_AREA)
-    sy = (new_h - target_size) // 2
-    sx = (new_w - target_size) // 2
-    return resized[sy:sy + target_size, sx:sx + target_size]
-
-
 def is_scene_cut(frame_a: np.ndarray, frame_b: np.ndarray, threshold: float = 30.0) -> bool:
     diff = np.mean(np.abs(frame_a.astype(float) - frame_b.astype(float)))
     return diff > threshold
@@ -67,12 +57,12 @@ def is_scene_cut(frame_a: np.ndarray, frame_b: np.ndarray, threshold: float = 30
 
 def compute_motion_score(frames: list[np.ndarray]) -> float:
     """
-    Calcule le score de mouvement moyen entre frames consécutives.
-    Un score élevé = beaucoup de mouvement (déplacement de caméra, vent, etc.)
+    Computes the mean motion score between consecutive frames.
+    A high score = lots of motion (camera movement, wind, etc.)
     """
     diffs = []
     for i in range(len(frames) - 1):
-        # Convertir en niveaux de gris pour comparer le mouvement structural
+        # Convert to grayscale to compare structural motion
         gray_a = cv2.cvtColor(frames[i], cv2.COLOR_BGR2GRAY).astype(float)
         gray_b = cv2.cvtColor(frames[i + 1], cv2.COLOR_BGR2GRAY).astype(float)
         diff = np.mean(np.abs(gray_a - gray_b))
@@ -86,23 +76,23 @@ def extract_clips(
     clip_len: int = 14,
     fps: int = 7,
     target_size: int = 512,
-    sample_every_n_seconds: float = 0.5,  # interval court pour beaucoup de clips
-    frame_gap: int = 25,                   # gap large pour capturer le mouvement drone
+    sample_every_n_seconds: float = 0.5,  # short interval to get many clips
+    frame_gap: int = 25,                   # large gap to capture drone motion
     max_clips: int = 5000,
     scene_cut_threshold: float = 30.0,
-    motion_min: float = 3.0,              # score minimum — rejette les scènes statiques
-    motion_max: float = 40.0,             # score maximum — rejette les cuts/glitches
+    motion_min: float = 3.0,              # minimum score, rejects static scenes
+    motion_max: float = 40.0,             # maximum score, rejects cuts/glitches
 ):
     """
-    Extrait des clips avec filtrage par niveau de mouvement.
+    Extracts clips filtered by their amount of motion.
 
-    La logique "accéléré" : on échantillonne les frames avec un grand frame_gap
-    (ex: 25 frames = ~1s d'écart à 24fps) pour capturer le mouvement de caméra drone.
-    Le clip de 14 frames résultant représente ~25s de vidéo source compressé en 2s.
-    SVD apprend ainsi à générer du mouvement prononcé de façon fluide.
+    "Time-lapse" logic: frames are sampled with a large frame_gap
+    (e.g. 25 frames = ~1s apart at 24fps) to capture the drone camera motion.
+    The resulting 14-frame clip covers ~25s of source video compressed into 2s,
+    so SVD learns to generate pronounced yet smooth motion.
 
-    motion_min=3.0 : rejette les plans fixes (montagne sans vent, etc.)
-    motion_max=40.0 : rejette les cuts durs et les transitions
+    motion_min=3.0: rejects static shots (mountain without wind, etc.)
+    motion_max=40.0: rejects hard cuts and transitions
     """
     out_path = Path(output_dir)
     out_path.mkdir(parents=True, exist_ok=True)
@@ -112,14 +102,14 @@ def extract_clips(
     local_path, video_fps = download_video(youtube_url, tmp_video)
 
     frame_stride = max(1, round(video_fps / fps))
-    # Avec frame_gap=25, on saute 25 frames source entre chaque frame du clip
-    # À 24fps source: 25 frames = ~1s de mouvement réel par frame du clip
+    # With frame_gap=25, 25 source frames are skipped between two clip frames
+    # At 24fps source: 25 frames = ~1s of real motion per clip frame
     frames_to_read = clip_len * frame_gap
     clip_start_interval = int(video_fps * sample_every_n_seconds)
 
     print(f"Video FPS: {video_fps:.1f}")
-    print(f"Frame gap: {frame_gap} frames source par frame de clip")
-    print(f"Mouvement capturé par clip: {clip_len * frame_gap / video_fps:.1f}s de vidéo source")
+    print(f"Frame gap: {frame_gap} source frames per clip frame")
+    print(f"Motion captured per clip: {clip_len * frame_gap / video_fps:.1f}s of source video")
     print(f"Motion filter: [{motion_min:.1f}, {motion_max:.1f}]")
 
     cap = cv2.VideoCapture(local_path)
@@ -139,14 +129,14 @@ def extract_clips(
             break
 
         if frame_idx % clip_start_interval == 0:
-            # Collecter clip_len frames avec frame_gap frames source entre chaque
+            # Collect clip_len frames with frame_gap source frames between each
             clip_frames = [preprocess_frame(frame, target_size)]
             prev_raw = frame
             local_idx = 1
             scene_cut_detected = False
 
             while local_idx < clip_len:
-                # Sauter frame_gap-1 frames
+                # Skip frame_gap-1 frames
                 for _ in range(frame_gap - 1):
                     ret2, _ = cap.read()
                     frame_idx += 1
@@ -170,7 +160,7 @@ def extract_clips(
                 frame_idx += 2
                 continue
 
-            # Filtrage par mouvement
+            # Motion filtering
             motion_score = compute_motion_score(clip_frames)
 
             if motion_score < motion_min:
@@ -183,7 +173,7 @@ def extract_clips(
                 frame_idx += 1
                 continue
 
-            # Sauvegarder le clip
+            # Save the clip
             clip_dir = out_path / f"clip_{clip_count:06d}"
             clip_dir.mkdir(exist_ok=True)
             for i, f in enumerate(clip_frames):
@@ -202,7 +192,7 @@ def extract_clips(
     cap.release()
     pbar.close()
     print(f"\nDone. {clip_count} clips saved.")
-    print(f"Rejected — static: {rejected_static} | scene cuts: {rejected_cut}")
+    print(f"Rejected clips, static: {rejected_static} | scene cuts: {rejected_cut}")
     print(f"Each clip spans {clip_len * frame_gap / video_fps:.1f}s of source video")
 
 

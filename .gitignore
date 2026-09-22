@@ -14,6 +14,7 @@ get-pip.py
 /data
 checkpoints/
 svd_project/
+/outputs/
 
 # Media & weights (only the showcase videos are tracked)
 *.mp4

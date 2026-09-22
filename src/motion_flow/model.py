@@ -51,14 +51,14 @@ class Up(nn.Module):
 
 class MotionFlowUNet(nn.Module):
     """
-    Réseau U-Net léger pour l'estimation de Motion Flow.
-    Architecture réduite de moitié (32→64→128→256→512)
-    pour tenir en mémoire GPU avec des images 512x512.
+    Lightweight U-Net for Motion Flow estimation.
+    Channel widths are halved (32, 64, 128, 256, 512)
+    to fit in GPU memory with 512x512 images.
     """
     def __init__(self, in_channels=3, out_channels=2):
         super(MotionFlowUNet, self).__init__()
 
-        # Encodeur (réduit de moitié : 64→32, 1024→512)
+        # Encoder (halved: 64 to 32, 1024 to 512)
         self.inc   = DoubleConv(in_channels, 32)
         self.down1 = Down(32, 64)
         self.down2 = Down(64, 128)
@@ -66,24 +66,24 @@ class MotionFlowUNet(nn.Module):
         # Bottleneck
         self.down4 = Down(256, 512)
 
-        # Décodeur
+        # Decoder
         self.up1 = Up(512 + 256, 256)
         self.up2 = Up(256 + 128, 128)
         self.up3 = Up(128 + 64,   64)
         self.up4 = Up(64  + 32,   32)
 
-        # Tête de prédiction finale (flow 2 canaux: dx, dy)
+        # Final prediction head (2-channel flow: dx, dy)
         self.outc = nn.Conv2d(32, out_channels, kernel_size=1)
 
     def forward(self, x):
-        # Encodeur
+        # Encoder
         x1 = self.inc(x)
         x2 = self.down1(x1)
         x3 = self.down2(x2)
         x4 = self.down3(x3)
         x5 = self.down4(x4)
 
-        # Décodeur
+        # Decoder
         x = self.up1(x5, x4)
         x = self.up2(x, x3)
         x = self.up3(x, x2)
@@ -93,10 +93,10 @@ class MotionFlowUNet(nn.Module):
         return flow
 
 
-# Test rapide des dimensions
+# Quick shape check
 if __name__ == "__main__":
     net = MotionFlowUNet()
     dummy_input = torch.randn(2, 3, 512, 512)
     out_flow = net(dummy_input)
     print(f"Input shape:      {dummy_input.shape}")
-    print(f"Output Flow shape: {out_flow.shape} (2 canaux = DX, DY)")
+    print(f"Output Flow shape: {out_flow.shape} (2 channels = DX, DY)")

@@ -7,8 +7,8 @@
 </p>
 
 <p align="center">
-    <a href="docs/report.pdf"><b>Report</b></a> &nbsp;·&nbsp;
-    <a href="docs/poster_1.pdf"><b>Poster 1</b></a> &nbsp;·&nbsp;
+    <a href="docs/report.pdf"><b>Report</b></a> &nbsp;|&nbsp;
+    <a href="docs/poster_1.pdf"><b>Poster 1</b></a> &nbsp;|&nbsp;
     <a href="docs/poster_2.pdf"><b>Poster 2</b></a>
 </p>
 
@@ -17,7 +17,7 @@
 **Makeitalive** is a computer vision and generative AI project developed by Arthur Fournier and Mathurin Petit for the `CSC_52002 - Generative AI Project` course at Ecole Polytechnique. The goal of this project is to breathe life into static landscape photographs by animating them into realistic video sequences. We explored and implemented two distinct methodologies:
 
 1. **Motion Flow (Warping):** A lightweight, self-supervised U-Net architecture that predicts a dense `(dx, dy)` optical flow field from a single image. The model displaces existing pixels to synthesize motion. It is exceptionally fast but lacks the ability to generate new visual details for occluded areas and is not suitable for realistic animation.
-2. **Stable Video Diffusion (SVD):** A generative approach built on Stability AI's `stable-video-diffusion-img2vid`, whose temporal attention layers are fine-tuned with **LoRA** (`diffusers` + `peft`) on a curated dataset of drone landscape footage. This heavy-weight approach successfully hallucinates rich textures and sweeping, cinematic parallax motion from a single static input.
+2. **Stable Video Diffusion + LoRA fine-tuning:** A generative approach built on Stability AI's `stable-video-diffusion-img2vid`, whose temporal attention layers are fine-tuned with **LoRA** (`diffusers` + `peft`) on a curated dataset of drone landscape footage. This heavy-weight approach successfully hallucinates rich textures and sweeping, cinematic parallax motion from a single static input.
 
 ---
 
@@ -31,7 +31,7 @@ The U-Net predicts a flow field that is applied iteratively to the input image. 
 |:---:|:---:|
 | <img src="assets/gifs/motion_flow_wheat.gif" width="320"> | <img src="assets/gifs/motion_flow_lake.gif" width="320"> |
 
-### 2. Stable Video Diffusion, out of the box
+### 2. Stable Video Diffusion (SVD), out of the box, without LoRA
 
 The pretrained SVD model without any fine-tuning: the motion is short and does not produce the drone-like camera movement we are looking for.
 
@@ -39,9 +39,9 @@ The pretrained SVD model without any fine-tuning: the motion is short and does n
   <img src="assets/gifs/svd_not_trained.gif" width="480">
 </p>
 
-### 3. Stable Video Diffusion, LoRA fine-tuned on drone landscapes
+### 3. SVD + LoRA, fine-tuned on drone landscapes
 
-After fine-tuning on landscape drone clips, the model produces smooth camera motion with convincing parallax and generates the newly revealed parts of the scene.
+After LoRA fine-tuning of its temporal attention layers on landscape drone clips, the model produces smooth camera motion with convincing parallax and generates the newly revealed parts of the scene.
 
 | | |
 |:---:|:---:|
@@ -62,15 +62,22 @@ Makeitalive/
 │   ├── images/                 # Sample input picture (landscape.jpg)
 │   └── videos/                 # Full-quality result videos (motion_flow/, svd/)
 ├── docs/                       # Final report (CVPR format) and the two project posters
-├── notebooks/
-│   ├── data/                   # Dataset exploration and filtering checks
-│   ├── motion_flow/            # Motion Flow prototyping, evaluation, inference and Colab training
-│   └── svd/                    # SVD LoRA fine-tuning & inference (Colab and local GPU versions)
+├── notebooks/                  # Guided walkthroughs built on top of src/ (see below)
 └── src/
-    ├── data/                   # YouTube download, image-pair extraction and PyTorch dataset
-    ├── motion_flow/            # Motion Flow U-Net model and training loop
-    └── svd/                    # SVD clip extraction and LoRA fine-tuning / inference
+    ├── data/                   # YouTube download, image-pair extraction, scene-change filtering, PyTorch dataset
+    ├── motion_flow/            # U-Net model, warping, self-supervised training and inference
+    └── svd_lora/               # SVD clip extraction, LoRA fine-tuning and inference
 ```
+
+### Notebooks
+
+All the logic lives in `src/`; the notebooks walk through each step with visualizations and run on Colab or locally.
+
+| Notebook | Content | |
+|---|---|:---:|
+| [`01_dataset`](notebooks/01_dataset.ipynb) | Download the drone footage, extract image pairs, scene-change filtering, optical flow of a pair | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/matu1003/Makeitalive/blob/main/notebooks/01_dataset.ipynb) |
+| [`02_motion_flow`](notebooks/02_motion_flow.ipynb) | Warping intuition, U-Net, self-supervised training, predicted flow and animations | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/matu1003/Makeitalive/blob/main/notebooks/02_motion_flow.ipynb) |
+| [`03_svd_lora`](notebooks/03_svd_lora.ipynb) | Clip extraction, LoRA fine-tuning of SVD, pretrained vs fine-tuned comparison (GPU runtime required) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/matu1003/Makeitalive/blob/main/notebooks/03_svd_lora.ipynb) |
 
 ---
 
@@ -81,7 +88,7 @@ The project uses [uv](https://docs.astral.sh/uv/).
 uv sync                 # Motion Flow + data tooling
 uv sync --extra svd     # + diffusers, transformers, accelerate, peft for SVD
 ```
-Downloaded videos, datasets and checkpoints are stored locally in `data/` and `checkpoints/` (git-ignored).
+Downloaded videos, datasets, checkpoints and generated animations are stored locally in `data/`, `checkpoints/` and `outputs/` (git-ignored).
 
 ---
 
@@ -131,10 +138,21 @@ uv run src/motion_flow/train.py \
     --num_workers 16
 ```
 
-### 5. Make the SVD Clip Dataset
+### 5. Animate a Picture with Motion Flow
+Predict the flow of a picture and animate it (uses the latest checkpoint in `./checkpoints` if `--checkpoint` is omitted).
+```bash
+uv run src/motion_flow/infer.py \
+    --image "./assets/images/landscape.jpg" \
+    --out "./outputs/landscape.gif" \
+    --magnitude 25 \
+    --ping_pong
+```
+Add `--autoregressive` to re-predict the flow on every frame.
+
+### 6. Make the SVD + LoRA Clip Dataset
 Extract short, motion-filtered 14-frame clips (scene cuts removed) for SVD fine-tuning.
 ```bash
-uv run src/svd/make_dataset_svd.py \
+uv run src/svd_lora/make_dataset_svd.py \
     --url "https://www.youtube.com/watch?v=AKeUssuu3Is" \
     --out "./data/svd_landscape" \
     --clip_len 14 \
@@ -143,21 +161,22 @@ uv run src/svd/make_dataset_svd.py \
     --max_clips 5000
 ```
 
-### 6. Fine-tune SVD with LoRA and Run Inference
+### 7. Fine-tune SVD with LoRA and Run Inference
 Fine-tune the temporal attention layers of SVD (an A100-class GPU is recommended; the SVD weights are downloaded from Hugging Face).
 ```bash
-uv run src/svd/train_svd_lora.py \
+uv run src/svd_lora/train_svd_lora.py \
     --data_dir "./data/svd_landscape" \
     --output_dir "./checkpoints/svd_lora" \
     --epochs 3 \
     --batch_size 1 \
     --lora_rank 16
 ```
-Animate a picture with a trained LoRA (the result is written to `output.mp4`):
+Animate a picture with a trained LoRA (omit `--lora_dir` to use the pretrained SVD as a baseline):
 ```bash
-uv run src/svd/train_svd_lora.py --infer \
+uv run src/svd_lora/train_svd_lora.py --infer \
     --lora_dir "./checkpoints/svd_lora/run_<timestamp>/lora_best" \
-    --image_path "./assets/images/landscape.jpg"
+    --image_path "./assets/images/landscape.jpg" \
+    --out "./outputs/svd_lora.mp4"
 ```
 
 ---

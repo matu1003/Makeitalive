@@ -5,32 +5,7 @@ from pathlib import Path
 from tqdm import tqdm
 import argparse
 
-def histogram_distance(img1: np.ndarray, img2: np.ndarray) -> float:
-    """Distance entre deux images basée sur leur histogramme de couleurs."""
-    dist = 0
-    for channel in range(3):  # B, G, R
-        hist1 = cv2.calcHist([img1], [channel], None, [64], [0, 256])
-        hist2 = cv2.calcHist([img2], [channel], None, [64], [0, 256])
-        cv2.normalize(hist1, hist1)
-        cv2.normalize(hist2, hist2)
-        dist += cv2.compareHist(hist1, hist2, cv2.HISTCMP_BHATTACHARYYA)
-    return dist / 3  # Moyenne sur les 3 canaux, valeur entre 0 et 1
-
-def scene_change_distance(img1: np.ndarray, img2: np.ndarray, 
-                           thumb_size: int = 16) -> float:
-    """
-    Compare deux images réduites en niveaux de gris.
-    Insensible aux petits mouvements, sensible aux changements de scène.
-    """
-    t1 = cv2.resize(cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY), (thumb_size, thumb_size))
-    t2 = cv2.resize(cv2.cvtColor(img2, cv2.COLOR_BGR2GRAY), (thumb_size, thumb_size))
-    return np.mean(np.abs(t1.astype(np.float32) - t2.astype(np.float32))) / 255.0
-
-def is_scene_change(img1: np.ndarray, img2: np.ndarray,
-                    hist_threshold: float = 0.30,
-                    thumb_threshold: float = 0.20) -> bool:
-    return (histogram_distance(img1, img2) > hist_threshold or 
-            scene_change_distance(img1, img2) > thumb_threshold)
+from data.video_utils import preprocess_frame, is_scene_change
 
 def extract_pairs_from_video(
     video_path: str, 
@@ -42,11 +17,11 @@ def extract_pairs_from_video(
     clean: bool = False,
 ):
     """
-    Lit un fichier vidéo local et extrait des paires d'images (I_t, I_{t+k}) 
-    pour l'entraînement.
+    Reads a local video file and extracts image pairs (I_t, I_{t+k})
+    for training.
     """
     if not os.path.exists(video_path):
-        print(f"Erreur: Le fichier {video_path} n'existe pas.")
+        print(f"Error: file {video_path} does not exist.")
         return
 
     out_path = Path(output_dir)
@@ -57,21 +32,21 @@ def extract_pairs_from_video(
     dir_A.mkdir(exist_ok=True)
     dir_B.mkdir(exist_ok=True)
 
-    print(f"Ouverture du fichier local : {video_path}")
+    print(f"Opening local file: {video_path}")
     cap = cv2.VideoCapture(video_path)
     
     if not cap.isOpened():
-        print("Erreur: Impossible d'ouvrir le fichier vidéo.")
+        print("Error: unable to open the video file.")
         return
 
     fps_video = cap.get(cv2.CAP_PROP_FPS)
     if fps_video <= 0:
         fps_video = 30
-    print(f"FPS détecté : {fps_video:.2f} images/seconde")
+    print(f"Detected FPS: {fps_video:.2f} frames/second")
 
     frame_interval = int(fps_video * sample_every_n_seconds)
     
-    pbar = tqdm(desc="Paires extraites", unit="paires")
+    pbar = tqdm(desc="Extracted pairs", unit="pairs")
     
     pair_count = 0
     current_frame_idx = 0
@@ -110,53 +85,30 @@ def extract_pairs_from_video(
             pbar.update(1)
             
             if max_pairs > 0 and pair_count >= max_pairs:
-                print(f"\\nLimite de {max_pairs} paires atteinte.")
+                print(f"\nReached the limit of {max_pairs} pairs.")
                 break
         else:
             current_frame_idx += 1
             
     cap.release()
     pbar.close()
-    print(f"Extraction terminée ! {pair_count} paires sauvegardées dans {output_dir}.")
+    print(f"Extraction done! {pair_count} pairs saved to {output_dir}.")
     if clean:
-        print(f"{deleted_pairs} paires filtrées (changements de plan détectés).")
-
-def preprocess_frame(frame: np.ndarray, target_size: int) -> np.ndarray:
-    """
-    Redimensionne l'image pour que le plus petit côté soit égal à target_size,
-    puis fait un recadrage au centre (Center Crop) pour obtenir un carré parfait.
-    """
-    h, w = frame.shape[:2]
-    
-    if h < w:
-        new_h = target_size
-        new_w = int(w * (target_size / h))
-    else:
-        new_w = target_size
-        new_h = int(h * (target_size / w))
-        
-    resized = cv2.resize(frame, (new_w, new_h), interpolation=cv2.INTER_AREA)
-    
-    start_y = (new_h - target_size) // 2
-    start_x = (new_w - target_size) // 2
-    
-    cropped = resized[start_y:start_y+target_size, start_x:start_x+target_size]
-    
-    return cropped
+        print(f"{deleted_pairs} pairs filtered out (scene changes detected).")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Extraire un dataset de paires depuis une vidéo locale")
-    parser.add_argument("--video", type=str, required=True, help="Chemin vers le fichier vidéo local (.mp4, .mkv, etc.)")
-    parser.add_argument("--name", type=str, default="local_dataset", help="Nom du dataset (créera un dossier ./data/NOM)")
-    parser.add_argument("--interval", type=float, default=5.0, help="Secondes entre chaque paire extraite")
-    parser.add_argument("--gap", type=int, default=3, help="Écart de frames (ex: 3ème frame après A)")
-    parser.add_argument("--size", type=int, default=512, help="Taille des images en sortie (carré)")
-    parser.add_argument("--max_pairs", type=int, default=-1, help="Nombre max de paires (-1 = toutes)")
-    parser.add_argument("--clean", action="store_true", help="Activer le filtrage des paires avec un changement de plan")    
+    parser = argparse.ArgumentParser(description="Extract a dataset of image pairs from a local video")
+    parser.add_argument("--video", type=str, required=True, help="Path to the local video file (.mp4, .mkv, etc.)")
+    parser.add_argument("--name", type=str, default="local_dataset", help="Dataset name (creates a ./data/NAME folder)")
+    parser.add_argument("--interval", type=float, default=5.0, help="Seconds between two extracted pairs")
+    parser.add_argument("--gap", type=int, default=3, help="Frame gap (e.g. 3 = 3rd frame after A)")
+    parser.add_argument("--size", type=int, default=512, help="Output image size (square)")
+    parser.add_argument("--max_pairs", type=int, default=-1, help="Max number of pairs (-1 = all)")
+    parser.add_argument("--clean", action="store_true", help="Filter out pairs that contain a scene change")    
     args = parser.parse_args()
     
     out_dir = os.path.join(".", "data", args.name)
-    print(f"Paramètres : Video={args.video}, Output={out_dir}, Interval={args.interval}s, Gap={args.gap} frames, Size={args.size}px")
+    print(f"Parameters: Video={args.video}, Output={out_dir}, Interval={args.interval}s, Gap={args.gap} frames, Size={args.size}px")
     
     extract_pairs_from_video(
         video_path=args.video,

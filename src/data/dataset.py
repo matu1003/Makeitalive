@@ -7,32 +7,32 @@ from torchvision import transforms
 
 class LandscapeMotionDataset(Dataset):
     """
-    PyTorch Dataset pour charger les paires d'images (I_t, I_{t+k}) générées.
+    PyTorch Dataset that loads the generated image pairs (I_t, I_{t+k}).
     """
     def __init__(self, data_dir: str, transform=None):
         """
         Args:
-            data_dir: Chemin vers le dossier généré (ex: 'data/youtube_landscape')
-                      doit contenir les sous-dossiers 'img_A' et 'img_B'.
-            transform: Fonction ou composition de transformations (torchvision.transforms)
-                       à appliquer aux images.
+            data_dir: Path to the generated dataset folder (e.g. 'data/youtube_landscape'),
+                      must contain the 'img_A' and 'img_B' sub-folders.
+            transform: Function or composition of transforms (torchvision.transforms)
+                       applied to the images.
         """
         self.data_dir = Path(data_dir)
         self.dir_A = self.data_dir / "img_A"
         self.dir_B = self.data_dir / "img_B"
         
-        # On vérifie que les dossiers existent
+        # Make sure both folders exist
         if not self.dir_A.exists() or not self.dir_B.exists():
-            raise FileNotFoundError(f"Les sous-dossiers 'img_A' et 'img_B' sont introuvables dans {self.data_dir}")
+            raise FileNotFoundError(f"Sub-folders 'img_A' and 'img_B' not found in {self.data_dir}")
             
-        # On liste les fichiers (en supposant qu'ils aient été générés avec le même nom dans les deux dossiers)
-        # On trie pour garantir l'ordre
+        # List the files (assuming both folders use the same file names)
+        # Sort them to guarantee a deterministic order
         self.image_filenames = sorted([f.name for f in self.dir_A.iterdir() if f.is_file() and f.suffix in ('.jpg', '.png')])
         
         if len(self.image_filenames) == 0:
-            print(f"Attention: Aucune image trouvée dans {self.dir_A}")
+            print(f"Warning: no image found in {self.dir_A}")
             
-        # Transformations par défaut si aucune n'est fournie (Convertit l'image PIL en Tensor [C, H, W] entre 0 et 1)
+        # Default transform if none is given (converts the PIL image to a [C, H, W] tensor in [0, 1])
         if transform is None:
             self.transform = transforms.Compose([
                 transforms.ToTensor()
@@ -49,33 +49,33 @@ class LandscapeMotionDataset(Dataset):
 
         filename = self.image_filenames[idx]
         
-        # Chemins complets
+        # Full paths
         path_A = self.dir_A / filename
         path_B = self.dir_B / filename
         
-        # Loader les images avec PIL (RGB)
+        # Load the images with PIL (RGB)
         image_A = Image.open(path_A).convert('RGB')
         image_B = Image.open(path_B).convert('RGB')
         
-        # Appliquer les transformations
+        # Apply the transforms
         if self.transform:
             tensor_A = self.transform(image_A)
             tensor_B = self.transform(image_B)
             
         return tensor_A, tensor_B
 
-# Exemple d'utilisation basique si le fichier est exécuté
+# Basic usage example when the file is run directly
 if __name__ == '__main__':
     dataset_path = "../../data/youtube_landscape"
     
     if os.path.exists(dataset_path):
         dataset = LandscapeMotionDataset(dataset_path)
-        print(f"Dataset chargé avec {len(dataset)} paires d'images.")
+        print(f"Dataset loaded with {len(dataset)} image pairs.")
         
-        # Tester le chargement de la première paire
+        # Try loading the first pair
         if len(dataset) > 0:
             img_a, img_b = dataset[0]
-            print(f"Shape du tenseur A: {img_a.shape}")
-            print(f"Shape du tenseur B: {img_b.shape}")
+            print(f"Tensor A shape: {img_a.shape}")
+            print(f"Tensor B shape: {img_b.shape}")
     else:
-        print(f"Impossible de tester, le dossier {dataset_path} n'existe pas encore.")
+        print(f"Cannot run the test, folder {dataset_path} does not exist yet.")

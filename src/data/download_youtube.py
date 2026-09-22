@@ -4,36 +4,36 @@ import yt_dlp
 
 def download_video(url: str, output_path: str, max_height: int = 720):
     """
-    Télécharge une vidéo YouTube (uniquement la vidéo, pas l'audio) en limitant la résolution 
-    pour éviter les fichiers gigantesques.
+    Downloads a YouTube video (video stream only, no audio) with a capped resolution
+    to avoid huge files.
     """
-    # Créer le répertoire de sortie s'il n'existe pas
+    # Create the output directory if it does not exist
     os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
     
-    # On force le codec vidéo à H.264 (avc1) pour s'assurer que OpenCV pourra toujours le lire.
-    # On précise qu'on veut le meilleur format mp4 dont la hauteur est <= max_height
-    # Et on ne télécharge pas l'audio.
+    # Force the H.264 (avc1) codec so that OpenCV can always read the file.
+    # Ask for the best mp4 format whose height is <= max_height,
+    # and do not download the audio.
     ydl_opts = {
         'format': f'bestvideo[vcodec^=avc1][height<={max_height}][ext=mp4]/best[vcodec^=avc1][height<={max_height}][ext=mp4]/bestvideo[height<={max_height}][ext=mp4]',
         'outtmpl': output_path,
         'merge_output_format': 'mp4',
     }
     
-    print(f"Téléchargement de la vidéo depuis {url} (Résolution max: {max_height}p)...")
-    print(f"Fichier de destination : {output_path}")
+    print(f"Downloading video from {url} (max resolution: {max_height}p)...")
+    print(f"Output file: {output_path}")
     
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([url])
-        print("\\nTéléchargement terminé avec succès !")
+        print("\nDownload completed successfully!")
     except Exception as e:
-        print(f"\\nErreur lors du téléchargement : {e}")
+        print(f"\nError while downloading: {e}")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Télécharger une vidéo YouTube localement")
-    parser.add_argument("--url", type=str, required=True, help="URL de la vidéo YouTube")
-    parser.add_argument("--out", type=str, default="./data/source_video.mp4", help="Chemin du fichier de sortie (ex: ./data/video.mp4)")
-    parser.add_argument("--height", type=int, default=720, help="Résolution maximale (ex: 720 pour 720p, 480 pour 480p)")
+    parser = argparse.ArgumentParser(description="Download a YouTube video locally")
+    parser.add_argument("--url", type=str, required=True, help="YouTube video URL")
+    parser.add_argument("--out", type=str, default="./data/source_video.mp4", help="Output file path (e.g. ./data/video.mp4)")
+    parser.add_argument("--height", type=int, default=720, help="Maximum resolution (e.g. 720 for 720p, 480 for 480p)")
     
     args = parser.parse_args()
     
