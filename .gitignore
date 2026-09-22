@@ -1,17 +1,27 @@
-# .gitignore
+# Python
 __pycache__/
 *.pyc
+*.egg-info/
 .ipynb_checkpoints
 venv/
+.venv/
+.my_env/
+.myenv/
 .env
+get-pip.py
+
+# Local data, checkpoints and SVD workspace
 /data
 checkpoints/
+svd_project/
+
+# Media & weights (only the showcase videos are tracked)
 *.mp4
-
-!example/SVD/*.mp4
-!example/Motion_Flow/*.mp4
-
+!assets/videos/**/*.mp4
 *.wav
 *.pth
 *.pt
 *.safetensors
+
+# LaTeX / misc logs
+*.log

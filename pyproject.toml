@@ -1,7 +1,7 @@
 [project]
 name = "makeitalive"
 version = "0.1.0"
-description = "Add your description here"
+description = "Animating static landscape photos into short videos with Motion Flow warping and LoRA fine-tuned Stable Video Diffusion"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
@@ -16,4 +16,13 @@ dependencies = [
     "tqdm>=4.67.3",
     "wandb>=0.25.1",
     "yt-dlp>=2026.3.3",
+]
+
+[project.optional-dependencies]
+svd = [
+    "diffusers",
+    "transformers",
+    "accelerate",
+    "peft",
+    "imageio[ffmpeg]",
 ]
