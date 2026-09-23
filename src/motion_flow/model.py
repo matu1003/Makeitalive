@@ -52,6 +52,8 @@ class Up(nn.Module):
 class MotionFlowUNet(nn.Module):
     """
     Lightweight U-Net for Motion Flow estimation.
+    Predicts, from a single image I_t, a flow field f (dx, dy in pixels) such that
+    warp(I_t, f)(x) = I_t(x + f(x)) approximates the future frame I_{t+k} (see warp.py).
     Channel widths are halved (32, 64, 128, 256, 512)
     to fit in GPU memory with 512x512 images.
     """

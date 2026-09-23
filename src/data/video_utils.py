@@ -69,3 +69,12 @@ def is_scene_change(img1: np.ndarray, img2: np.ndarray,
     """True if either the histogram or the thumbnail distance exceeds its threshold."""
     return (histogram_distance(img1, img2) > hist_threshold or
             scene_change_distance(img1, img2) > thumb_threshold)
+
+
+def save_first_frame(video_path: str, image_path: str) -> str:
+    """Saves the first frame of a video as an image (e.g. to reuse the input of a result video)."""
+    ok, frame = cv2.VideoCapture(str(video_path)).read()
+    if not ok:
+        raise FileNotFoundError(f"Cannot read video: {video_path}")
+    cv2.imwrite(str(image_path), frame)
+    return str(image_path)

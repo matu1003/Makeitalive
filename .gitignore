@@ -1,7 +1,13 @@
 # Python
 __pycache__/
-*.pyc
+*.py[cod]
 *.egg-info/
+*.egg
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
 .ipynb_checkpoints
 venv/
 .venv/
@@ -24,5 +30,17 @@ svd_project/
 *.pt
 *.safetensors
 
-# LaTeX / misc logs
+# LaTeX build files / logs
 *.log
+*.aux
+*.out
+*.toc
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

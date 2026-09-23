@@ -1,14 +1,15 @@
 """
 Animates a static picture with a trained Motion Flow U-Net.
 
-The model predicts a single flow field from the input image. The animation is
+The model predicts a single flow field f from the input image, with the training
+convention warp(I_t, f)(x) = I_t(x + f(x)) ~ I_{t+k}. The animation is
 obtained by warping the image with a progressively amplified version of this flow
 (or, in autoregressive mode, by re-predicting the flow on each generated frame).
 
 Usage:
     uv run src/motion_flow/infer.py \
         --checkpoint ./checkpoints/run_<timestamp>/model_best.pth \
-        --image ./assets/images/landscape.jpg \
+        --image path/to/picture.jpg \
         --out ./outputs/landscape.gif
 """
 import argparse
