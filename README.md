@@ -19,7 +19,7 @@
 1. **Motion Flow (Warping):** A lightweight, self-supervised U-Net architecture that predicts a dense `(dx, dy)` optical flow field from a single image. The model displaces existing pixels to synthesize motion. It is exceptionally fast but lacks the ability to generate new visual details for occluded areas and is not suitable for realistic animation.
 2. **Stable Video Diffusion (SVD) fine-tuning:** A generative approach built on Stability AI's `stable-video-diffusion-img2vid`, fine-tuned on a curated dataset of 2,374 motion-filtered drone clips. We compared two strategies:
    - **LoRA** adapters on the temporal attention layers (~3.3M trained parameters, `diffusers` + `peft`, code in `src/svd_lora/`): cheap to train, but it only learned slight parallax.
-   - **Full temporal fine-tuning** with [SVD_Xtend](https://github.com/pixeli99/SVD_Xtend) (spatial layers frozen, temporal layers trained, 5,000 steps, ~12 h on an A100): this is the model behind our final results. It hallucinates rich textures and sweeping, cinematic parallax motion from a single static input.
+   - **Full temporal fine-tuning** with [SVD_Xtend](https://github.com/pixeli99/SVD_Xtend) (spatial layers frozen, temporal layers trained, 5,000 steps at 320x320, notebook `04_svd_xtend`): this is the model behind our final results. It hallucinates rich textures and sweeping, cinematic parallax motion from a single static input.
 
 ---
 
@@ -45,18 +45,18 @@ The pretrained SVD model without any fine-tuning: the motion is short and does n
 
 In both cases the raw 7 fps output is slowed down to 2 fps to amplify the motion, then interpolated to 24 fps with `ffmpeg minterpolate`.
 
-**LoRA adapters on the temporal attention layers** (rank 16, final loss 0.51): slight parallax appears, but the motion stays constrained. Both clips start on the conditioning picture (labelled `INPUT`), followed by the generated part (`GENERATED + INTERP`).
+**LoRA adapters on the temporal attention layers** (rank 16, final loss 0.51) only produced slight parallax, so we fully fine-tuned the temporal layers with [SVD_Xtend](https://github.com/pixeli99/SVD_Xtend) (5000 steps at 320x320, `lr=1e-5`). The clips below come from that run, generated at 320x320 on held-out clips: each one shows the conditioning picture (`INPUT`), then the generation slowed down and interpolated (`GENERATED + INTERP`).
 
-| LoRA, clip 1 | LoRA, clip 2 |
+| SVD_Xtend, clip 1 | SVD_Xtend, clip 2 |
 |:---:|:---:|
 | <img src="assets/gifs/svd_final_2.gif" width="320"> | <img src="assets/gifs/svd_final_3.gif" width="320"> |
 
-**Full temporal fine-tuning with [SVD_Xtend](https://github.com/pixeli99/SVD_Xtend)** (final loss 0.16): smooth drone-like camera motion, where the foreground and the background move at different speeds, a parallax a warping method cannot produce.
+The camera moves like a drone, the foreground and the background move at different speeds, and the parts of the scene revealed by the movement are generated, a parallax a warping method cannot produce.
 
 <p align="center">
   <img src="assets/gifs/svd_final_1.gif" width="640">
   <br>
-  <em>SVD_Xtend, our final model.</em>
+  <em>Fine-tuned SVD, rendered at 1024x576.</em>
 </p>
 
 ---
@@ -85,6 +85,7 @@ All the logic lives in `src/`; the notebooks walk through each step with visuali
 | [`01_dataset`](notebooks/01_dataset.ipynb) | Download the drone footage, extract image pairs, scene-change filtering, optical flow of a pair | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/matu1003/Makeitalive/blob/main/notebooks/01_dataset.ipynb) |
 | [`02_motion_flow`](notebooks/02_motion_flow.ipynb) | Warping intuition, U-Net, self-supervised training, predicted flow and animations | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/matu1003/Makeitalive/blob/main/notebooks/02_motion_flow.ipynb) |
 | [`03_svd_lora`](notebooks/03_svd_lora.ipynb) | Clip extraction, LoRA fine-tuning of SVD, pretrained vs LoRA comparison (GPU runtime required) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/matu1003/Makeitalive/blob/main/notebooks/03_svd_lora.ipynb) |
+| [`04_svd_xtend`](notebooks/04_svd_xtend.ipynb) | Full temporal fine-tuning with SVD_Xtend, the run behind the final results (A100 runtime required) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/matu1003/Makeitalive/blob/main/notebooks/04_svd_xtend.ipynb) |
 
 ---
 
@@ -184,4 +185,29 @@ uv run src/svd_lora/train_svd_lora.py --infer \
     --lora_dir "./checkpoints/svd_lora/run_<timestamp>/lora_best" \
     --image_path "path/to/picture.jpg" \
     --out "./outputs/svd_lora.mp4"
+```
+### 8. Full Temporal Fine-tuning with SVD_Xtend
+The final model was trained with the external [SVD_Xtend](https://github.com/pixeli99/SVD_Xtend) code, on the clip dataset of step 6. Two patches are needed first: `autocast` has to accept `bf16`, and checkpoints have to be saved from the unwrapped model, otherwise the UNet weights are written empty.
+```bash
+git clone https://github.com/pixeli99/SVD_Xtend.git
+uv run src/svd_xtend/patch.py --repo ./SVD_Xtend
+
+cd SVD_Xtend && accelerate launch train_svd.py \
+    --pretrained_model_name_or_path stabilityai/stable-video-diffusion-img2vid \
+    --base_folder "../data/svd_landscape" \
+    --output_dir "../checkpoints/svd_xtend" \
+    --max_train_steps=5000 \
+    --width=320 --height=320 --num_frames=14 \
+    --per_gpu_batch_size=5 \
+    --learning_rate=1e-5 \
+    --mixed_precision="bf16" \
+    --checkpointing_steps=1000 --seed=42
+```
+Then render the comparison videos (input, generation, ground truth, and the interpolated generation), the way the result videos of this README were produced:
+```bash
+uv run src/svd_xtend/rollout.py \
+    --checkpoint_dir "./checkpoints/svd_xtend" \
+    --clips_dir "./data/svd_landscape" \
+    --out_dir "./outputs" \
+    --num_clips 5
 ```
